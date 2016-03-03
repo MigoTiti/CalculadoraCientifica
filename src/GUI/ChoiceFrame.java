@@ -25,6 +25,11 @@ public class ChoiceFrame extends javax.swing.JFrame {
 
         button1.setLabel("Aritmética");
         button1.setName("Aritmética"); // NOI18N
+        button1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button1MouseClicked(evt);
+            }
+        });
         button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button1ActionPerformed(evt);
@@ -90,6 +95,12 @@ public class ChoiceFrame extends javax.swing.JFrame {
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_button4ActionPerformed
+
+    private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
+        dispose();
+        Aritmetica aritmetica = new Aritmetica();
+        aritmetica.setVisible(true);
+    }//GEN-LAST:event_button1MouseClicked
 
     public static void main(String args[]) 
     {

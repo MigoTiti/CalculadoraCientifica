@@ -83,6 +83,7 @@
         <Property name="name" type="java.lang.String" value="Aritm&#xe9;tica" noResource="true"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
       </Events>
     </Component>

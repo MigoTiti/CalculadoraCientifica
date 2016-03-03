@@ -9,7 +9,7 @@ public class Main
     {
         Calculadora c = new Calculadora();
         ChoiceFrame cf = new ChoiceFrame();
-        
+        cf.setVisible(true);
     }
     
 }

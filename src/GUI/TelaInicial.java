@@ -1,8 +1,8 @@
 package GUI;
 
-public class ChoiceFrame extends javax.swing.JFrame {
+public class TelaInicial extends javax.swing.JFrame {
 
-    public ChoiceFrame()
+    public TelaInicial()
     {
         initComponents();
     }
@@ -99,6 +99,7 @@ public class ChoiceFrame extends javax.swing.JFrame {
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
         dispose();
         Aritmetica aritmetica = new Aritmetica();
+        aritmetica.setLocationRelativeTo(null);
         aritmetica.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
@@ -115,19 +116,16 @@ public class ChoiceFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChoiceFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
         
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() 
-        {
-            public void run() 
-            {
-                new ChoiceFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TelaInicial().setVisible(true);
         });
     }
 

@@ -42,7 +42,7 @@ public class Aritmetica extends javax.swing.JFrame {
         logNeperiano = new javax.swing.JButton();
         igual = new javax.swing.JButton();
         resposta = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
+        voltar = new javax.swing.JButton();
         limite = new javax.swing.JButton();
         abreParentese = new javax.swing.JButton();
         fechaParenteses = new javax.swing.JButton();
@@ -53,9 +53,8 @@ public class Aritmetica extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(491, 331));
-        setPreferredSize(new java.awt.Dimension(491, 350));
         setResizable(false);
-        setSize(new java.awt.Dimension(491, 350));
+        setSize(new java.awt.Dimension(491, 331));
 
         caixaResposta.setEditable(false);
 
@@ -182,7 +181,12 @@ public class Aritmetica extends javax.swing.JFrame {
             }
         });
 
-        jButton21.setText("VOLTAR");
+        voltar.setText("VOLTAR");
+        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarMouseClicked(evt);
+            }
+        });
 
         limite.setText("LIMITE");
 
@@ -243,7 +247,7 @@ public class Aritmetica extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(limite))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton21)
+                        .addComponent(voltar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(resposta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -323,13 +327,14 @@ public class Aritmetica extends javax.swing.JFrame {
                     .addComponent(limparEquacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton21)
+                    .addComponent(voltar)
                     .addComponent(resposta)
                     .addComponent(igual))
-                .addGap(57, 57, 57))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void eventoPrimitivo(String sinal){
@@ -428,12 +433,12 @@ public class Aritmetica extends javax.swing.JFrame {
                 caixaResposta.setText(equacao.toString());
                 permitirSinal = true;
             }
-        }else if(permitirSinal==true && parentesesInterno){
+        }else if(permitirSinal && parentesesInterno){
             equacao.append(")");
             sinais.add(")");
             parentesesContador--;
             caixaResposta.setText(equacao.toString());
-            permitirSinal = false;
+            //permitirSinal = false;
         }
 
         if(0>=parentesesContador)
@@ -584,6 +589,12 @@ public class Aritmetica extends javax.swing.JFrame {
         
         operadores.add(resultado);
     }//GEN-LAST:event_igualMouseClicked
+
+    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
+        dispose();
+        TelaInicial escolha = new TelaInicial();
+        escolha.setVisible(true);
+    }//GEN-LAST:event_voltarMouseClicked
         
     private boolean integralEquacao(){
         JTextField field1 = new JTextField("");
@@ -742,7 +753,6 @@ public class Aritmetica extends javax.swing.JFrame {
     private javax.swing.JButton fechaParenteses;
     private javax.swing.JButton igual;
     private javax.swing.JButton integral;
-    private javax.swing.JButton jButton21;
     private javax.swing.JButton limite;
     private javax.swing.JButton limparEquacao;
     private javax.swing.JButton logNeperiano;
@@ -757,6 +767,7 @@ public class Aritmetica extends javax.swing.JFrame {
     private javax.swing.JButton resposta;
     private javax.swing.JButton seno;
     private javax.swing.JButton tangente;
+    private javax.swing.JButton voltar;
     private javax.swing.JButton xCubo;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,17 +8,17 @@ public class Calculadora
     public Calculadora(){}
     
     
-    public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais)
+    public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais2)
     {
         int contParenteses = 0;
-        double auxiliar;
         String sinal;
         
         @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
                 
-        ArrayList<Integer> prioridades = new ArrayList<>();
+        //ArrayList<Integer> prioridades = new ArrayList<>();
         ArrayList<Integer> prioridadesParenteses = new ArrayList<>();
         ArrayList<Integer> posicoesRemoverSinais2 = new ArrayList<>();
+        sinais = new ArrayList<>(sinais2);
         
         for(int i=0;i<sinais.size();i++){
             sinal = sinais.get(i);
@@ -86,223 +86,22 @@ public class Calculadora
         //}
         
         posicoesRemoverSinais2.clear();
-        
-        int maior = maiorIndice(prioridades);
-        int posicoesRemoverNumeros = 0, posicoesRemoverSinais = 0, sucessoPrioridade = 0;
-        boolean sucesso = false, operacaoUnica = false, deletarSinal = false;
-        
-        
+       
         do{
-            int i;
-            for(i=0;i<numeros.size();i++){
-                if(prioridades.get(i)==maior && sucesso==false && sucessoPrioridade==0){
-                    sinal = sinais.get(i);
-                    if(null!=sinal)switch(sinal){
-                        case "+":
-                            auxiliar = numeros.get(i)+numeros.get(i+1);
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            posicoesRemoverNumeros = i+1;
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = false;
-                            sucessoPrioridade++;
-                            break;
-                        case "-":
-                            auxiliar = numeros.get(i)-numeros.get(i+1);
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            posicoesRemoverNumeros = i+1;
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = false;
-                            sucessoPrioridade++;
-                            break;
-                        case "*":
-                            auxiliar = numeros.get(i)*numeros.get(i+1);
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            posicoesRemoverNumeros = i+1;
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = false;
-                            sucessoPrioridade++;
-                            break;
-                        case "/":
-                            auxiliar = numeros.get(i)/numeros.get(i+1);
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            posicoesRemoverNumeros = i+1;
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = false;
-                            sucessoPrioridade++;
-                            break;
-                        case "e^":
-                            auxiliar = Math.pow(Math.E, numeros.get(i));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "^2":
-                            auxiliar = Math.pow(numeros.get(i), 2);
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "^3":
-                            auxiliar = Math.pow(numeros.get(i), 2);
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "^":
-                            auxiliar = Math.pow(numeros.get(i), numeros.get(i+1));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            posicoesRemoverNumeros = i+1;
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = false;
-                            sucessoPrioridade++;
-                            break;
-                        case "sqrt":
-                            auxiliar = Math.sqrt(numeros.get(i));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "log":
-                            auxiliar = Math.log10(numeros.get(i));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "ln":
-                            auxiliar = Math.log(numeros.get(i));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "sen":
-                            auxiliar = Math.sin(numeros.get(i));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "cos":
-                            auxiliar = Math.cos(numeros.get(i));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                        case "tg":
-                            auxiliar = Math.tan(numeros.get(i));
-                            numeros.remove(i);
-                            numeros.add(i, auxiliar);
-                            if(deletarSinal==false){
-                                posicoesRemoverSinais = i;
-                                deletarSinal = true;
-                            }
-                            sucesso = true;
-                            operacaoUnica = true;
-                            sucessoPrioridade++;
-                            break;
-                    }
-                }
-                }
-                    if(sucessoPrioridade==1){
-                        prioridades.remove(posicoesRemoverSinais);
-                        //prioridades.add(posicoesRemoverSinais, 0);
-                        sucessoPrioridade = 0;
-                        deletarSinal = false;
-                    }
-            
-            
-            if(sucesso){
-                if(numeros.size()>1 && operacaoUnica == false)
-                    numeros.remove(posicoesRemoverNumeros);
-                sinais.remove(posicoesRemoverSinais);
-                //sinais.add(posicoesRemoverSinais,"0");
-                sucesso = false;
-            }
-            
-            maior = maiorIndice(prioridades);
-        }while(maior>0);
+            numeros = operacao(numeros);
+        }while(numeros.size()>=2);
         //teste(prioridades,sinais);
             
         return numeros.get(0);
     }
     
-    private ArrayList<Double> operacao(ArrayList<Double> numeros, ArrayList<Integer> prioridades, ArrayList<String> sinais){
+    private ArrayList<Double> operacao(ArrayList<Double> numeros){
         int maior = maiorIndice(prioridades), i;
         String sinal;
         double auxiliar;
         int posicoesRemoverNumeros = 0, posicoesRemoverSinais = 0, sucessoPrioridade = 0;
         boolean sucesso = false, operacaoUnica = false, deletarSinal = false;
+        
             for(i=0;i<numeros.size();i++){
                 if(prioridades.get(i)==maior && sucesso==false && sucessoPrioridade==0){
                     sinal = sinais.get(i);
@@ -482,12 +281,13 @@ public class Calculadora
                             break;
                     }
                 }
+                if(sucesso)
+                    break;
                 }
                     if(sucessoPrioridade==1){
                         prioridades.remove(posicoesRemoverSinais);
-                        //prioridades.add(posicoesRemoverSinais, 0);
-                        sucessoPrioridade = 0;
                         deletarSinal = false;
+                        prioridades.add(posicoesRemoverSinais, 0);
                     }
             
             
@@ -495,8 +295,8 @@ public class Calculadora
                 if(numeros.size()>1 && operacaoUnica == false)
                     numeros.remove(posicoesRemoverNumeros);
                 sinais.remove(posicoesRemoverSinais);
-                //sinais.add(posicoesRemoverSinais,"0");
-                sucesso = false;
+                deletarSinal = false;
+                sinais.add(posicoesRemoverSinais,"0");
             }
             
         return numeros;
@@ -595,10 +395,12 @@ public class Calculadora
         return 0;
     }
     
-    private static int prioridadeParenteses = 3;
-    private static int prioridadePotencia = 3;
-    private static int prioridadeMultiplicacao = 2;
-    private static int prioridadeSoma = 1;
+    private static final int prioridadeParenteses = 3;
+    private static final int prioridadePotencia = 3;
+    private static final int prioridadeMultiplicacao = 2;
+    private static final int prioridadeSoma = 1;
+    private static ArrayList<Integer> prioridades = new ArrayList<>();
+    private static ArrayList<String> sinais;
     
     private void teste(ArrayList<Integer> prioridades, ArrayList<String> sinais){
         sinais.stream().forEach((sinais2) -> {

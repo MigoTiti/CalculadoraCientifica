@@ -3,6 +3,7 @@ package GUI;
 import calculadoracientifica.Calculadora;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -14,8 +15,14 @@ import javax.swing.JTextField;
 public class Aritmetica extends javax.swing.JFrame {
 
     public Aritmetica() {
+        this.sinaisIntegral = new ArrayList<>();
+        this.operadoresIntegral = new ArrayList<>();
+        this.equacaoIntegral = new StringBuilder();
+        this.equacao = new StringBuilder();
+        this.operadores = new ArrayList<>();
         initComponents();
-        caixaEquacao.requestFocusInWindow();        
+        caixaEquacao.requestFocusInWindow();
+        formato.setDecimalSeparatorAlwaysShown(false);        
     }
 
     @SuppressWarnings("unchecked")
@@ -343,7 +350,8 @@ public class Aritmetica extends javax.swing.JFrame {
             operador = Double.parseDouble(caixaEquacao.getText());
             operadores.add(operador);
             caixaEquacao.setText("");
-            equacao.append(operador).append(sinal);
+            operadorFormatado = formato.format(operador);
+            equacao.append(operadorFormatado).append(sinal);
             sinais.add(sinal);
         }else if(permitirSinal){
             equacao.append(sinal);
@@ -367,8 +375,9 @@ public class Aritmetica extends javax.swing.JFrame {
     
     private void eventoConstante(double constante, String nome){
         caixaEquacao.requestFocusInWindow();
+        operadorFormatado = formato.format(constante);
         if("Resultado".equals(nome))
-            equacao.append(constante);
+            equacao.append(operadorFormatado);
         else
             equacao.append(nome);
         operadores.add(constante);
@@ -581,8 +590,8 @@ public class Aritmetica extends javax.swing.JFrame {
             caixaEquacao.setText(""); 
         
         resultado = calculadora.interpretador(operadores, sinais);
-        
-        caixaResposta.setText(Double.toString(resultado));
+        operadorFormatado = formato.format(resultado);
+        caixaResposta.setText(operadorFormatado);
         
         equacao.setLength(0);
         operadores.clear();
@@ -700,22 +709,34 @@ public class Aritmetica extends javax.swing.JFrame {
     private int contadorParentesesIntegral = 0;
     private boolean sinalIntegral = false;
     private boolean parentesesIntegral = false;
-    private StringBuilder equacaoIntegral = new StringBuilder();
-    private ArrayList<String> operadoresIntegral = new ArrayList<>();
-    private ArrayList<String> sinaisIntegral = new ArrayList<>();    
+    @SuppressWarnings("FieldMayBeFinal")
+    private StringBuilder equacaoIntegral;
+    @SuppressWarnings("FieldMayBeFinal")
+    private ArrayList<String> operadoresIntegral;
+    @SuppressWarnings("FieldMayBeFinal")
+    private ArrayList<String> sinaisIntegral;    
     
     //Geral
+    String operadorFormatado;
+    DecimalFormat formato = new DecimalFormat();
     private boolean permitirSinal = false;
     private int parentesesContador = 0;
     private boolean parentesesInterno = false;
+    
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<String> sinais = new ArrayList<>();
-    private ArrayList<Double> operadores = new ArrayList<>();
+    
+    @SuppressWarnings("FieldMayBeFinal")
+    private ArrayList<Double> operadores;
+    
     private double resultado;
     private double operador;
-    private StringBuilder equacao = new StringBuilder();
+    
+    @SuppressWarnings("FieldMayBeFinal")
+    private StringBuilder equacao;
     
     //Composição
-    private Calculadora calculadora = new Calculadora();
+    private final Calculadora calculadora = new Calculadora();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abreParentese;

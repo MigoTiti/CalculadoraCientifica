@@ -20,7 +20,6 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(491, 331));
-        setPreferredSize(new java.awt.Dimension(491, 331));
         setSize(new java.awt.Dimension(491, 331));
 
         label1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -40,6 +39,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         Estatistica.setLabel("Estatística");
+        Estatistica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EstatisticaMouseClicked(evt);
+            }
+        });
 
         Equacoes.setLabel("Equações");
 
@@ -106,31 +110,11 @@ public class TelaInicial extends javax.swing.JFrame {
         aritmetica.setVisible(true);
     }//GEN-LAST:event_AritmeticaMouseClicked
 
-    public static void main(String args[]) 
-    {
-        try 
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
-            {
-                if ("Nimbus".equals(info.getName())) 
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new TelaInicial().setVisible(true);
-        });
-    }
+    private void EstatisticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstatisticaMouseClicked
+        dispose();
+        Estatistica estatistica = new Estatistica();
+        estatistica.setVisible(true);
+    }//GEN-LAST:event_EstatisticaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button Aritmetica;

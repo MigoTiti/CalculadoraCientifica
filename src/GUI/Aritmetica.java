@@ -365,10 +365,13 @@ public class Aritmetica extends javax.swing.JFrame {
             parentesesInterno = true;
     }
     
-    private void eventoConstante(double constante){
+    private void eventoConstante(double constante, String nome){
         caixaEquacao.requestFocusInWindow();
+        if("Resultado".equals(nome))
+            equacao.append(constante);
+        else
+            equacao.append(nome);
         operadores.add(constante);
-        equacao.append(constante);
         caixaResposta.setText(equacao.toString());
         permitirSinal = true;
     }
@@ -394,7 +397,7 @@ public class Aritmetica extends javax.swing.JFrame {
     }//GEN-LAST:event_modMouseClicked
 
     private void piBotaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piBotaoMouseClicked
-        eventoConstante(Math.PI);
+        eventoConstante(Math.PI, "PI");
     }//GEN-LAST:event_piBotaoMouseClicked
 
     private void senoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senoMouseClicked
@@ -408,7 +411,6 @@ public class Aritmetica extends javax.swing.JFrame {
         sinais.add("(");
         caixaResposta.setText(equacao.toString());
         parentesesContador++;
-        //permitirSinal = false;
         if(parentesesInterno==false)
             parentesesInterno = true;
         }
@@ -438,7 +440,6 @@ public class Aritmetica extends javax.swing.JFrame {
             sinais.add(")");
             parentesesContador--;
             caixaResposta.setText(equacao.toString());
-            //permitirSinal = false;
         }
 
         if(0>=parentesesContador)
@@ -464,10 +465,12 @@ public class Aritmetica extends javax.swing.JFrame {
             operadores.add(operador);
             caixaEquacao.setText("");
             equacao.append(operador).append("^2");
-            sinais.add("^2");
+            sinais.add("^");
+            operadores.add(2.0);
         }else if(permitirSinal){
             equacao.append("^2");
-            sinais.add("^2");
+            sinais.add("^");
+            operadores.add(2.0);
         }
         
         permitirSinal = true;
@@ -521,10 +524,12 @@ public class Aritmetica extends javax.swing.JFrame {
             operadores.add(operador);
             caixaEquacao.setText("");
             equacao.append(operador).append("^3");
-            sinais.add("^3");
+            sinais.add("^");
+            operadores.add(3.0);
         }else if(permitirSinal){
             equacao.append("^3");
-            sinais.add("^3");
+            sinais.add("^");
+            operadores.add(3.0);
         }
         
         permitirSinal = true;
@@ -563,7 +568,7 @@ public class Aritmetica extends javax.swing.JFrame {
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
     private void respostaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_respostaMouseClicked
-        eventoConstante(resultado);
+        eventoConstante(resultado, "Resultado");
     }//GEN-LAST:event_respostaMouseClicked
 
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
@@ -586,8 +591,6 @@ public class Aritmetica extends javax.swing.JFrame {
         parentesesContador = 0;
         parentesesInterno = false;
         caixaEquacao.requestFocusInWindow();
-        
-        operadores.add(resultado);
     }//GEN-LAST:event_igualMouseClicked
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked

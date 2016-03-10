@@ -106,6 +106,9 @@
       <Properties>
         <Property name="label" type="java.lang.String" value="Equa&#xe7;&#xf5;es"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EquacoesMouseClicked"/>
+      </Events>
     </Component>
     <Component class="java.awt.Button" name="graficos">
       <Properties>

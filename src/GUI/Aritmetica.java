@@ -22,7 +22,7 @@ public class Aritmetica extends javax.swing.JFrame {
         this.operadores = new ArrayList<>();
         initComponents();
         caixaEquacao.requestFocusInWindow();
-        formato.setDecimalSeparatorAlwaysShown(false);        
+        formatador.setDecimalSeparatorAlwaysShown(false);        
     }
 
     @SuppressWarnings("unchecked")
@@ -350,7 +350,7 @@ public class Aritmetica extends javax.swing.JFrame {
             operador = Double.parseDouble(caixaEquacao.getText());
             operadores.add(operador);
             caixaEquacao.setText("");
-            operadorFormatado = formato.format(operador);
+            operadorFormatado = formatador.format(operador);
             equacao.append(operadorFormatado).append(sinal);
             sinais.add(sinal);
         }else if(permitirSinal){
@@ -375,7 +375,7 @@ public class Aritmetica extends javax.swing.JFrame {
     
     private void eventoConstante(double constante, String nome){
         caixaEquacao.requestFocusInWindow();
-        operadorFormatado = formato.format(constante);
+        operadorFormatado = formatador.format(constante);
         if("Resultado".equals(nome))
             equacao.append(operadorFormatado);
         else
@@ -590,7 +590,7 @@ public class Aritmetica extends javax.swing.JFrame {
             caixaEquacao.setText(""); 
         
         resultado = calculadora.interpretador(operadores, sinais);
-        operadorFormatado = formato.format(resultado);
+        operadorFormatado = formatador.format(resultado);
         caixaResposta.setText(operadorFormatado);
         
         equacao.setLength(0);
@@ -718,7 +718,7 @@ public class Aritmetica extends javax.swing.JFrame {
     
     //Geral
     String operadorFormatado;
-    DecimalFormat formato = new DecimalFormat();
+    DecimalFormat formatador = new DecimalFormat();
     private boolean permitirSinal = false;
     private int parentesesContador = 0;
     private boolean parentesesInterno = false;

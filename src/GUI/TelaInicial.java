@@ -47,6 +47,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         Equacoes.setLabel("Equações");
+        Equacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EquacoesMouseClicked(evt);
+            }
+        });
 
         graficos.setLabel("Gráficos");
         graficos.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +121,12 @@ public class TelaInicial extends javax.swing.JFrame {
         Estatistica estatistica = new Estatistica();
         estatistica.setVisible(true);
     }//GEN-LAST:event_EstatisticaMouseClicked
+
+    private void EquacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EquacoesMouseClicked
+        dispose();
+        Equacoes equacoes = new Equacoes();
+        equacoes.setVisible(true);
+    }//GEN-LAST:event_EquacoesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button Aritmetica;

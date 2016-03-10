@@ -107,9 +107,17 @@ public class CalculadoraEstatistica {
     }
     
     public double desvioPadrao(ArrayList<Double> elementos){
-        double variancia = variancia(elementos);
-        double desvioPadrao = Math.sqrt(variancia);
-        return desvioPadrao;
+        return Math.sqrt(variancia(elementos));
+    }
+    
+    public ArrayList<Double> desvios(ArrayList<Double> elementos){
+        ArrayList<Double> desvios = new ArrayList<>();
+        double media = media(elementos);
+        for (Double elemento : elementos) {
+            double desvio = elemento - media;
+            desvios.add(desvio);
+        }
+        return desvios;
     }
     
     public double coeficienteVariacao(ArrayList<Double> elementos){

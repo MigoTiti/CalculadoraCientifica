@@ -20,6 +20,7 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(491, 331));
+        setResizable(false);
         setSize(new java.awt.Dimension(491, 331));
 
         label1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N

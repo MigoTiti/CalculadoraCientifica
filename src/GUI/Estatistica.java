@@ -3,36 +3,37 @@ package GUI;
 import calculadoracientifica.CalculadoraEstatistica;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 public class Estatistica extends javax.swing.JFrame {
 
     public Estatistica() {
         initComponents();
         adicionarValor.requestFocusInWindow();
-        formato.setDecimalSeparatorAlwaysShown(false);
+        formatador.setDecimalSeparatorAlwaysShown(false);
+        elementos.addColumn("Elemento");
+        tabelaElementos.setModel(elementos);
     }
     
-    
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         voltar = new javax.swing.JButton();
         igual = new javax.swing.JButton();
         limpar = new javax.swing.JButton();
-        label1 = new java.awt.Label();
         adicionarValor = new javax.swing.JTextField();
         adicionar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         media = new javax.swing.JTextField();
         mediana = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaElementos = new javax.swing.JList<String>();
         removerElemento = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         coeficienteVariacao = new javax.swing.JTextField();
@@ -42,6 +43,8 @@ public class Estatistica extends javax.swing.JFrame {
         variancia = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         desvioPadrao = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelaElementos = new javax.swing.JTable();
 
         jList2.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -50,8 +53,35 @@ public class Estatistica extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jList2);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable2);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusable(false);
+        setResizable(false);
 
         voltar.setText("VOLTAR");
         voltar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -74,9 +104,6 @@ public class Estatistica extends javax.swing.JFrame {
             }
         });
 
-        label1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        label1.setText("ELEMENTOS");
-
         adicionar.setText("ADICIONAR");
         adicionar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -93,10 +120,6 @@ public class Estatistica extends javax.swing.JFrame {
 
         mediana.setEditable(false);
         mediana.setFocusable(false);
-
-        listaElementos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listaElementos.setToolTipText("");
-        jScrollPane1.setViewportView(listaElementos);
 
         removerElemento.setText("REMOVER");
         removerElemento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,63 +144,75 @@ public class Estatistica extends javax.swing.JFrame {
 
         desvioPadrao.setEditable(false);
 
+        tabelaElementos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaElementos.setColumnSelectionAllowed(true);
+        tabelaElementos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tabelaElementos);
+        tabelaElementos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(removerElemento, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(limpar))
-                            .addComponent(igual, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(voltar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(removerElemento))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(adicionarValor)
-                                    .addComponent(adicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(coeficienteVariacao, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(variancia, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(desvioPadrao, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(moda, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(mediana, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(media, javax.swing.GroupLayout.Alignment.TRAILING))))))
-                .addContainerGap())
+                            .addComponent(limpar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(igual, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(adicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(coeficienteVariacao)
+                            .addComponent(variancia)
+                            .addComponent(desvioPadrao)
+                            .addComponent(moda)
+                            .addComponent(mediana)
+                            .addComponent(adicionarValor)
+                            .addComponent(media))
+                        .addContainerGap(27, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(voltar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                            .addComponent(removerElemento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addComponent(adicionarValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(adicionar)
-                        .addGap(6, 6, 6)
+                        .addGap(1, 1, 1)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
                         .addComponent(media, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,20 +235,12 @@ public class Estatistica extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(coeficienteVariacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(limpar))
-                            .addComponent(removerElemento))
+                        .addComponent(coeficienteVariacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(limpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(igual))
-                    .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+                        .addComponent(igual)))
+                .addContainerGap())
         );
 
         pack();
@@ -228,21 +255,24 @@ public class Estatistica extends javax.swing.JFrame {
 
     private void adicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarMouseClicked
         double elemento = Double.parseDouble(adicionarValor.getText());
-        String elementoFormatado = formato.format(elemento);
+        String elementoFormatado = formatador.format(elemento);
         operadores.add(elemento);
-        elementos.addElement(elementoFormatado); 
-        listaElementos.setModel(elementos);        
+        elementos.addRow(new Object[]{elementoFormatado});
+        tabelaElementos.setModel(elementos);        
         adicionarValor.setText("");
         adicionarValor.requestFocusInWindow();
     }//GEN-LAST:event_adicionarMouseClicked
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
+        elementos.addColumn("Desvio");
+        
         double mediaValor = estatistica.media(operadores);
-        String mediaFormatada = formato.format(mediaValor);
+        String mediaFormatada = formatador.format(mediaValor);
         media.setText(mediaFormatada);
         
         double medianaValor = estatistica.mediana(operadores);
-        String medianaFormatada = formato.format(medianaValor);
+        String medianaFormatada = formatador.format(medianaValor);
         mediana.setText(medianaFormatada);
         
         String modaValor = estatistica.moda(operadores);
@@ -250,29 +280,43 @@ public class Estatistica extends javax.swing.JFrame {
             moda.setText(modaValor);
         else{
             double modaValorNumero = Double.parseDouble(modaValor);
-            moda.setText(formato.format(modaValorNumero));
+            moda.setText(formatador.format(modaValorNumero));
         }
         
         double varianciaValor = estatistica.variancia(operadores);
-        String varianciaFormatada = formato.format(varianciaValor);
+        String varianciaFormatada = formatador.format(varianciaValor);
         variancia.setText(varianciaFormatada);
         
         double desvioPadraoValor = estatistica.desvioPadrao(operadores);
-        String desvioPadraoFormatado = formato.format(desvioPadraoValor);
+        String desvioPadraoFormatado = formatador.format(desvioPadraoValor);
         desvioPadrao.setText(desvioPadraoFormatado);
         
         double coeficienteVariacaoValor = estatistica.coeficienteVariacao(operadores);
-        String coeficienteVariacaoFormatado = formato.format(coeficienteVariacaoValor);
-        coeficienteVariacaoFormatado.concat("%");
+        String coeficienteVariacaoFormatado = formatador.format(coeficienteVariacaoValor);
+        coeficienteVariacaoFormatado+="%";
         coeficienteVariacao.setText(coeficienteVariacaoFormatado);
+        
+        ArrayList<Double> desvios = estatistica.desvios(operadores);
+        int colunas = elementos.getRowCount();
+        for(int i=colunas-1;i>=0;i--)
+            elementos.removeRow(i);
+        
+        for(int i=0;i<operadores.size();i++){
+            double elemento = operadores.get(i);
+            String elementoFormatado = formatador.format(elemento);
+            
+            double desvio = desvios.get(i);
+            String desvioFormatado = formatador.format(desvio);
+            elementos.addRow(new Object[]{elementoFormatado, desvioFormatado});
+        }
         
         operadores.clear();
     }//GEN-LAST:event_igualMouseClicked
 
     private void removerElementoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerElementoMouseClicked
-        int index = listaElementos.getSelectedIndex();
+        int index = tabelaElementos.getSelectedRow();
         operadores.remove(index);        
-        elementos.removeElement(listaElementos.getSelectedValue()); 
+        elementos.removeRow(index); 
     }//GEN-LAST:event_removerElementoMouseClicked
 
     private void limparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparMouseClicked
@@ -282,14 +326,19 @@ public class Estatistica extends javax.swing.JFrame {
         variancia.setText("");
         desvioPadrao.setText("");
         coeficienteVariacao.setText("");
-        elementos.removeAllElements();
+        
+        int colunas = elementos.getRowCount();
+        for(int i=colunas-1;i>=0;i--)
+            elementos.removeRow(i);
+       
         operadores.clear();
     }//GEN-LAST:event_limparMouseClicked
     
-    private final DecimalFormat formato = new DecimalFormat();
+    private final DecimalFormat formatador = new DecimalFormat();
     
     @SuppressWarnings("FieldMayBeFinal")
-    private DefaultListModel elementos = new DefaultListModel();
+    private DefaultTableModel elementos = new DefaultTableModel();
+    boolean resultado = false;
     
     private final CalculadoraEstatistica estatistica = new CalculadoraEstatistica();
     
@@ -308,15 +357,18 @@ public class Estatistica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JList jList2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private java.awt.Label label1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JButton limpar;
-    private javax.swing.JList<String> listaElementos;
     private javax.swing.JTextField media;
     private javax.swing.JTextField mediana;
     private javax.swing.JTextField moda;
     private javax.swing.JButton removerElemento;
+    private javax.swing.JTable tabelaElementos;
     private javax.swing.JTextField variancia;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables

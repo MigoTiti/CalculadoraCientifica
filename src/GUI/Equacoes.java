@@ -111,6 +111,11 @@ public class Equacoes extends javax.swing.JFrame {
         });
 
         voltarSDV.setText("VOLTAR");
+        voltarSDV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarSDVMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -608,6 +613,12 @@ public class Equacoes extends javax.swing.JFrame {
     private void resultadoSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSDVMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_resultadoSDVMouseClicked
+
+    private void voltarSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarSDVMouseClicked
+        dispose();
+        TelaInicial escolha = new TelaInicial();
+        escolha.setVisible(true);
+    }//GEN-LAST:event_voltarSDVMouseClicked
 
     private final DecimalFormat formatador = new DecimalFormat();
     private final CalculadoraEquacoes equacoes = new CalculadoraEquacoes();

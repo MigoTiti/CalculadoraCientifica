@@ -23,6 +23,22 @@ public class Equacoes extends javax.swing.JFrame {
         limparSDV = new javax.swing.JButton();
         resultadoSDV = new javax.swing.JButton();
         voltarSDV = new javax.swing.JButton();
+        x1SDV = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        y1SDV = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        y2SDV = new javax.swing.JTextField();
+        x2SDV = new javax.swing.JTextField();
+        resultado1SDV = new javax.swing.JTextField();
+        resultado2SDV = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        xFinalSDV = new javax.swing.JTextField();
+        yFinalSDV = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         x1STV = new javax.swing.JTextField();
         x2STV = new javax.swing.JTextField();
@@ -117,25 +133,115 @@ public class Equacoes extends javax.swing.JFrame {
             }
         });
 
+        jLabel25.setText("x");
+
+        jLabel26.setText("y");
+
+        jLabel27.setText("y");
+
+        jLabel28.setText("x");
+
+        jLabel29.setText("=");
+
+        jLabel30.setText("=");
+
+        jLabel31.setText("x= ");
+
+        xFinalSDV.setEditable(false);
+
+        yFinalSDV.setEditable(false);
+
+        jLabel32.setText("y= ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(voltarSDV)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(resultadoSDV))
-                    .addComponent(limparSDV))
+                        .addComponent(voltarSDV)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(resultadoSDV))
+                            .addComponent(limparSDV)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel28)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(y2SDV, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(x1SDV, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(x2SDV, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel25)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(y1SDV, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel26))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel30))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(resultado2SDV, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                                    .addComponent(resultado1SDV)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel31)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(xFinalSDV))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel32)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(yFinalSDV, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(x1SDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25)
+                            .addComponent(y1SDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(x2SDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28)
+                            .addComponent(y2SDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel30)
+                            .addComponent(resultado1SDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel29)
+                            .addComponent(resultado2SDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31)
+                    .addComponent(xFinalSDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(yFinalSDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
@@ -607,11 +713,34 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_resultadoESGMouseClicked
 
     private void limparSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparSDVMouseClicked
-        // TODO add your handling code here:
+       xFinalSDV.setText("");
+       yFinalSDV.setText("");
+       x1SDV.setText("");
+       x2SDV.setText("");
+       y1SDV.setText("");
+       y2SDV.setText("");
+       resultado1SDV.setText("");
+       resultado2SDV.setText("");
     }//GEN-LAST:event_limparSDVMouseClicked
 
     private void resultadoSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSDVMouseClicked
-        // TODO add your handling code here:
+        double[][] coeficientes = new double[3][3];
+        coeficientes[0][0] = Double.parseDouble(x1SDV.getText());
+        coeficientes[1][0] = Double.parseDouble(x2SDV.getText());
+        coeficientes[0][1] = Double.parseDouble(y1SDV.getText());
+        coeficientes[1][1] = Double.parseDouble(y2SDV.getText());
+        
+        double[] resultadosParciais = new double[2];
+        resultadosParciais[0] = Double.parseDouble(resultado1SDV.getText());
+        resultadosParciais[1] = Double.parseDouble(resultado2SDV.getText());
+        
+        double[] resultados = equacoes.escalonarMatriz(coeficientes, resultadosParciais);
+        
+        String xFormatado = formatador.format(resultados[0]);
+        xFinalSDV.setText(xFormatado);
+        
+        String yFormatado = formatador.format(resultados[1]);
+        yFinalSDV.setText(yFormatado);
     }//GEN-LAST:event_resultadoSDVMouseClicked
 
     private void voltarSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarSDVMouseClicked
@@ -647,7 +776,15 @@ public class Equacoes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -665,7 +802,9 @@ public class Equacoes extends javax.swing.JFrame {
     private javax.swing.JButton limparSTV;
     private javax.swing.JTextField raiz1;
     private javax.swing.JTextField raiz2;
+    private javax.swing.JTextField resultado1SDV;
     private javax.swing.JTextField resultado1STV;
+    private javax.swing.JTextField resultado2SDV;
     private javax.swing.JTextField resultado2STV;
     private javax.swing.JTextField resultado3STV;
     private javax.swing.JButton resultadoESG;
@@ -674,13 +813,19 @@ public class Equacoes extends javax.swing.JFrame {
     private javax.swing.JButton voltarESG;
     private javax.swing.JButton voltarSDV;
     private javax.swing.JButton voltarSTV;
+    private javax.swing.JTextField x1SDV;
     private javax.swing.JTextField x1STV;
+    private javax.swing.JTextField x2SDV;
     private javax.swing.JTextField x2STV;
     private javax.swing.JTextField x3STV;
+    private javax.swing.JTextField xFinalSDV;
     private javax.swing.JTextField xFinalSTV;
+    private javax.swing.JTextField y1SDV;
     private javax.swing.JTextField y1STV;
+    private javax.swing.JTextField y2SDV;
     private javax.swing.JTextField y2STV;
     private javax.swing.JTextField y3STV;
+    private javax.swing.JTextField yFinalSDV;
     private javax.swing.JTextField yFinalSTV;
     private javax.swing.JTextField z1STV;
     private javax.swing.JTextField z2STV;

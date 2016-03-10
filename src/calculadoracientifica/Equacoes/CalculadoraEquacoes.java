@@ -1,4 +1,4 @@
-package calculadoracientifica;
+package calculadoracientifica.Equacoes;
 
 import java.util.ArrayList;
 

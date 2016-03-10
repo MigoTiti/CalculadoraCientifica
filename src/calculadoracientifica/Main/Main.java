@@ -1,4 +1,4 @@
-package calculadoracientifica;
+package calculadoracientifica.Main;
 
 import GUI.TelaInicial;
 

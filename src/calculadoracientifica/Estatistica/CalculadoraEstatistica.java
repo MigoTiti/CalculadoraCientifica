@@ -1,4 +1,4 @@
-package calculadoracientifica;
+package calculadoracientifica.Estatistica;
 
 import java.util.ArrayList;
 import java.util.Collections;

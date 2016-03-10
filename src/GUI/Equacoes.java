@@ -1,6 +1,6 @@
 package GUI;
 
-import calculadoracientifica.CalculadoraEquacoes;
+import calculadoracientifica.Equacoes.CalculadoraEquacoes;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 

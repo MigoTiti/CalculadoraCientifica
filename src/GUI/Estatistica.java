@@ -1,6 +1,6 @@
 package GUI;
 
-import calculadoracientifica.CalculadoraEstatistica;
+import calculadoracientifica.Estatistica.CalculadoraEstatistica;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;

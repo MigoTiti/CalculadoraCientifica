@@ -1,4 +1,4 @@
-package calculadoracientifica;
+package calculadoracientifica.Aritmetica;
 
 import java.util.ArrayList;
 

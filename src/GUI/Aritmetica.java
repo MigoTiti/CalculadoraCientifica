@@ -1,6 +1,6 @@
 package GUI;
 
-import calculadoracientifica.Calculadora;
+import calculadoracientifica.Aritmetica.Calculadora;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;

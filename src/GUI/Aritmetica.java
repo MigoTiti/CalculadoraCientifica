@@ -473,7 +473,8 @@ public class Aritmetica extends javax.swing.JFrame {
             operador = Double.parseDouble(caixaEquacao.getText());
             operadores.add(operador);
             caixaEquacao.setText("");
-            equacao.append(operador).append("^2");
+            operadorFormatado = formatador.format(operador);
+            equacao.append(operadorFormatado).append("^2");
             sinais.add("^");
             operadores.add(2.0);
         }else if(permitirSinal){
@@ -492,7 +493,8 @@ public class Aritmetica extends javax.swing.JFrame {
             operador = Double.parseDouble(caixaEquacao.getText());
             operadores.add(operador);
             caixaEquacao.setText("");
-            equacao.append(operador).append("^").append("(");
+            operadorFormatado = formatador.format(operador);
+            equacao.append(operadorFormatado).append("^").append("(");
             sinais.add("(");
             sinais.add("^");
         }else if(permitirSinal){
@@ -532,7 +534,8 @@ public class Aritmetica extends javax.swing.JFrame {
             operador = Double.parseDouble(caixaEquacao.getText());
             operadores.add(operador);
             caixaEquacao.setText("");
-            equacao.append(operador).append("^3");
+            operadorFormatado = formatador.format(operador);
+            equacao.append(operadorFormatado).append("^3");
             sinais.add("^");
             operadores.add(3.0);
         }else if(permitirSinal){

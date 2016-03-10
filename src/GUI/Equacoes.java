@@ -2,6 +2,7 @@ package GUI;
 
 import calculadoracientifica.CalculadoraEquacoes;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Equacoes extends javax.swing.JFrame {
 
@@ -60,9 +61,9 @@ public class Equacoes extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        coeficienteC = new javax.swing.JTextField();
-        coeficienteB = new javax.swing.JTextField();
+        aTexto = new javax.swing.JTextField();
+        cTexto = new javax.swing.JTextField();
+        bTexto = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         a = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
@@ -393,18 +394,7 @@ public class Equacoes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(voltarESG)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(c, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                                    .addComponent(b, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel24)
-                                    .addComponent(raiz2, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                                    .addComponent(raiz1))))
+                        .addComponent(voltarESG)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -414,32 +404,36 @@ public class Equacoes extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(aTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coeficienteB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coeficienteC, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel18))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel19)
-                                            .addComponent(jLabel20))
-                                        .addGap(71, 71, 71))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(a)
-                                        .addGap(18, 18, 18)))
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jLabel23)
-                                    .addComponent(delta, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 197, Short.MAX_VALUE)))
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel20)
+                                    .addComponent(a, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel21)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(c, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(b, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel22)
+                                        .addComponent(jLabel23)
+                                        .addComponent(delta)
+                                        .addComponent(raiz1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(raiz2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel24))))
+                        .addGap(0, 138, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -452,9 +446,9 @@ public class Equacoes extends javax.swing.JFrame {
                             .addComponent(jLabel16)
                             .addComponent(jLabel17)
                             .addComponent(jLabel18)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(coeficienteC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(coeficienteB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(aTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
@@ -561,11 +555,50 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_limparSTVMouseClicked
 
     private void limparESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparESGMouseClicked
-        // TODO add your handling code here:
+        a.setText("");
+        b.setText("");
+        c.setText("");
+        delta.setText("");
+        raiz1.setText("");
+        raiz2.setText("");
+        aTexto.setText("");
+        bTexto.setText("");
+        cTexto.setText("");
+        aTexto.requestFocusInWindow();
     }//GEN-LAST:event_limparESGMouseClicked
 
     private void resultadoESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoESGMouseClicked
-        // TODO add your handling code here:
+        double aValor = Double.parseDouble(aTexto.getText()); 
+        double bValor =  Double.parseDouble(bTexto.getText());
+        double cValor = Double.parseDouble(cTexto.getText());
+        
+        String aFormatado = formatador.format(aValor);
+        String bFormatado = formatador.format(bValor);
+        String cFormatado = formatador.format(cValor);
+        String deltaFormatado = formatador.format(equacoes.delta(aValor, bValor, cValor));
+        
+        a.setText(aFormatado);
+        b.setText(bFormatado);
+        c.setText(cFormatado);
+        delta.setText(deltaFormatado);
+        
+        ArrayList<String> solucoes = equacoes.equacaoSegundoGrau(aValor, bValor, cValor);
+        
+        double raiz1Valor, raiz2Valor;
+        String raiz1Formatada, raiz2Formatada;
+        if(!"Não existe raiz real.".equals(solucoes.get(0)) && !"Apenas uma raiz real.".equals(solucoes.get(0))){
+            raiz1Valor = Double.parseDouble(solucoes.get(0));
+            raiz1Formatada = formatador.format(raiz1Valor);
+            raiz1.setText(raiz1Formatada);
+        }else
+            raiz1.setText(solucoes.get(0));
+        
+        if(!"Não existe raiz real.".equals(solucoes.get(1)) && !"Apenas uma raiz real.".equals(solucoes.get(1))){
+            raiz2Valor = Double.parseDouble(solucoes.get(1));
+            raiz2Formatada = formatador.format(raiz2Valor);
+            raiz2.setText(raiz2Formatada);
+        }else
+            raiz2.setText(solucoes.get(1));
     }//GEN-LAST:event_resultadoESGMouseClicked
 
     private void limparSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparSDVMouseClicked
@@ -577,13 +610,14 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_resultadoSDVMouseClicked
 
     private final DecimalFormat formatador = new DecimalFormat();
-    private CalculadoraEquacoes equacoes = new CalculadoraEquacoes();
+    private final CalculadoraEquacoes equacoes = new CalculadoraEquacoes();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField a;
+    private javax.swing.JTextField aTexto;
     private javax.swing.JTextField b;
+    private javax.swing.JTextField bTexto;
     private javax.swing.JTextField c;
-    private javax.swing.JTextField coeficienteB;
-    private javax.swing.JTextField coeficienteC;
+    private javax.swing.JTextField cTexto;
     private javax.swing.JTextField delta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -614,7 +648,6 @@ public class Equacoes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JButton limparESG;
     private javax.swing.JButton limparSDV;

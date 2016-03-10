@@ -32,12 +32,16 @@ public class Estatistica extends javax.swing.JFrame {
         media = new javax.swing.JTextField();
         mediana = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaElementos = new javax.swing.JList<>();
+        listaElementos = new javax.swing.JList<String>();
         removerElemento = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        coeficienteVariacao = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         moda = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        variancia = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        desvioPadrao = new javax.swing.JTextField();
 
         jList2.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -103,11 +107,19 @@ public class Estatistica extends javax.swing.JFrame {
 
         jLabel3.setText("DESVIO PADRÃO");
 
-        jTextField1.setEditable(false);
+        coeficienteVariacao.setEditable(false);
 
         jLabel4.setText("MODA");
 
         moda.setEditable(false);
+
+        jLabel5.setText("VARIÂNCIA");
+
+        variancia.setEditable(false);
+
+        jLabel6.setText("COEFICIENTE DE VARIAÇÃO");
+
+        desvioPadrao.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,10 +156,14 @@ public class Estatistica extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(moda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(coeficienteVariacao, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(variancia, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(desvioPadrao, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(moda, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(mediana, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(media, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                                    .addComponent(media, javax.swing.GroupLayout.Alignment.TRAILING))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -175,8 +191,16 @@ public class Estatistica extends javax.swing.JFrame {
                         .addComponent(moda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(jLabel3)
-                        .addGap(6, 6, 6)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(desvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(variancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(coeficienteVariacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,9 +246,27 @@ public class Estatistica extends javax.swing.JFrame {
         mediana.setText(medianaFormatada);
         
         String modaValor = estatistica.moda(operadores);
-        moda.setText(modaValor);
+        if("Não existe moda.".equals(modaValor))
+            moda.setText(modaValor);
+        else{
+            double modaValorNumero = Double.parseDouble(modaValor);
+            moda.setText(formato.format(modaValorNumero));
+        }
         
+        double varianciaValor = estatistica.variancia(operadores);
+        String varianciaFormatada = formato.format(varianciaValor);
+        variancia.setText(varianciaFormatada);
         
+        double desvioPadraoValor = estatistica.desvioPadrao(operadores);
+        String desvioPadraoFormatado = formato.format(desvioPadraoValor);
+        desvioPadrao.setText(desvioPadraoFormatado);
+        
+        double coeficienteVariacaoValor = estatistica.coeficienteVariacao(operadores);
+        String coeficienteVariacaoFormatado = formato.format(coeficienteVariacaoValor);
+        coeficienteVariacaoFormatado.concat("%");
+        coeficienteVariacao.setText(coeficienteVariacaoFormatado);
+        
+        operadores.clear();
     }//GEN-LAST:event_igualMouseClicked
 
     private void removerElementoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerElementoMouseClicked
@@ -237,6 +279,9 @@ public class Estatistica extends javax.swing.JFrame {
         media.setText("");
         mediana.setText("");
         moda.setText("");
+        variancia.setText("");
+        desvioPadrao.setText("");
+        coeficienteVariacao.setText("");
         elementos.removeAllElements();
         operadores.clear();
     }//GEN-LAST:event_limparMouseClicked
@@ -253,15 +298,18 @@ public class Estatistica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JTextField adicionarValor;
+    private javax.swing.JTextField coeficienteVariacao;
+    private javax.swing.JTextField desvioPadrao;
     private javax.swing.JButton igual;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private java.awt.Label label1;
     private javax.swing.JButton limpar;
     private javax.swing.JList<String> listaElementos;
@@ -269,6 +317,7 @@ public class Estatistica extends javax.swing.JFrame {
     private javax.swing.JTextField mediana;
     private javax.swing.JTextField moda;
     private javax.swing.JButton removerElemento;
+    private javax.swing.JTextField variancia;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

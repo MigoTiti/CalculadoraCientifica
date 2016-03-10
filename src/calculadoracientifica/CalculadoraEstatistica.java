@@ -28,34 +28,34 @@ public class CalculadoraEstatistica {
         return mediana;
     }
  
-    private ArrayList<Double> fatorar(ArrayList<Double> elementos){
-        ArrayList<Double> elementosFatorados = new ArrayList<>();
-        elementosFatorados.add(elementos.get(0));
-        for(int i=0;i<elementos.size();i++){
-            Double n = elementos.get(i);
-            if(!elementosFatorados.contains(n))
-                elementosFatorados.add(n);
+    private ArrayList<Double> eliminarRepeticao(ArrayList<Double> elementos){
+        ArrayList<Double> elementosUnicos = new ArrayList<>();
+        elementosUnicos.add(elementos.get(0));
+        for (Double auxiliar : elementos) {
+            if(!elementosUnicos.contains(auxiliar))
+                elementosUnicos.add(auxiliar);
         }
-        return elementosFatorados;
+        return elementosUnicos;
     }
     
     public String moda(ArrayList<Double> elementos){
       
-        ArrayList<Double> elementosComparar;
-        elementosComparar = fatorar(elementos);
+        ArrayList<Double> elementosUnicos;
+        elementosUnicos = eliminarRepeticao(elementos);
         
         ArrayList<Double> ocorrencias;
-        ocorrencias = new ArrayList<>(elementosComparar);
+        ocorrencias = new ArrayList<>(elementosUnicos);
 
         for(int i=0;i<ocorrencias.size();i++){
             ocorrencias.remove(i);
-            ocorrencias.add(i, 0.0);
-        }        
+            ocorrencias.add(i, 1.0);
+        }
+        
         boolean sucesso = false;
         int iteracoes = 0;
         int tamanho2 = 0;
         do{
-            for(int i=tamanho2;i<elementosComparar.size();i++){
+            for(int i=tamanho2;i<elementosUnicos.size();i++){
                 if(sucesso){
                     sucesso = false;
                     break;
@@ -90,5 +90,29 @@ public class CalculadoraEstatistica {
             return "Não existe moda.";
         else
             return (Double.toString(moda));
+    }
+    
+    public double variancia(ArrayList<Double> elementos){
+
+        double media = media(elementos);
+        double somatoria = 0;
+        for (Double elemento : elementos) {
+            double expressao = elemento - media;
+            expressao = Math.pow(expressao, 2);
+            somatoria = somatoria + expressao;
+        }
+        
+        double variancia = somatoria/elementos.size();
+        return variancia;
+    }
+    
+    public double desvioPadrao(ArrayList<Double> elementos){
+        double variancia = variancia(elementos);
+        double desvioPadrao = Math.sqrt(variancia);
+        return desvioPadrao;
+    }
+    
+    public double coeficienteVariacao(ArrayList<Double> elementos){
+        return 100*(desvioPadrao(elementos)/media(elementos));
     }
 }

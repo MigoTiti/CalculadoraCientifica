@@ -85,10 +85,14 @@
                                   <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="moda" alignment="1" pref="119" max="32767" attributes="0"/>
+                                  <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="coeficienteVariacao" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="variancia" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="desvioPadrao" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="moda" alignment="1" max="32767" attributes="0"/>
                                   <Component id="mediana" alignment="1" max="32767" attributes="0"/>
                                   <Component id="media" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jTextField1" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -123,8 +127,16 @@
                       <Component id="moda" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="desvioPadrao" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="variancia" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="coeficienteVariacao" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="455" max="-2" attributes="0"/>
               </Group>
@@ -247,7 +259,7 @@
         <Property name="text" type="java.lang.String" value="DESVIO PADR&#xc3;O"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="coeficienteVariacao">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
@@ -258,6 +270,26 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="moda">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="VARI&#xc2;NCIA"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="variancia">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="COEFICIENTE DE VARIA&#xc7;&#xc3;O"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="desvioPadrao">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>

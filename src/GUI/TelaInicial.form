@@ -46,7 +46,7 @@
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Estatistica" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
-                          <Component id="graficos" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="Graficos" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -65,7 +65,7 @@
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="graficos" max="32767" attributes="0"/>
+                  <Component id="Graficos" max="32767" attributes="0"/>
                   <Component id="Equacoes" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -110,12 +110,13 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EquacoesMouseClicked"/>
       </Events>
     </Component>
-    <Component class="java.awt.Button" name="graficos">
+    <Component class="java.awt.Button" name="Graficos">
       <Properties>
         <Property name="label" type="java.lang.String" value="Gr&#xe1;ficos"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="graficosActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="GraficosMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GraficosActionPerformed"/>
       </Events>
     </Component>
     <Component class="java.awt.Button" name="matrizes">

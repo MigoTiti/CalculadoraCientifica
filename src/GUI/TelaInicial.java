@@ -1,5 +1,7 @@
 package GUI;
 
+import calculadoracientifica.Graficos.DesenharGraficos;
+
 public class TelaInicial extends javax.swing.JFrame {
 
     public TelaInicial()
@@ -14,7 +16,7 @@ public class TelaInicial extends javax.swing.JFrame {
         Aritmetica = new java.awt.Button();
         Estatistica = new java.awt.Button();
         Equacoes = new java.awt.Button();
-        graficos = new java.awt.Button();
+        Graficos = new java.awt.Button();
         matrizes = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,10 +55,15 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        graficos.setLabel("Gráficos");
-        graficos.addActionListener(new java.awt.event.ActionListener() {
+        Graficos.setLabel("Gráficos");
+        Graficos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GraficosMouseClicked(evt);
+            }
+        });
+        Graficos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                graficosActionPerformed(evt);
+                GraficosActionPerformed(evt);
             }
         });
 
@@ -78,7 +85,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Estatistica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(graficos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(Graficos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -91,7 +98,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(Aritmetica, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(graficos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Graficos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Equacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(matrizes, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,9 +113,9 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AritmeticaActionPerformed
 
-    private void graficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficosActionPerformed
+    private void GraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraficosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_graficosActionPerformed
+    }//GEN-LAST:event_GraficosActionPerformed
 
     private void AritmeticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AritmeticaMouseClicked
         dispose();
@@ -128,11 +135,17 @@ public class TelaInicial extends javax.swing.JFrame {
         equacoes.setVisible(true);
     }//GEN-LAST:event_EquacoesMouseClicked
 
+    private void GraficosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GraficosMouseClicked
+        dispose();
+        Graficos graficos = new Graficos();
+        graficos.setVisible(true);
+    }//GEN-LAST:event_GraficosMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button Aritmetica;
     private java.awt.Button Equacoes;
     private java.awt.Button Estatistica;
-    private java.awt.Button graficos;
+    private java.awt.Button Graficos;
     private java.awt.Label label1;
     private java.awt.Button matrizes;
     // End of variables declaration//GEN-END:variables

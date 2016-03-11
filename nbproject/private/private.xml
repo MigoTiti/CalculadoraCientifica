@@ -6,13 +6,6 @@
             <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/Calculadora.java</file>
             <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/GUI/Aritmetica.java</file>
         </group>
-        <group name="Todos">
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Main.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Calculadora.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/GUI/Aritmetica.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/CalculadoraEstatistica.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/ListDemo.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/GUI/Estatistica.java</file>
-        </group>
+        <group name="Todos"/>
     </open-files>
 </project-private>

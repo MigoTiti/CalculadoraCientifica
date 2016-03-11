@@ -7,7 +7,6 @@ public class Calculadora
     
     public Calculadora(){}
     
-    
     public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais2)
     {
         int contParenteses = 0;
@@ -72,7 +71,7 @@ public class Calculadora
             numeros = operacao(numeros,maior);
         }while(numeros.size()>=2);  
         return numeros.get(0);
-    }
+    } 
     
     private ArrayList<Double> operacaoDupla(ArrayList<Double> numeros, String sinal, int i){
         double auxiliar;
@@ -156,7 +155,6 @@ public class Calculadora
     private ArrayList<Double> operacao(ArrayList<Double> numeros, int maior){
         int indexUsado = 0;
         String sinal;
-        
         boolean sucesso = false, operacaoUnica = false;
         
             for(int i=0;i<numeros.size();i++){

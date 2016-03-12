@@ -9,10 +9,21 @@ public class Estatistica extends javax.swing.JFrame {
 
     public Estatistica() {
         initComponents();
-        adicionarValor.requestFocusInWindow();
-        formatador.setDecimalSeparatorAlwaysShown(false);
-        elementos.addColumn("Elemento");
-        tabelaElementos.setModel(elementos);
+        this.adicionarValor.requestFocusInWindow();
+        
+        this.formatador = new DecimalFormat();
+        this.formatador.setDecimalSeparatorAlwaysShown(false);
+        
+        this.elementos = new DefaultTableModel();
+        this.elementos.addColumn("Elemento");
+        this.tabelaElementos.setModel(elementos);
+        
+        this.estatistica = new CalculadoraEstatistica();
+        
+        this.operadores = new ArrayList<>();
+        this.resultado = false;
+        this.vazio = "";
+        this.desvioCriado = false;
     }
     
     @SuppressWarnings("unchecked")
@@ -45,6 +56,7 @@ public class Estatistica extends javax.swing.JFrame {
         desvioPadrao = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaElementos = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
 
         jList2.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -157,6 +169,8 @@ public class Estatistica extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tabelaElementos);
         tabelaElementos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
+        jLabel7.setText("ELEMENTO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,7 +207,11 @@ public class Estatistica extends javax.swing.JFrame {
                             .addComponent(mediana)
                             .addComponent(adicionarValor)
                             .addComponent(media))
-                        .addContainerGap(27, Short.MAX_VALUE))))
+                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +226,9 @@ public class Estatistica extends javax.swing.JFrame {
                             .addComponent(removerElemento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(adicionarValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(adicionar)
@@ -257,15 +277,17 @@ public class Estatistica extends javax.swing.JFrame {
         double elemento = Double.parseDouble(adicionarValor.getText());
         String elementoFormatado = formatador.format(elemento);
         operadores.add(elemento);
-        elementos.addRow(new Object[]{elementoFormatado});
-        tabelaElementos.setModel(elementos);        
-        adicionarValor.setText("");
+        elementos.addRow(new Object[]{elementoFormatado});        
+        adicionarValor.setText(vazio);
         adicionarValor.requestFocusInWindow();
     }//GEN-LAST:event_adicionarMouseClicked
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
+        if(desvioCriado==false){
         elementos.addColumn("Desvio");
+        desvioCriado = true;
+        }
         
         double mediaValor = estatistica.media(operadores);
         String mediaFormatada = formatador.format(mediaValor);
@@ -310,7 +332,6 @@ public class Estatistica extends javax.swing.JFrame {
             elementos.addRow(new Object[]{elementoFormatado, desvioFormatado});
         }
         
-        operadores.clear();
     }//GEN-LAST:event_igualMouseClicked
 
     private void removerElementoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerElementoMouseClicked
@@ -320,12 +341,12 @@ public class Estatistica extends javax.swing.JFrame {
     }//GEN-LAST:event_removerElementoMouseClicked
 
     private void limparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparMouseClicked
-        media.setText("");
-        mediana.setText("");
-        moda.setText("");
-        variancia.setText("");
-        desvioPadrao.setText("");
-        coeficienteVariacao.setText("");
+        media.setText(vazio);
+        mediana.setText(vazio);
+        moda.setText(vazio);
+        variancia.setText(vazio);
+        desvioPadrao.setText(vazio);
+        coeficienteVariacao.setText(vazio);
         
         int colunas = elementos.getRowCount();
         for(int i=colunas-1;i>=0;i--)
@@ -334,16 +355,15 @@ public class Estatistica extends javax.swing.JFrame {
         operadores.clear();
     }//GEN-LAST:event_limparMouseClicked
     
-    private final DecimalFormat formatador = new DecimalFormat();
+    private final DecimalFormat formatador;
     
-    @SuppressWarnings("FieldMayBeFinal")
-    private DefaultTableModel elementos = new DefaultTableModel();
-    boolean resultado = false;
+    private DefaultTableModel elementos;
+    private boolean desvioCriado;
+    private boolean resultado;
+    private final String vazio;
+    private final CalculadoraEstatistica estatistica;
     
-    private final CalculadoraEstatistica estatistica = new CalculadoraEstatistica();
-    
-    @SuppressWarnings("FieldMayBeFinal")
-    private ArrayList<Double> operadores = new ArrayList<>();
+    private ArrayList<Double> operadores;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JTextField adicionarValor;
@@ -356,6 +376,7 @@ public class Estatistica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -22,6 +22,7 @@ public class Graficos extends javax.swing.JFrame {
 
     public Graficos() {
         initComponents();
+        this.vazio = "";
     }
 
     @SuppressWarnings("unchecked")
@@ -44,6 +45,7 @@ public class Graficos extends javax.swing.JFrame {
         voltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         equacaoLer.setEditable(false);
 
@@ -189,7 +191,7 @@ public class Graficos extends javax.swing.JFrame {
         operadoresAuxiliar.clear();
         sinais.clear();
         equacao.setLength(0);
-        equacaoLer.setText("");
+        equacaoLer.setText(vazio);
         xPosicoes.clear();
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
@@ -197,12 +199,12 @@ public class Graficos extends javax.swing.JFrame {
         operadoresAuxiliar.clear();
         sinais.clear();
         equacao.setLength(0);
-        equacaoLer.setText("");
+        equacaoLer.setText(vazio);
         equacaoCompleta = false;
         xPosicoes.clear();
-        comecoIntervalo.setText("");
-        fimIntervalo.setText("");
-        xVariando.setText("");
+        comecoIntervalo.setText(vazio);
+        fimIntervalo.setText(vazio);
+        xVariando.setText(vazio);
         x.clear();
         y.clear();
         criarGrafico();
@@ -230,9 +232,6 @@ public class Graficos extends javax.swing.JFrame {
             y.add(calculadora.interpretadorIntermediario(i, xPosicoes2, operadoresAuxiliar2, sinais2));
         }
         
-        XYDataset dataset;
-        dataset = criarPontos(x,y);
-        
         criarGrafico();
          
     }//GEN-LAST:event_plotarMouseClicked
@@ -241,7 +240,7 @@ public class Graficos extends javax.swing.JFrame {
         XYDataset dataset;
         dataset = criarPontos(x,y);
         
-        JFreeChart chart = ChartFactory.createXYLineChart("", "x", "y", dataset);
+        JFreeChart chart = ChartFactory.createXYLineChart(vazio, "x", "y", dataset);
         ChartPanel myChartPanel = new ChartPanel(chart, true);
          
         myChartPanel.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
@@ -261,7 +260,7 @@ public class Graficos extends javax.swing.JFrame {
     private XYDataset criarPontos(ArrayList<Double> x, ArrayList<Double> y) {
 
         int tamanho = x.size();
-        XYSeries s1 = new XYSeries("");
+        XYSeries s1 = new XYSeries(vazio);
         for (int i=0;i<tamanho;i++){
             s1.add(x.get(i), y.get(i));
         }
@@ -273,8 +272,8 @@ public class Graficos extends javax.swing.JFrame {
     }
     
     private boolean digitarEquacao(){
-        JTextField equacaoDigitar2 = new JTextField("");
-        JTextField equacaoLer2 = new JTextField("");
+        JTextField equacaoDigitar2 = new JTextField(vazio);
+        JTextField equacaoLer2 = new JTextField(vazio);
         
         Action action = new AbstractAction()
         {
@@ -315,7 +314,21 @@ public class Graficos extends javax.swing.JFrame {
                         sinal = false;
                     sucesso = true;
                 }else if((!")".equals(atual))&&(!"+".equals(atual))&&(!"-".equals(atual))&&(!"/".equals(atual))&&(!"*".equals(atual))&&(!"^".equals(atual))&&(!"(".equals(atual))&&(!"x".equals(atual))){
-                    operadores.add(atual);
+                    if(null!=atual)switch (atual) {
+                        case "PI":
+                        case "Pi":
+                        case "pi":
+                        case "pI":
+                            operadores.add(Double.toString(Math.PI));
+                            break;
+                        case "E":
+                        case "e":
+                            operadores.add(Double.toString(Math.E));
+                            break;
+                        default:
+                            operadores.add(atual);
+                            break;
+                    }
                     if(sinal)
                         sinal = false;
                     sucesso = true;
@@ -330,7 +343,7 @@ public class Graficos extends javax.swing.JFrame {
                     posicao++;
                 }
                 
-                equacaoDigitar2.setText("");
+                equacaoDigitar2.setText(vazio);
                 equacaoLer2.setText(equacao.toString());
             }
         };
@@ -374,6 +387,7 @@ public class Graficos extends javax.swing.JFrame {
     private ArrayList<Double> y = new ArrayList<>();
     private ArrayList<Double> x = new ArrayList<>();
     
+    private final String vazio;
     private boolean xProximo = false;
     private boolean equacaoCompleta = false;
     private int posicao = 0;

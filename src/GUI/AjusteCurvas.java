@@ -3,6 +3,7 @@ package GUI;
 import calculadoracientifica.ajusteCurvas.CalculadoraAjusteExponencial;
 import calculadoracientifica.ajusteCurvas.CalculadoraAjusteLinear;
 import calculadoracientifica.ajusteCurvas.CalculadoraAjusteQuadratico;
+import calculadoracientifica.ajusteCurvas.CalculadoraGraficosAjustados;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -134,6 +135,11 @@ public class AjusteCurvas extends javax.swing.JFrame {
         equacaoExpExpressao.setFocusable(false);
 
         plotarLinear.setText("PLOTAR GRÁFICO");
+        plotarLinear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                plotarLinearMouseClicked(evt);
+            }
+        });
 
         plotarQuadratica.setText("PLOTAR GRÁFICO");
 
@@ -321,7 +327,9 @@ public class AjusteCurvas extends javax.swing.JFrame {
                 break;
         }
         
-        equacaoLinearExpressao.setText(equacaoLinear.toString());
+        equacaoLinearString = equacaoLinear.toString();
+        equacaoLinearExpressao.setText(equacaoLinearString);
+        
         plotarLinear.setEnabled(true);
         
         double[] coeficientesQuadraticos;
@@ -421,8 +429,8 @@ public class AjusteCurvas extends javax.swing.JFrame {
                 }
                 break;
         }
-        
-        equacaoQuadraticaExpressao.setText(equacaoQuadratica.toString());
+        equacaoQuadraticaString = equacaoQuadratica.toString();
+        equacaoQuadraticaExpressao.setText(equacaoQuadraticaString);
         plotarQuadratica.setEnabled(true);
         
         double[] coeficientesExp;
@@ -430,7 +438,8 @@ public class AjusteCurvas extends javax.swing.JFrame {
         String aExpFormatado = formatador.format(coeficientesExp[0]);
         String bExpFormatado = formatador.format(coeficientesExp[1]);
         equacaoExp.append(aExpFormatado).append("e^").append(bExpFormatado);
-        equacaoExpExpressao.setText(equacaoExp.toString());
+        equacaoExpString = equacaoExp.toString();
+        equacaoExpExpressao.setText(equacaoExpString);
         plotarExp.setEnabled(true);
     }//GEN-LAST:event_ajustarMouseClicked
 
@@ -451,6 +460,11 @@ public class AjusteCurvas extends javax.swing.JFrame {
         equacaoQuadraticaExpressao.setText(vazio);
     }//GEN-LAST:event_limparTudoMouseClicked
 
+    private void plotarLinearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarLinearMouseClicked
+        CalculadoraGraficosAjustados graficoLinear = new CalculadoraGraficosAjustados(x.get(0),x.get(x.size()-1),equacaoLinearString);
+        
+    }//GEN-LAST:event_plotarLinearMouseClicked
+
     private int contadorPontos;
     private ArrayList<Double> x;
     private ArrayList<Double> y;
@@ -458,6 +472,10 @@ public class AjusteCurvas extends javax.swing.JFrame {
     private StringBuilder equacaoLinear;
     private StringBuilder equacaoExp;
     private StringBuilder equacaoQuadratica;
+    
+    private String equacaoLinearString;
+    private String equacaoExpString;
+    private String equacaoQuadraticaString;
     
     private final String vazio;
     private final DecimalFormat formatador;

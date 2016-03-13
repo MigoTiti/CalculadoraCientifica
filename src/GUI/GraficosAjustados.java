@@ -1,10 +1,12 @@
-package calculadoracientifica.ajusteCurvas;
+package GUI;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -24,7 +26,8 @@ public class GraficosAjustados extends javax.swing.JFrame {
 
         areaGrafico = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         javax.swing.GroupLayout areaGraficoLayout = new javax.swing.GroupLayout(areaGrafico);
         areaGrafico.setLayout(areaGraficoLayout);
@@ -34,7 +37,7 @@ public class GraficosAjustados extends javax.swing.JFrame {
         );
         areaGraficoLayout.setVerticalGroup(
             areaGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -49,13 +52,14 @@ public class GraficosAjustados extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     public void criarGrafico() {
             XYDataset dataset;
             dataset = criarPontos();
 
-            JFreeChart chart = ChartFactory.createXYLineChart(vazio, "x", "y", dataset);
+            JFreeChart chart = criarChart(dataset);
             ChartPanel myChartPanel = new ChartPanel(chart, true);
 
             myChartPanel.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
@@ -70,8 +74,21 @@ public class GraficosAjustados extends javax.swing.JFrame {
             areaGrafico.revalidate();
             areaGrafico.repaint();
             chart.setBackgroundPaint(Color.WHITE);
+            
         }
 
+    private JFreeChart criarChart(final XYDataset dataset){
+        JFreeChart chart = ChartFactory.createXYLineChart(vazio, "x", "y", dataset);
+        chart.setBackgroundPaint(Color.white);
+        final XYPlot plot1 = chart.getXYPlot();
+        plot1.setBackgroundPaint(Color.lightGray);
+        plot1.setDomainGridlinePaint(Color.white);
+        plot1.setRangeGridlinePaint(Color.white);
+        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot1.getRenderer();
+        renderer.setBaseShapesVisible(true);
+        return chart;
+    }
+    
     private XYDataset criarPontos() {
 
         int tamanho = x.size();

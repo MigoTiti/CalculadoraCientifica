@@ -2,41 +2,38 @@ package calculadoracientifica.Aritmetica;
 
 import java.util.ArrayList;
 
-public class Calculadora 
-{
+public class Calculadora extends MetodosPrimitivos{
     
     public Calculadora(){}
     
-    public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais2)
+    @Override
+    public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais)
     {
         int contParenteses = 0;
         String sinal;
-        
-        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
                 
+        ArrayList<Integer> prioridades = new ArrayList<>();        
         ArrayList<Integer> prioridadesParenteses = new ArrayList<>();
-        ArrayList<Integer> posicoesRemoverSinais2 = new ArrayList<>();
-        sinais = new ArrayList<>(sinais2);
-        sinais2.clear();
+        ArrayList<Integer> posicoesRemoverSinais = new ArrayList<>();
         
         for(int i=0;i<sinais.size();i++){
             sinal = sinais.get(i);
             if(null!=sinal)switch (sinal){
                 case "(":
                     prioridadesParenteses.add(i, ++contParenteses);
-                    posicoesRemoverSinais2.add(i);
+                    posicoesRemoverSinais.add(i);
                     break;
                 case ")":
                     prioridadesParenteses.add(i, --contParenteses);
-                     posicoesRemoverSinais2.add(i);
+                     posicoesRemoverSinais.add(i);
                     break;
                 default:
                     prioridadesParenteses.add(i, contParenteses);
             }
         }
         
-        for(int i=posicoesRemoverSinais2.size()-1;i>-1;i--){
-            int remover = posicoesRemoverSinais2.get(i);
+        for(int i=posicoesRemoverSinais.size()-1;i>-1;i--){
+            int remover = posicoesRemoverSinais.get(i);
             sinais.remove(remover);
             prioridadesParenteses.remove(remover);
         }
@@ -46,12 +43,12 @@ public class Calculadora
             if(null!=sinal)switch (sinal) {
                 case "+":
                 case "-":
-                    prioridades.add(i, prioridadeSoma+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, PRIORIDADE_SOMA+(prioridadesParenteses.get(i)*3));
                     break;
                 case "%":
                 case "*":
                 case "/":
-                    prioridades.add(i, prioridadeMultiplicacao+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, PRIORIDADE_MULTIPLICACAO+(prioridadesParenteses.get(i)*3));
                     break;
                 case "^":
                 case "e^":
@@ -61,19 +58,20 @@ public class Calculadora
                 case "sen":
                 case "cos":
                 case "tg":
-                    prioridades.add(i, prioridadePotencia+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, PRIORIDADE_POTENCIA+(prioridadesParenteses.get(i)*3));
                     break;
             }  
         }
-        posicoesRemoverSinais2.clear();
+        posicoesRemoverSinais.clear();
         do{
             int maior = maiorIndice(prioridades);
-            numeros = operacao(numeros,maior);
+            numeros = operacao(numeros,sinais,prioridades,maior);
         }while(numeros.size()>=2);  
         return numeros.get(0);
     } 
     
-    private ArrayList<Double> operacaoDupla(ArrayList<Double> numeros, String sinal, int i){
+    @Override
+    protected ArrayList<Double> operacaoDupla(ArrayList<Double> numeros, String sinal, int i){
         double auxiliar;
         switch(sinal){
             case "+":
@@ -110,14 +108,10 @@ public class Calculadora
         return numeros;
     }
     
-    private ArrayList<Double> operacaoUnica(ArrayList<Double> numeros, String sinal, int i){
+    @Override
+    protected ArrayList<Double> operacaoUnica(ArrayList<Double> numeros, String sinal, int i){
         double auxiliar;
         switch(sinal){
-            case "e^":
-                auxiliar = Math.pow(Math.E, numeros.get(i));
-                numeros.remove(i);
-                numeros.add(i, auxiliar);
-                break;
             case "sqrt":
                 auxiliar = Math.sqrt(numeros.get(i));
                 numeros.remove(i);
@@ -152,7 +146,8 @@ public class Calculadora
         return numeros;
     }
     
-    private ArrayList<Double> operacao(ArrayList<Double> numeros, int maior){
+    @Override
+    protected ArrayList<Double> operacao(ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> prioridades, int maior){
         int indexUsado = 0;
         String sinal;
         boolean sucesso = false, operacaoUnica = false;
@@ -186,7 +181,8 @@ public class Calculadora
     return numeros;
     }
     
-    private int maiorIndice(ArrayList<Integer> prioridades){
+    @Override
+    protected int maiorIndice(ArrayList<Integer> prioridades){
        int maior = prioridades.get(0);
        
        for(Integer prioridade : prioridades){
@@ -197,11 +193,9 @@ public class Calculadora
        return maior;
     }
     
-    protected static final int prioridadeParenteses = 3;
-    protected static final int prioridadePotencia = 3;
-    protected static final int prioridadeMultiplicacao = 2;
-    protected static final int prioridadeSoma = 1;
-    protected static ArrayList<Integer> prioridades = new ArrayList<>();
-    protected static ArrayList<String> sinais;
+    public static final int PRIORIDADE_PARENTESES = 3;
+    public static final int PRIORIDADE_POTENCIA = 3;
+    public static final int PRIORIDADE_MULTIPLICACAO = 2;
+    public static final int PRIORIDADE_SOMA = 1;
     
 }

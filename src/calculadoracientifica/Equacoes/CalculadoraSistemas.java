@@ -1,10 +1,10 @@
 package calculadoracientifica.Equacoes;
 
-public class CalculadoraSistemas {
+public class CalculadoraSistemas{
     
     public CalculadoraSistemas(){}
     
-    public double[] escalonarMatriz(double[][] incognitas, double[] resultados){
+    public static double[] escalonarMatriz(double[][] incognitas, double[] resultados){
         int N  = resultados.length;
 
         for (int p = 0; p < N; p++){

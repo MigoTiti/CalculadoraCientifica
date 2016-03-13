@@ -14,6 +14,7 @@ public class CalculadoraIntegral extends Calculadora{
         @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
         ArrayList<Double> numerosIntegral = new ArrayList<>();
         ArrayList<Integer> posicoes = new ArrayList<>();
+        ArrayList<Integer> prioridades = new ArrayList<>();
         
         for(int i=0;i<numeros.size();i++){
             String numero = numeros.get(i);
@@ -44,16 +45,16 @@ public class CalculadoraIntegral extends Calculadora{
                 case "+":
                 case "-":
                     if(parenteses)
-                        prioridades.add(i, prioridadeSoma+contParenteses+prioridadeParenteses-1);
+                        prioridades.add(i, PRIORIDADE_SOMA+contParenteses+PRIORIDADE_PARENTESES-1);
                     else
-                        prioridades.add(i, prioridadeSoma);
+                        prioridades.add(i, PRIORIDADE_SOMA);
                     break;
                 case "*":
                 case "/":
                     if(parenteses)
-                        prioridades.add(i, prioridadeMultiplicacao+contParenteses+prioridadeParenteses-1);
+                        prioridades.add(i, PRIORIDADE_MULTIPLICACAO+contParenteses+PRIORIDADE_PARENTESES-1);
                     else
-                        prioridades.add(i, prioridadeMultiplicacao);
+                        prioridades.add(i, PRIORIDADE_MULTIPLICACAO);
                     break;
                 case "^":
                 case "sqrt":
@@ -63,9 +64,9 @@ public class CalculadoraIntegral extends Calculadora{
                 case "cos":
                 case "tg":
                     if(parenteses)
-                        prioridades.add(i, prioridadePotencia+contParenteses+prioridadeParenteses-1);
+                        prioridades.add(i, PRIORIDADE_POTENCIA+contParenteses+PRIORIDADE_PARENTESES-1);
                     else
-                        prioridades.add(i, prioridadePotencia);
+                        prioridades.add(i, PRIORIDADE_POTENCIA);
                     break;
                 case "(":
                     prioridades.add(i, 0);

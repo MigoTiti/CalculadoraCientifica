@@ -1,6 +1,7 @@
 package GUI;
 
 import calculadoracientifica.Graficos.CalculadoraGraficos;
+import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,15 +15,30 @@ import javax.swing.JTextField;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class Graficos extends javax.swing.JFrame {
+public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
 
     public Graficos() {
         initComponents();
-        this.vazio = "";
+        this.y = new ArrayList<>();
+        this.x = new ArrayList<>();
+        this.xProximo = false;
+        this.equacaoCompleta = false;
+        this.posicao = 0;
+        this.contadorParenteses = 0;
+        this.sinal = false;
+        this.parenteses = false;
+        this.equacao = new StringBuilder();
+        this.xPosicoes = new ArrayList<>();
+        this.operadoresAuxiliar = new ArrayList<>();
+        this.operadores = new ArrayList<>();
+        this.sinais = new ArrayList<>(); 
+        this.graficos = new CalculadoraGraficos();
     }
 
     @SuppressWarnings("unchecked")
@@ -191,56 +207,27 @@ public class Graficos extends javax.swing.JFrame {
         operadoresAuxiliar.clear();
         sinais.clear();
         equacao.setLength(0);
-        equacaoLer.setText(vazio);
+        equacaoLer.setText(VAZIO);
         xPosicoes.clear();
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
     private void limparTudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparTudoMouseClicked
-        operadoresAuxiliar.clear();
-        sinais.clear();
-        equacao.setLength(0);
-        equacaoLer.setText(vazio);
-        equacaoCompleta = false;
-        xPosicoes.clear();
-        comecoIntervalo.setText(vazio);
-        fimIntervalo.setText(vazio);
-        xVariando.setText(vazio);
-        x.clear();
-        y.clear();
-        criarGrafico();
-        posicao = 0;
+        limpar();
     }//GEN-LAST:event_limparTudoMouseClicked
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
-        dispose();
-        TelaInicial escolha = new TelaInicial();
-        escolha.setVisible(true);
+        voltar();
     }//GEN-LAST:event_voltarMouseClicked
 
     private void plotarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarMouseClicked
-        double limiteInferior = Double.parseDouble(comecoIntervalo.getText());
-        double limiteSuperior = Double.parseDouble(fimIntervalo.getText());
-        double delta = Double.parseDouble(xVariando.getText());
-        ArrayList<Integer> xPosicoes2;
-        ArrayList<Double> operadoresAuxiliar2;
-        ArrayList<String> sinais2;
-        for(double i = limiteInferior;i<=limiteSuperior;i+=delta){
-            xPosicoes2 = new ArrayList<>(xPosicoes);
-            operadoresAuxiliar2 = new ArrayList<>(operadoresAuxiliar);
-            sinais2 = new ArrayList<>(sinais);
-            x.add(i);
-            y.add(calculadora.interpretadorIntermediario(i, xPosicoes2, operadoresAuxiliar2, sinais2));
-        }
-        
-        criarGrafico();
-         
+        obterResposta();
     }//GEN-LAST:event_plotarMouseClicked
 
-    public void criarGrafico() {
-        XYDataset dataset;
-        dataset = criarPontos(x,y);
+    public void criarGrafico(){
+        XYDataset dados;
+        dados = criarPontos();
         
-        JFreeChart chart = ChartFactory.createXYLineChart(vazio, "x", "y", dataset);
+        JFreeChart chart = criarChart(dados);
         ChartPanel myChartPanel = new ChartPanel(chart, true);
          
         myChartPanel.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
@@ -257,10 +244,22 @@ public class Graficos extends javax.swing.JFrame {
         chart.setBackgroundPaint(Color.WHITE);
     }
     
-    private XYDataset criarPontos(ArrayList<Double> x, ArrayList<Double> y) {
+    private JFreeChart criarChart(final XYDataset dados){
+        JFreeChart chart = ChartFactory.createXYLineChart(VAZIO, "x", "y", dados);
+        chart.setBackgroundPaint(Color.white);
+        final XYPlot plot1 = chart.getXYPlot();
+        plot1.setBackgroundPaint(Color.lightGray);
+        plot1.setDomainGridlinePaint(Color.white);
+        plot1.setRangeGridlinePaint(Color.white);
+        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot1.getRenderer();
+        renderer.setBaseShapesVisible(true);
+        return chart;
+    }
+    
+    private XYDataset criarPontos() {
 
         int tamanho = x.size();
-        XYSeries s1 = new XYSeries(vazio);
+        XYSeries s1 = new XYSeries(VAZIO);
         for (int i=0;i<tamanho;i++){
             s1.add(x.get(i), y.get(i));
         }
@@ -271,9 +270,9 @@ public class Graficos extends javax.swing.JFrame {
         return dataset;
     }
     
-    private boolean digitarEquacao(){
-        JTextField equacaoDigitar2 = new JTextField(vazio);
-        JTextField equacaoLer2 = new JTextField(vazio);
+    public boolean digitarEquacao(){
+        JTextField equacaoDigitar2 = new JTextField(VAZIO);
+        JTextField equacaoLer2 = new JTextField(VAZIO);
         
         Action action = new AbstractAction()
         {
@@ -343,7 +342,7 @@ public class Graficos extends javax.swing.JFrame {
                     posicao++;
                 }
                 
-                equacaoDigitar2.setText(vazio);
+                equacaoDigitar2.setText(VAZIO);
                 equacaoLer2.setText(equacao.toString());
             }
         };
@@ -383,22 +382,65 @@ public class Graficos extends javax.swing.JFrame {
         }
     }
     
-    CalculadoraGraficos calculadora = new CalculadoraGraficos();
-    private ArrayList<Double> y = new ArrayList<>();
-    private ArrayList<Double> x = new ArrayList<>();
+    @Override
+    public void limpar() {
+        operadoresAuxiliar.clear();
+        sinais.clear();
+        equacao.setLength(0);
+        equacaoLer.setText(VAZIO);
+        equacaoCompleta = false;
+        xPosicoes.clear();
+        comecoIntervalo.setText(VAZIO);
+        fimIntervalo.setText(VAZIO);
+        xVariando.setText(VAZIO);
+        x.clear();
+        y.clear();
+        criarGrafico();
+        posicao = 0;
+    }
+
+    @Override
+    public void voltar() {
+        dispose();
+        TelaInicial escolha = new TelaInicial();
+        escolha.setVisible(true);
+    }
+
+    @Override
+    public void obterResposta() {
+        double limiteInferior = Double.parseDouble(comecoIntervalo.getText());
+        double limiteSuperior = Double.parseDouble(fimIntervalo.getText());
+        double delta = Double.parseDouble(xVariando.getText());
+        ArrayList<Integer> xPosicoes2;
+        ArrayList<Double> operadoresAuxiliar2;
+        ArrayList<String> sinais2;
+        for(double i = limiteInferior;i<=limiteSuperior;i+=delta){
+            xPosicoes2 = new ArrayList<>(xPosicoes);
+            operadoresAuxiliar2 = new ArrayList<>(operadoresAuxiliar);
+            sinais2 = new ArrayList<>(sinais);
+            x.add(i);
+            y.add(graficos.interpretadorIntermediario(i, xPosicoes2, operadoresAuxiliar2, sinais2));
+        }
+        
+        criarGrafico();
+    }
     
-    private final String vazio;
-    private boolean xProximo = false;
-    private boolean equacaoCompleta = false;
-    private int posicao = 0;
-    private int contadorParenteses = 0;
-    private boolean sinal = false;
-    private boolean parenteses = false;
-    private StringBuilder equacao = new StringBuilder();
-    private ArrayList<Integer> xPosicoes = new ArrayList<>();
-    private ArrayList<Double> operadoresAuxiliar = new ArrayList<>();
-    private ArrayList<String> operadores = new ArrayList<>();
-    private ArrayList<String> sinais = new ArrayList<>(); 
+    private ArrayList<Double> y;
+    private ArrayList<Double> x;
+    private boolean xProximo;
+    private boolean equacaoCompleta;
+    private int posicao;
+    private int contadorParenteses;
+    private boolean sinal;
+    private boolean parenteses;
+    private StringBuilder equacao;
+    private ArrayList<Integer> xPosicoes;
+    private ArrayList<Double> operadoresAuxiliar;
+    private ArrayList<String> operadores;
+    private ArrayList<String> sinais;
+    private final CalculadoraGraficos graficos;
+    
+    public static final String VAZIO = "";  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel areaGrafico;

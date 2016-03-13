@@ -1,14 +1,15 @@
 package calculadoracientifica.ajusteCurvas;
 
+import calculadoracientifica.Interfaces.MinimosQuadrados;
 import calculadoracientifica.Equacoes.CalculadoraSistemas;
 import java.util.ArrayList;
 
-public class CalculadoraAjusteQuadratico extends CalculadoraSistemas implements Ajustes{
+public class CalculadoraAjusteQuadratico extends CalculadoraSistemas implements MinimosQuadrados{
     
     public CalculadoraAjusteQuadratico(){}
 
     @Override
-    public double[] ajuste(ArrayList<Double> x, ArrayList<Double> y) {
+    public double[] MinimosQuadradosAjuste(ArrayList<Double> x, ArrayList<Double> y) {
         int n = x.size();
         double sX = 0, sY = 0, sX2 = 0, sX3 = 0, sX4 = 0, sX2Y = 0, sXY = 0;
         for(int i = 0;i<n;i++){
@@ -44,7 +45,5 @@ public class CalculadoraAjusteQuadratico extends CalculadoraSistemas implements 
         resultados = escalonarMatriz(incognitas,resultados);
         
         return resultados;
-    }
-    
-    
+    }   
 }

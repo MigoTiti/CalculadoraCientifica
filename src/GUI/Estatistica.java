@@ -1,11 +1,12 @@
 package GUI;
 
 import calculadoracientifica.Estatistica.CalculadoraEstatistica;
+import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class Estatistica extends javax.swing.JFrame {
+public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitivas{
 
     public Estatistica() {
         initComponents();
@@ -18,10 +19,7 @@ public class Estatistica extends javax.swing.JFrame {
         this.elementos.addColumn("Elemento");
         this.tabelaElementos.setModel(elementos);
         
-        this.estatistica = new CalculadoraEstatistica();
-        
         this.operadores = new ArrayList<>();
-        this.resultado = false;
         this.vazio = "";
         this.desvioCriado = false;
     }
@@ -268,9 +266,7 @@ public class Estatistica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
-        dispose();
-        TelaInicial escolha = new TelaInicial();
-        escolha.setVisible(true);
+        voltar();
     }//GEN-LAST:event_voltarMouseClicked
 
     private void adicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarMouseClicked
@@ -284,20 +280,58 @@ public class Estatistica extends javax.swing.JFrame {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
+        obterResposta();
+    }//GEN-LAST:event_igualMouseClicked
+
+    private void removerElementoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerElementoMouseClicked
+        int index = tabelaElementos.getSelectedRow();
+        operadores.remove(index);        
+        elementos.removeRow(index); 
+    }//GEN-LAST:event_removerElementoMouseClicked
+
+    private void limparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparMouseClicked
+        limpar();
+    }//GEN-LAST:event_limparMouseClicked
+    
+    @Override
+    public void limpar() {
+        media.setText(vazio);
+        mediana.setText(vazio);
+        moda.setText(vazio);
+        variancia.setText(vazio);
+        desvioPadrao.setText(vazio);
+        coeficienteVariacao.setText(vazio);
+        
+        int colunas = elementos.getRowCount();
+        for(int i=colunas-1;i>=0;i--)
+            elementos.removeRow(i);
+       
+        operadores.clear();
+    }
+
+    @Override
+    public void voltar() {
+        dispose();
+        TelaInicial escolha = new TelaInicial();
+        escolha.setVisible(true); 
+    }
+
+    @Override
+    public void obterResposta() {
         if(desvioCriado==false){
         elementos.addColumn("Desvio");
         desvioCriado = true;
         }
         
-        double mediaValor = estatistica.media(operadores);
+        double mediaValor = CalculadoraEstatistica.media(operadores);
         String mediaFormatada = formatador.format(mediaValor);
         media.setText(mediaFormatada);
         
-        double medianaValor = estatistica.mediana(operadores);
+        double medianaValor = CalculadoraEstatistica.mediana(operadores);
         String medianaFormatada = formatador.format(medianaValor);
         mediana.setText(medianaFormatada);
         
-        String modaValor = estatistica.moda(operadores);
+        String modaValor = CalculadoraEstatistica.moda(operadores);
         if("Não existe moda.".equals(modaValor))
             moda.setText(modaValor);
         else{
@@ -305,20 +339,20 @@ public class Estatistica extends javax.swing.JFrame {
             moda.setText(formatador.format(modaValorNumero));
         }
         
-        double varianciaValor = estatistica.variancia(operadores);
+        double varianciaValor = CalculadoraEstatistica.variancia(operadores);
         String varianciaFormatada = formatador.format(varianciaValor);
         variancia.setText(varianciaFormatada);
         
-        double desvioPadraoValor = estatistica.desvioPadrao(operadores);
+        double desvioPadraoValor = CalculadoraEstatistica.desvioPadrao(operadores);
         String desvioPadraoFormatado = formatador.format(desvioPadraoValor);
         desvioPadrao.setText(desvioPadraoFormatado);
         
-        double coeficienteVariacaoValor = estatistica.coeficienteVariacao(operadores);
+        double coeficienteVariacaoValor = CalculadoraEstatistica.coeficienteVariacao(operadores);
         String coeficienteVariacaoFormatado = formatador.format(coeficienteVariacaoValor);
         coeficienteVariacaoFormatado+="%";
         coeficienteVariacao.setText(coeficienteVariacaoFormatado);
         
-        ArrayList<Double> desvios = estatistica.desvios(operadores);
+        ArrayList<Double> desvios = CalculadoraEstatistica.desvios(operadores);
         int colunas = elementos.getRowCount();
         for(int i=colunas-1;i>=0;i--)
             elementos.removeRow(i);
@@ -332,38 +366,15 @@ public class Estatistica extends javax.swing.JFrame {
             elementos.addRow(new Object[]{elementoFormatado, desvioFormatado});
         }
         
-    }//GEN-LAST:event_igualMouseClicked
-
-    private void removerElementoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerElementoMouseClicked
-        int index = tabelaElementos.getSelectedRow();
-        operadores.remove(index);        
-        elementos.removeRow(index); 
-    }//GEN-LAST:event_removerElementoMouseClicked
-
-    private void limparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparMouseClicked
-        media.setText(vazio);
-        mediana.setText(vazio);
-        moda.setText(vazio);
-        variancia.setText(vazio);
-        desvioPadrao.setText(vazio);
-        coeficienteVariacao.setText(vazio);
-        
-        int colunas = elementos.getRowCount();
-        for(int i=colunas-1;i>=0;i--)
-            elementos.removeRow(i);
-       
-        operadores.clear();
-    }//GEN-LAST:event_limparMouseClicked
+    }
     
-    private final DecimalFormat formatador;
     
     private DefaultTableModel elementos;
     private boolean desvioCriado;
-    private boolean resultado;
-    private final String vazio;
-    private final CalculadoraEstatistica estatistica;
-    
     private ArrayList<Double> operadores;
+    
+    private final DecimalFormat formatador;
+    private final String vazio;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JTextField adicionarValor;

@@ -7,7 +7,7 @@ public class CalculadoraEstatistica {
     
     public CalculadoraEstatistica(){}
     
-    public double media(ArrayList<Double> elementos){
+    public static double media(ArrayList<Double> elementos){
         double soma = 0, media;
         int n = elementos.size();
         for(int i = 0;i<n;i++){
@@ -17,7 +17,7 @@ public class CalculadoraEstatistica {
         return media;
     }
     
-    public double mediana(ArrayList<Double> elementos){
+    public static double mediana(ArrayList<Double> elementos){
         double mediana;
         int n = elementos.size(), n1 = (n-1)/2, n2 = n1+1;        
         Collections.sort(elementos);
@@ -28,17 +28,7 @@ public class CalculadoraEstatistica {
         return mediana;
     }
  
-    private ArrayList<Double> eliminarRepeticao(ArrayList<Double> elementos){
-        ArrayList<Double> elementosUnicos = new ArrayList<>();
-        elementosUnicos.add(elementos.get(0));
-        for (Double auxiliar : elementos) {
-            if(!elementosUnicos.contains(auxiliar))
-                elementosUnicos.add(auxiliar);
-        }
-        return elementosUnicos;
-    }
-    
-    public String moda(ArrayList<Double> elementos){
+    public static String moda(ArrayList<Double> elementos){
       
         ArrayList<Double> elementosUnicos;
         elementosUnicos = eliminarRepeticao(elementos);
@@ -92,7 +82,7 @@ public class CalculadoraEstatistica {
             return (Double.toString(moda));
     }
     
-    public double variancia(ArrayList<Double> elementos){
+    public static double variancia(ArrayList<Double> elementos){
 
         double media = media(elementos);
         double somatoria = 0;
@@ -106,11 +96,11 @@ public class CalculadoraEstatistica {
         return variancia;
     }
     
-    public double desvioPadrao(ArrayList<Double> elementos){
+    public static double desvioPadrao(ArrayList<Double> elementos){
         return Math.sqrt(variancia(elementos));
     }
     
-    public ArrayList<Double> desvios(ArrayList<Double> elementos){
+    public static ArrayList<Double> desvios(ArrayList<Double> elementos){
         ArrayList<Double> desvios = new ArrayList<>();
         double media = media(elementos);
         for (Double elemento : elementos) {
@@ -120,7 +110,17 @@ public class CalculadoraEstatistica {
         return desvios;
     }
     
-    public double coeficienteVariacao(ArrayList<Double> elementos){
+    public static double coeficienteVariacao(ArrayList<Double> elementos){
         return 100*(desvioPadrao(elementos)/media(elementos));
+    }
+    
+    private static ArrayList<Double> eliminarRepeticao(ArrayList<Double> elementos){
+        ArrayList<Double> elementosUnicos = new ArrayList<>();
+        elementosUnicos.add(elementos.get(0));
+        for (Double auxiliar : elementos) {
+            if(!elementosUnicos.contains(auxiliar))
+                elementosUnicos.add(auxiliar);
+        }
+        return elementosUnicos;
     }
 }

@@ -1,14 +1,15 @@
 package calculadoracientifica.ajusteCurvas;
 
+import calculadoracientifica.Interfaces.MinimosQuadrados;
 import calculadoracientifica.Equacoes.CalculadoraSistemas;
 import java.util.ArrayList;
 
-public class CalculadoraAjusteLinear extends CalculadoraSistemas implements Ajustes{
+public class CalculadoraAjusteLinear extends CalculadoraSistemas implements MinimosQuadrados{
     
     public CalculadoraAjusteLinear(){}
     
     @Override
-    public double[] ajuste(ArrayList<Double> x, ArrayList<Double> y){
+    public double[] MinimosQuadradosAjuste(ArrayList<Double> x, ArrayList<Double> y){
         int n = x.size();
         double sX = 0, sY = 0, sX2 = 0, sXY = 0;
         for(int i = 0;i<n;i++){

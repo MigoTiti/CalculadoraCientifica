@@ -2,6 +2,7 @@ package GUI;
 
 import calculadoracientifica.Aritmetica.Calculadora;
 import calculadoracientifica.Aritmetica.CalculadoraIntegral;
+import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
@@ -13,14 +14,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Aritmetica extends javax.swing.JFrame {
+public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitivas{
 
     public Aritmetica() {
         initComponents();
         
-        //Geral
-        //Calculadora      
-        this.calculadora = new Calculadora();       
+        //Geral       
+        this.calculadora = new Calculadora();
         //StringBuilder      
         this.equacao = new StringBuilder();       
         //ArrayLists       
@@ -94,7 +94,6 @@ public class Aritmetica extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(491, 331));
 
         caixaResposta.setEditable(false);
-        caixaResposta.setFont(new java.awt.Font("Cambria Math", 0, 11)); // NOI18N
         caixaResposta.setFocusable(false);
 
         caixaEquacao.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -561,7 +560,8 @@ public class Aritmetica extends javax.swing.JFrame {
     private void eElevadoXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eElevadoXMouseClicked
         caixaEquacao.requestFocusInWindow();
         equacao.append("e^").append("(");
-        sinais.add("e^");
+        operadores.add(Math.E);
+        sinais.add("^");
         sinais.add("("); 
         caixaResposta.setText(equacao.toString());
         
@@ -610,7 +610,7 @@ public class Aritmetica extends javax.swing.JFrame {
     }//GEN-LAST:event_logXMouseClicked
 
     private void integralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_integralMouseClicked
-        boolean concluido = integralEquacao();
+        boolean concluido = digitarEquacao();
         if(concluido){
             equacao.append(resultado);
             operadores.add(resultado);
@@ -624,18 +624,7 @@ public class Aritmetica extends javax.swing.JFrame {
     }//GEN-LAST:event_integralMouseClicked
 
     private void limparEquacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparEquacaoMouseClicked
-        caixaEquacao.setText(vazio);
-        caixaResposta.setText(vazio);
-        equacao.setLength(0);
-        operadores.clear();
-        sinais.clear();
-        permitirSinal = false;
-        parentesesContador = 0;
-        parentesesInterno = false;
-        caixaEquacao.requestFocusInWindow();
-        if(igual.isEnabled())
-            igual.setEnabled(false);
-        resultado = 0;
+        limpar();
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
     private void respostaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_respostaMouseClicked
@@ -643,36 +632,14 @@ public class Aritmetica extends javax.swing.JFrame {
     }//GEN-LAST:event_respostaMouseClicked
 
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
-        if(igual.isEnabled()){
-        if(permitirSinal == false){
-            operador = Double.parseDouble(caixaEquacao.getText());
-            operadores.add(operador);
-            caixaEquacao.setText(vazio);
-            equacao.append(operador);
-        }else
-            caixaEquacao.setText(vazio); 
-        
-        resultado = calculadora.interpretador(operadores, sinais);
-        operadorFormatado = formatador.format(resultado);
-        caixaResposta.setText(operadorFormatado);
-        
-        equacao.setLength(0);
-        operadores.clear();
-        sinais.clear();
-        permitirSinal = false;
-        parentesesContador = 0;
-        parentesesInterno = false;
-        caixaEquacao.requestFocusInWindow();
-        }
+        obterResposta();
     }//GEN-LAST:event_igualMouseClicked
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
-        dispose();
-        TelaInicial escolha = new TelaInicial();
-        escolha.setVisible(true);
+        voltar();
     }//GEN-LAST:event_voltarMouseClicked
         
-    private boolean integralEquacao(){
+    public boolean digitarEquacao(){
         JTextField field1 = new JTextField(vazio);
         JTextField field2 = new JTextField(vazio);
         JTextField field3 = new JTextField(vazio);
@@ -769,6 +736,54 @@ public class Aritmetica extends javax.swing.JFrame {
         }
     }
     
+    @Override
+    public void limpar() {
+        caixaEquacao.setText(vazio);
+        caixaResposta.setText(vazio);
+        equacao.setLength(0);
+        operadores.clear();
+        sinais.clear();
+        permitirSinal = false;
+        parentesesContador = 0;
+        parentesesInterno = false;
+        caixaEquacao.requestFocusInWindow();
+        if(igual.isEnabled())
+            igual.setEnabled(false);
+        resultado = 0;
+    }
+
+    @Override
+    public void voltar() {
+        dispose();
+        TelaInicial escolha = new TelaInicial();
+        escolha.setVisible(true);
+    }
+
+    @Override
+    public void obterResposta() {
+        if(igual.isEnabled()){
+        if(permitirSinal == false){
+            operador = Double.parseDouble(caixaEquacao.getText());
+            operadores.add(operador);
+            caixaEquacao.setText(vazio);
+            equacao.append(operador);
+        }else
+            caixaEquacao.setText(vazio); 
+        
+        resultado = calculadora.interpretador(operadores, sinais);
+        operadorFormatado = formatador.format(resultado);
+        caixaResposta.setText(operadorFormatado);
+        
+        equacao.setLength(0);
+        operadores.clear();
+        sinais.clear();
+        permitirSinal = false;
+        parentesesContador = 0;
+        parentesesInterno = false;
+        caixaEquacao.requestFocusInWindow();
+        }
+    }
+    
     //Integral
     private int contadorParentesesIntegral;
     
@@ -800,9 +815,8 @@ public class Aritmetica extends javax.swing.JFrame {
     private StringBuilder equacao;
     
     //Composição
-    private final Calculadora calculadora;
     private final CalculadoraIntegral calculadoraIntegral;
-
+    private final Calculadora calculadora;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abreParentese;
     private javax.swing.JTextField caixaEquacao;

@@ -64,11 +64,11 @@ public class GraficosAjustados extends javax.swing.JFrame {
         XYSeries serieAjustada = criarPontos();
         XYSeries pontosOriginais = criarPontosOriginais();
         
-        XYSeriesCollection datasetModificado1 = new XYSeriesCollection();
-        datasetModificado1.addSeries(serieAjustada);
-        datasetModificado1.addSeries(pontosOriginais);
+        XYSeriesCollection dadosAjustes = new XYSeriesCollection();
+        dadosAjustes.addSeries(serieAjustada);
+        dadosAjustes.addSeries(pontosOriginais);
 
-        JFreeChart grafico = criarChart(datasetModificado1);
+        JFreeChart grafico = criarChart(dadosAjustes);
         ChartPanel painelGrafico = new ChartPanel(grafico);
 
         tracarGrafico = grafico.getXYPlot();

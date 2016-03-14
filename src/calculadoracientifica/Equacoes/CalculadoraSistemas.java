@@ -1,10 +1,13 @@
 package calculadoracientifica.Equacoes;
 
-public class CalculadoraSistemas{
+import calculadoracientifica.Interfaces.EscalonarMatriz;
+
+public class CalculadoraSistemas implements EscalonarMatriz{
     
     public CalculadoraSistemas(){}
     
-    public static double[] escalonarMatriz(double[][] incognitas, double[] resultados){
+    @Override
+    public double[] escalonarMatriz(double[][] incognitas, double[] resultados){
         int N  = resultados.length;
 
         for (int p = 0; p < N; p++){

@@ -13,6 +13,7 @@ public class Equacoes extends javax.swing.JFrame {
         this.formatador = new DecimalFormat();
         this.formatador.setDecimalSeparatorAlwaysShown(false);
         this.equacoes = new CalculadoraEquacoes();
+        this.sistemas = new CalculadoraSistemas();
     }
 
     @SuppressWarnings("unchecked")
@@ -637,7 +638,7 @@ public class Equacoes extends javax.swing.JFrame {
         resultadosParciais[1] = Double.parseDouble(resultado2STV.getText());
         resultadosParciais[2] = Double.parseDouble(resultado3STV.getText()); 
         
-        double[] resultados = CalculadoraSistemas.escalonarMatriz(coeficientes, resultadosParciais);
+        double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
         
         String xFormatado = formatador.format(resultados[0]);
         xFinalSTV.setText(xFormatado);
@@ -736,7 +737,7 @@ public class Equacoes extends javax.swing.JFrame {
         resultadosParciais[0] = Double.parseDouble(resultado1SDV.getText());
         resultadosParciais[1] = Double.parseDouble(resultado2SDV.getText());
         
-        double[] resultados = CalculadoraSistemas.escalonarMatriz(coeficientes, resultadosParciais);
+        double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
         
         String xFormatado = formatador.format(resultados[0]);
         xFinalSDV.setText(xFormatado);
@@ -758,6 +759,7 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_voltarESGMouseClicked
 
     private final CalculadoraEquacoes equacoes;
+    private final CalculadoraSistemas sistemas;
     private final DecimalFormat formatador;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField a;

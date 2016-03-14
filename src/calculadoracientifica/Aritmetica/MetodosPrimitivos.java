@@ -1,16 +1,52 @@
 package calculadoracientifica.Aritmetica;
 
-import java.util.ArrayList;
-
 abstract class MetodosPrimitivos {
     
-    abstract double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais);
+    public double soma(double a, double b){
+        return a+b;
+    }
+            
+    public double subtracao(double a, double b){
+        return a-b;
+    }
     
-    abstract ArrayList<Double> operacaoDupla(ArrayList<Double> numeros, String sinal, int i);
+    public double divisao(double a, double b){
+        return a/b;
+    }
     
-    abstract ArrayList<Double> operacaoUnica(ArrayList<Double> numeros, String sinal, int i);
+    public double multiplicacao(double a, double b){
+        return a*b;
+    }
     
-    abstract ArrayList<Double> operacao(ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> prioridades, int maior);
+    public double potencia(double base, double expoente){
+        return Math.pow(base, expoente);
+    }
     
-    abstract int maiorIndice(ArrayList<Integer> prioridades);
+    public double raizQuadrada(double a){
+        return Math.sqrt(a);
+    }
+    
+    public double resto(double dividendo, double divisor){
+        return dividendo % divisor;
+    }
+    
+    public double log10(double a){
+        return Math.log10(a);
+    }
+    
+    public double logNatural(double a){
+        return Math.log(a);
+    }
+    
+    public double seno(double a){
+        return Math.sin(a);
+    }
+    
+    public double cosseno(double a){
+        return Math.cos(a);
+    }
+    
+    public double tangente(double a){
+        return Math.tan(a);
+    }
 }

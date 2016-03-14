@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Calculadora extends MetodosPrimitivos{
     
-    public Calculadora(){}
+    public Calculadora(){
+        Calculadora.radianos = true;
+    }
     
-    @Override
     public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais)
     {
         int contParenteses = 0;
@@ -51,7 +52,6 @@ public class Calculadora extends MetodosPrimitivos{
                     prioridades.add(i, PRIORIDADE_MULTIPLICACAO+(prioridadesParenteses.get(i)*3));
                     break;
                 case "^":
-                case "e^":
                 case "sqrt":
                 case "log":
                 case "ln":
@@ -66,11 +66,13 @@ public class Calculadora extends MetodosPrimitivos{
         do{
             int maior = maiorIndice(prioridades);
             numeros = operacao(numeros,sinais,prioridades,maior);
-        }while(numeros.size()>=2);  
-        return numeros.get(0);
+        }while(numeros.size()>=2);
+        if(radianos)
+            return numeros.get(0);
+        else
+            return Math.toDegrees(numeros.get(0));
     } 
     
-    @Override
     protected ArrayList<Double> operacaoDupla(ArrayList<Double> numeros, String sinal, int i){
         double auxiliar;
         switch(sinal){
@@ -108,7 +110,6 @@ public class Calculadora extends MetodosPrimitivos{
         return numeros;
     }
     
-    @Override
     protected ArrayList<Double> operacaoUnica(ArrayList<Double> numeros, String sinal, int i){
         double auxiliar;
         switch(sinal){
@@ -146,7 +147,6 @@ public class Calculadora extends MetodosPrimitivos{
         return numeros;
     }
     
-    @Override
     protected ArrayList<Double> operacao(ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> prioridades, int maior){
         int indexUsado = 0;
         String sinal;
@@ -181,7 +181,6 @@ public class Calculadora extends MetodosPrimitivos{
     return numeros;
     }
     
-    @Override
     protected int maiorIndice(ArrayList<Integer> prioridades){
        int maior = prioridades.get(0);
        
@@ -193,6 +192,7 @@ public class Calculadora extends MetodosPrimitivos{
        return maior;
     }
     
+    private static boolean radianos;
     public static final int PRIORIDADE_PARENTESES = 3;
     public static final int PRIORIDADE_POTENCIA = 3;
     public static final int PRIORIDADE_MULTIPLICACAO = 2;

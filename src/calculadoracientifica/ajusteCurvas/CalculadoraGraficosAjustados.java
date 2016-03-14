@@ -117,7 +117,7 @@ public class CalculadoraGraficosAjustados extends CalculadoraGraficos implements
     }
     
     @Override
-    public void criarPontosAjustados(ArrayList<Double> x){
+    public void criarPontosAjustados(ArrayList<Double> x, ArrayList<Double> yOriginal){
         ArrayList<Double> y = new ArrayList<>();
         ArrayList<Integer> xPosicoes2;
         ArrayList<Double> operadoresAuxiliar2;
@@ -130,7 +130,7 @@ public class CalculadoraGraficosAjustados extends CalculadoraGraficos implements
             y.add(interpretadorIntermediario(x.get(i), xPosicoes2, operadoresAuxiliar2, sinais2));
         }
         
-        plotarGraficoAjustado = new GraficosAjustados(x,y);
+        plotarGraficoAjustado = new GraficosAjustados(x,y,yOriginal);
         plotarGraficoAjustado.criarGrafico();
         plotarGraficoAjustado.setVisible(true);
     }

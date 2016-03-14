@@ -4,5 +4,5 @@ import java.util.ArrayList;
 
 public interface AjustesGraficos {
     void interpretadorStrings();
-    void criarPontosAjustados(ArrayList<Double> x);
+    void criarPontosAjustados(ArrayList<Double> x, ArrayList<Double> yOriginal);
 }

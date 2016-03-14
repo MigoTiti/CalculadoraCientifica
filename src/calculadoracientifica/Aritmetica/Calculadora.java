@@ -8,6 +8,11 @@ public class Calculadora extends MetodosPrimitivos{
         Calculadora.radianos = true;
     }
     
+    public static void mudarStatus(String nome){
+        if("radianos".equals(nome)&&radianos==false)
+            radianos = true;
+    }
+    
     public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais)
     {
         int contParenteses = 0;

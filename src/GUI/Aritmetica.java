@@ -59,6 +59,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         caixaResposta = new javax.swing.JTextField();
         caixaEquacao = new javax.swing.JTextField();
         mais = new javax.swing.JButton();
@@ -86,6 +88,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         xCubo = new javax.swing.JButton();
         logX = new javax.swing.JButton();
         limparEquacao = new javax.swing.JButton();
+        graus = new javax.swing.JRadioButton();
+        radianos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -263,6 +267,17 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             }
         });
 
+        buttonGroup1.add(graus);
+        graus.setText("GRAUS");
+        graus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grausMouseClicked(evt);
+            }
+        });
+
+        buttonGroup1.add(radianos);
+        radianos.setText("RADIANOS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -270,6 +285,11 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(graus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radianos)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(caixaResposta)
                     .addComponent(caixaEquacao)
                     .addGroup(layout.createSequentialGroup()
@@ -333,7 +353,11 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 .addComponent(caixaEquacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(caixaResposta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(graus)
+                    .addComponent(radianos))
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mais)
                     .addComponent(menos)
@@ -638,6 +662,10 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
         voltar();
     }//GEN-LAST:event_voltarMouseClicked
+
+    private void grausMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grausMouseClicked
+        Calculadora.mudarStatus("radianos");
+    }//GEN-LAST:event_grausMouseClicked
         
     public boolean digitarEquacao(){
         JTextField field1 = new JTextField(vazio);
@@ -819,6 +847,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private final Calculadora calculadora;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abreParentese;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTextField caixaEquacao;
     private javax.swing.JTextField caixaResposta;
     private javax.swing.JButton cosseno;
@@ -827,6 +857,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private javax.swing.JButton eElevadoX;
     private javax.swing.JButton elevadoY;
     private javax.swing.JButton fechaParenteses;
+    private javax.swing.JRadioButton graus;
     private javax.swing.JButton igual;
     private javax.swing.JButton integral;
     private javax.swing.JButton limite;
@@ -839,6 +870,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private javax.swing.JButton multiplicacao;
     private javax.swing.JButton piBotao;
     private javax.swing.JButton quadrado;
+    private javax.swing.JRadioButton radianos;
     private javax.swing.JButton raiz;
     private javax.swing.JButton resposta;
     private javax.swing.JButton seno;

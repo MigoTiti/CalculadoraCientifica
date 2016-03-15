@@ -875,7 +875,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private String operadorFormatado;
     private final String vazio;
     
-    private DecimalFormat formatador;
+    private final DecimalFormat formatador;
     
     private boolean permitirSinal;
     private boolean parentesesInterno;

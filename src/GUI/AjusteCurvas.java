@@ -11,7 +11,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.Document;
 
 public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimitivas{
 
@@ -32,6 +36,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         this.removerPonto.setEnabled(false);
         this.ajustar.setEnabled(false);
         this.limparTudo.setEnabled(false);
+        this.adicionarPonto.setEnabled(false);
         this.xPonto.addActionListener(action);
         this.yPonto.addActionListener(action);
         this.x = new ArrayList<>();
@@ -50,8 +55,60 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         this.equacaoExp = new StringBuilder();
         this.equacaoQuadratica = new StringBuilder();
         this.equacaoPotencial = new StringBuilder();
+        
+        this.numero1 = xPonto.getDocument();
+        this.numero2 = yPonto.getDocument();
+        
+        this.numero1.addDocumentListener(new ControladorBotao(limparTudo));
+        this.numero2.addDocumentListener(new ControladorBotao(limparTudo));
     }
 
+    class ControladorBotao implements DocumentListener {
+        JButton limparTudo;
+
+        ControladorBotao(JButton button) {
+            this.limparTudo = button;
+            this.estadoPassadoVazio = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength() == 0){
+                AjusteCurvas.camposCheios--;
+                if(AjusteCurvas.camposCheios==0 && limparTudo.isEnabled())
+                    limparTudo.setEnabled(false);
+                if(AjusteCurvas.camposCheios<2 && adicionarPonto.isEnabled())
+                    adicionarPonto.setEnabled(false);
+                if(!estadoPassadoVazio)
+                    estadoPassadoVazio = true;
+            }else if(e.getDocument().getLength() > 0){
+                if(estadoPassadoVazio){
+                    AjusteCurvas.camposCheios++;
+                    estadoPassadoVazio = false;
+                }
+                if(AjusteCurvas.camposCheios>0 && !limparTudo.isEnabled())
+                    limparTudo.setEnabled(true);
+                if(AjusteCurvas.camposCheios==2 && !adicionarPonto.isEnabled())
+                    adicionarPonto.setEnabled(true);
+            }   
+        }
+        private boolean estadoPassadoVazio;
+    }
+    
     Action action = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
@@ -454,6 +511,8 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         plotarQuadratica.setEnabled(false);
         plotarPotencial.setEnabled(false);
         
+        xPonto.setText(vazio);
+        yPonto.setText(vazio);
         equacaoLinearExpressao.setText(vazio);
         equacaoExpExpressao.setText(vazio);
         equacaoQuadraticaExpressao.setText(vazio);
@@ -649,6 +708,11 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     private String equacaoExpStringExibir;
     private String equacaoPotencialStringExibir;
     private String equacaoQuadraticaStringExibir;
+    
+    private final Document numero1;
+    private final Document numero2;
+    
+    public static int camposCheios = 0;
     
     private final String vazio;
     private final DecimalFormat formatador;

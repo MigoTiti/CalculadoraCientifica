@@ -55,6 +55,52 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.numero3 = xVariando.getDocument();
         this.numero3.addDocumentListener(new ControladorBotao(limparTudo));
     }
+       
+    class ControladorBotao implements DocumentListener {
+        JButton limparTudoBotao;
+
+        ControladorBotao(JButton button) {
+            this.limparTudoBotao = button;
+            this.estadoPassadoVazio = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength() == 0){
+                Graficos.camposCheios--;
+                if(Graficos.camposCheios==0 && limparTudoBotao.isEnabled())
+                    limparTudoBotao.setEnabled(false);
+                if(Graficos.camposCheios<3 && plotar.isEnabled())
+                    plotar.setEnabled(false);
+                if(!estadoPassadoVazio)
+                    estadoPassadoVazio = true;
+            }else if(e.getDocument().getLength() > 0){
+                if(estadoPassadoVazio){
+                    Graficos.camposCheios++;
+                    estadoPassadoVazio = false;
+                }
+                if(Graficos.camposCheios>0 && !limparTudoBotao.isEnabled())
+                    limparTudoBotao.setEnabled(true);
+                if(Graficos.camposCheios==3 && !plotar.isEnabled() && !"".equals(equacaoLer.getText()))
+                    plotar.setEnabled(true);
+            }   
+        }
+        private boolean estadoPassadoVazio;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -499,50 +545,5 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private javax.swing.JButton voltar;
     private javax.swing.JTextField xVariando;
     // End of variables declaration//GEN-END:variables
-    
-    class ControladorBotao implements DocumentListener {
-        JButton limparTudoBotao;
 
-        ControladorBotao(JButton button) {
-            this.limparTudoBotao = button;
-            this.estadoPassadoVazio = true;
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            disableIfEmpty(e);
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            disableIfEmpty(e);
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            disableIfEmpty(e);
-        }
-
-        public void disableIfEmpty(DocumentEvent e) {
-            if(e.getDocument().getLength() == 0){
-                Graficos.camposCheios--;
-                if(Graficos.camposCheios==0 && limparTudoBotao.isEnabled())
-                    limparTudoBotao.setEnabled(false);
-                if(Graficos.camposCheios<3 && plotar.isEnabled())
-                    plotar.setEnabled(false);
-                if(!estadoPassadoVazio)
-                    estadoPassadoVazio = true;
-            }else if(e.getDocument().getLength() > 0){
-                if(estadoPassadoVazio){
-                    Graficos.camposCheios++;
-                    estadoPassadoVazio = false;
-                }
-                if(Graficos.camposCheios>0 && !limparTudoBotao.isEnabled())
-                    limparTudoBotao.setEnabled(true);
-                if(Graficos.camposCheios==3 && !plotar.isEnabled() && !"".equals(equacaoLer.getText()))
-                    plotar.setEnabled(true);
-            }   
-        }
-        private boolean estadoPassadoVazio;
-    }
 }

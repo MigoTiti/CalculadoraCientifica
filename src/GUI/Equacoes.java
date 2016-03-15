@@ -4,6 +4,10 @@ import calculadoracientifica.Equacoes.CalculadoraEquacoes;
 import calculadoracientifica.Equacoes.CalculadoraSistemas;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 public class Equacoes extends javax.swing.JFrame {
 
@@ -14,8 +18,209 @@ public class Equacoes extends javax.swing.JFrame {
         this.formatador.setDecimalSeparatorAlwaysShown(false);
         this.equacoes = new CalculadoraEquacoes();
         this.sistemas = new CalculadoraSistemas();
+        
+        this.resultadoESG.setEnabled(false);
+        this.resultadoSDV.setEnabled(false);
+        this.resultadoSTV.setEnabled(false);
+        
+        this.limparSTV.setEnabled(false);
+        this.limparESG.setEnabled(false);
+        this.limparSDV.setEnabled(false);
+        
+        this.numero1SDV = x1SDV.getDocument();
+        this.numero2SDV = x2SDV.getDocument();
+        this.numero3SDV = y1SDV.getDocument();
+        this.numero4SDV = y2SDV.getDocument();
+        this.numero5SDV = resultado1SDV.getDocument();
+        this.numero6SDV = resultado2SDV.getDocument();
+        
+        this.numero1SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
+        this.numero2SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
+        this.numero3SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
+        this.numero4SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
+        this.numero5SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
+        this.numero6SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
+        
+        this.numero1STV = x1STV.getDocument();
+        this.numero2STV = x2STV.getDocument();
+        this.numero3STV = x3STV.getDocument();
+        this.numero4STV = y1STV.getDocument();
+        this.numero5STV = y2STV.getDocument();
+        this.numero6STV = y3STV.getDocument();
+        this.numero7STV = z1STV.getDocument();
+        this.numero8STV = z2STV.getDocument();
+        this.numero9STV = z3STV.getDocument();
+        this.numero10STV = resultado1STV.getDocument();
+        this.numero11STV = resultado2STV.getDocument();
+        this.numero12STV = resultado3STV.getDocument();
+        
+        this.numero1STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero2STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero3STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero4STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero5STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero6STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero7STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero8STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero9STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero10STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero11STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        this.numero12STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
+        
+        this.numero1ESG = aTexto.getDocument();
+        this.numero2ESG = bTexto.getDocument();
+        this.numero3ESG = cTexto.getDocument();
+        
+        this.numero1ESG.addDocumentListener(new ControladorBotaoESG(limparESG,resultadoESG));
+        this.numero2ESG.addDocumentListener(new ControladorBotaoESG(limparESG,resultadoESG));
+        this.numero3ESG.addDocumentListener(new ControladorBotaoESG(limparESG,resultadoESG));
     }
 
+        
+    class ControladorBotaoSDV implements DocumentListener {
+        JButton limparBotao;
+        JButton resultadoBotao;
+
+        ControladorBotaoSDV(JButton button, JButton button2) {
+            this.limparBotao = button;
+            this.resultadoBotao = button2;
+            this.estadoPassadoVazio = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength() == 0){
+                Equacoes.camposCheiosSDV--;
+                if(Equacoes.camposCheiosSDV==0 && limparBotao.isEnabled())
+                    limparBotao.setEnabled(false);
+                if(Equacoes.camposCheiosSDV<6 && resultadoBotao.isEnabled())
+                    resultadoBotao.setEnabled(false);
+                if(!estadoPassadoVazio)
+                    estadoPassadoVazio = true;
+            }else if(e.getDocument().getLength() > 0){
+                if(estadoPassadoVazio){
+                    Equacoes.camposCheiosSDV++;
+                    estadoPassadoVazio = false;
+                }
+                if(Equacoes.camposCheiosSDV>0 && !limparBotao.isEnabled())
+                    limparBotao.setEnabled(true);
+                if(Equacoes.camposCheiosSDV==6 && !resultadoBotao.isEnabled())
+                    resultadoBotao.setEnabled(true);
+            }   
+        }
+        private boolean estadoPassadoVazio;
+    }
+    
+    class ControladorBotaoSTV implements DocumentListener {
+        JButton limparBotao;
+        JButton resultadoBotao;
+
+        ControladorBotaoSTV(JButton button, JButton button2) {
+            this.limparBotao = button;
+            this.resultadoBotao = button2;
+            this.estadoPassadoVazio = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength() == 0){
+                Equacoes.camposCheiosSTV--;
+                if(Equacoes.camposCheiosSTV==0 && limparBotao.isEnabled())
+                    limparBotao.setEnabled(false);
+                if(Equacoes.camposCheiosSTV<12 && resultadoBotao.isEnabled())
+                    resultadoBotao.setEnabled(false);
+                if(!estadoPassadoVazio)
+                    estadoPassadoVazio = true;
+            }else if(e.getDocument().getLength() > 0){
+                if(estadoPassadoVazio){
+                    Equacoes.camposCheiosSTV++;
+                    estadoPassadoVazio = false;
+                }
+                if(Equacoes.camposCheiosSTV>0 && !limparBotao.isEnabled())
+                    limparBotao.setEnabled(true);
+                if(Equacoes.camposCheiosSTV==12 && !resultadoBotao.isEnabled())
+                    resultadoBotao.setEnabled(true);
+            }   
+        }
+        private boolean estadoPassadoVazio;
+    }
+    
+    class ControladorBotaoESG implements DocumentListener {
+        JButton limparBotao;
+        JButton resultadoBotao;
+
+        ControladorBotaoESG(JButton button, JButton button2) {
+            this.limparBotao = button;
+            this.resultadoBotao = button2;
+            this.estadoPassadoVazio = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength() == 0){
+                Equacoes.camposCheiosESG--;
+                if(Equacoes.camposCheiosESG==0 && limparBotao.isEnabled())
+                    limparBotao.setEnabled(false);
+                if(Equacoes.camposCheiosESG<3 && resultadoBotao.isEnabled())
+                    resultadoBotao.setEnabled(false);
+                if(!estadoPassadoVazio)
+                    estadoPassadoVazio = true;
+            }else if(e.getDocument().getLength() > 0){
+                if(estadoPassadoVazio){
+                    Equacoes.camposCheiosESG++;
+                    estadoPassadoVazio = false;
+                }
+                if(Equacoes.camposCheiosESG>0 && !limparBotao.isEnabled())
+                    limparBotao.setEnabled(true);
+                if(Equacoes.camposCheiosESG==3 && !resultadoBotao.isEnabled())
+                    resultadoBotao.setEnabled(true);
+            }   
+        }
+        private boolean estadoPassadoVazio;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -623,128 +828,140 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_voltarSTVMouseClicked
 
     private void resultadoSTVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSTVMouseClicked
-        double[][] coeficientes = new double[3][3];
-        coeficientes[0][0] = Double.parseDouble(x1STV.getText());
-        coeficientes[1][0] = Double.parseDouble(x2STV.getText());
-        coeficientes[2][0] = Double.parseDouble(x3STV.getText());
-        coeficientes[0][1] = Double.parseDouble(y1STV.getText());
-        coeficientes[1][1] = Double.parseDouble(y2STV.getText());
-        coeficientes[2][1] = Double.parseDouble(y3STV.getText());
-        coeficientes[0][2] = Double.parseDouble(z1STV.getText());
-        coeficientes[1][2] = Double.parseDouble(z2STV.getText());
-        coeficientes[2][2] = Double.parseDouble(z3STV.getText());
-        
-        double[] resultadosParciais = new double[3];
-        resultadosParciais[0] = Double.parseDouble(resultado1STV.getText());
-        resultadosParciais[1] = Double.parseDouble(resultado2STV.getText());
-        resultadosParciais[2] = Double.parseDouble(resultado3STV.getText()); 
-        
-        double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
-        
-        String xFormatado = formatador.format(resultados[0]);
-        xFinalSTV.setText(xFormatado);
-        
-        String yFormatado = formatador.format(resultados[1]);
-        yFinalSTV.setText(yFormatado);
-        
-        String zFormatado = formatador.format(resultados[2]);
-        zFinalSTV.setText(zFormatado);
+        if(resultadoSTV.isEnabled()){
+            double[][] coeficientes = new double[3][3];
+            coeficientes[0][0] = Double.parseDouble(x1STV.getText());
+            coeficientes[1][0] = Double.parseDouble(x2STV.getText());
+            coeficientes[2][0] = Double.parseDouble(x3STV.getText());
+            coeficientes[0][1] = Double.parseDouble(y1STV.getText());
+            coeficientes[1][1] = Double.parseDouble(y2STV.getText());
+            coeficientes[2][1] = Double.parseDouble(y3STV.getText());
+            coeficientes[0][2] = Double.parseDouble(z1STV.getText());
+            coeficientes[1][2] = Double.parseDouble(z2STV.getText());
+            coeficientes[2][2] = Double.parseDouble(z3STV.getText());
+
+            double[] resultadosParciais = new double[3];
+            resultadosParciais[0] = Double.parseDouble(resultado1STV.getText());
+            resultadosParciais[1] = Double.parseDouble(resultado2STV.getText());
+            resultadosParciais[2] = Double.parseDouble(resultado3STV.getText()); 
+
+            double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
+
+            String xFormatado = formatador.format(resultados[0]);
+            xFinalSTV.setText(xFormatado);
+
+            String yFormatado = formatador.format(resultados[1]);
+            yFinalSTV.setText(yFormatado);
+
+            String zFormatado = formatador.format(resultados[2]);
+            zFinalSTV.setText(zFormatado);
+        }
     }//GEN-LAST:event_resultadoSTVMouseClicked
 
     private void limparSTVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparSTVMouseClicked
-       xFinalSTV.setText("");
-       yFinalSTV.setText("");
-       zFinalSTV.setText("");
-       x1STV.setText("");
-       x2STV.setText("");
-       x3STV.setText("");
-       y1STV.setText("");
-       y2STV.setText("");
-       y3STV.setText("");
-       z1STV.setText("");
-       z2STV.setText("");
-       z3STV.setText("");
-       resultado1STV.setText("");
-       resultado2STV.setText("");
-       resultado3STV.setText("");
+       if(limparSTV.isEnabled()){
+           xFinalSTV.setText("");
+           yFinalSTV.setText("");
+           zFinalSTV.setText("");
+           x1STV.setText("");
+           x2STV.setText("");
+           x3STV.setText("");
+           y1STV.setText("");
+           y2STV.setText("");
+           y3STV.setText("");
+           z1STV.setText("");
+           z2STV.setText("");
+           z3STV.setText("");
+           resultado1STV.setText("");
+           resultado2STV.setText("");
+           resultado3STV.setText("");
+       }
     }//GEN-LAST:event_limparSTVMouseClicked
 
     private void limparESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparESGMouseClicked
-        a.setText("");
-        b.setText("");
-        c.setText("");
-        delta.setText("");
-        raiz1.setText("");
-        raiz2.setText("");
-        aTexto.setText("");
-        bTexto.setText("");
-        cTexto.setText("");
-        aTexto.requestFocusInWindow();
+        if(limparESG.isEnabled()){
+            a.setText("");
+            b.setText("");
+            c.setText("");
+            delta.setText("");
+            raiz1.setText("");
+            raiz2.setText("");
+            aTexto.setText("");
+            bTexto.setText("");
+            cTexto.setText("");
+            aTexto.requestFocusInWindow();
+        }
     }//GEN-LAST:event_limparESGMouseClicked
 
     private void resultadoESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoESGMouseClicked
-        double aValor = Double.parseDouble(aTexto.getText()); 
-        double bValor =  Double.parseDouble(bTexto.getText());
-        double cValor = Double.parseDouble(cTexto.getText());
-        
-        String aFormatado = formatador.format(aValor);
-        String bFormatado = formatador.format(bValor);
-        String cFormatado = formatador.format(cValor);
-        String deltaFormatado = formatador.format(equacoes.delta(aValor, bValor, cValor));
-        
-        a.setText(aFormatado);
-        b.setText(bFormatado);
-        c.setText(cFormatado);
-        delta.setText(deltaFormatado);
-        
-        ArrayList<String> solucoes = equacoes.equacaoSegundoGrau(aValor, bValor, cValor);
-        
-        double raiz1Valor, raiz2Valor;
-        String raiz1Formatada, raiz2Formatada;
-        if(!"Não existe raiz real.".equals(solucoes.get(0)) && !"Apenas uma raiz real.".equals(solucoes.get(0))){
-            raiz1Valor = Double.parseDouble(solucoes.get(0));
-            raiz1Formatada = formatador.format(raiz1Valor);
-            raiz1.setText(raiz1Formatada);
-        }else
-            raiz1.setText(solucoes.get(0));
-        
-        if(!"Não existe raiz real.".equals(solucoes.get(1)) && !"Apenas uma raiz real.".equals(solucoes.get(1))){
-            raiz2Valor = Double.parseDouble(solucoes.get(1));
-            raiz2Formatada = formatador.format(raiz2Valor);
-            raiz2.setText(raiz2Formatada);
-        }else
-            raiz2.setText(solucoes.get(1));
+        if(resultadoESG.isEnabled()){
+            double aValor = Double.parseDouble(aTexto.getText()); 
+            double bValor =  Double.parseDouble(bTexto.getText());
+            double cValor = Double.parseDouble(cTexto.getText());
+
+            String aFormatado = formatador.format(aValor);
+            String bFormatado = formatador.format(bValor);
+            String cFormatado = formatador.format(cValor);
+            String deltaFormatado = formatador.format(equacoes.delta(aValor, bValor, cValor));
+
+            a.setText(aFormatado);
+            b.setText(bFormatado);
+            c.setText(cFormatado);
+            delta.setText(deltaFormatado);
+
+            ArrayList<String> solucoes = equacoes.equacaoSegundoGrau(aValor, bValor, cValor);
+
+            double raiz1Valor, raiz2Valor;
+            String raiz1Formatada, raiz2Formatada;
+            if(!"Não existe raiz real.".equals(solucoes.get(0)) && !"Apenas uma raiz real.".equals(solucoes.get(0))){
+                raiz1Valor = Double.parseDouble(solucoes.get(0));
+                raiz1Formatada = formatador.format(raiz1Valor);
+                raiz1.setText(raiz1Formatada);
+            }else
+                raiz1.setText(solucoes.get(0));
+
+            if(!"Não existe raiz real.".equals(solucoes.get(1)) && !"Apenas uma raiz real.".equals(solucoes.get(1))){
+                raiz2Valor = Double.parseDouble(solucoes.get(1));
+                raiz2Formatada = formatador.format(raiz2Valor);
+                raiz2.setText(raiz2Formatada);
+            }else
+                raiz2.setText(solucoes.get(1));
+        }
     }//GEN-LAST:event_resultadoESGMouseClicked
 
     private void limparSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparSDVMouseClicked
-       xFinalSDV.setText("");
-       yFinalSDV.setText("");
-       x1SDV.setText("");
-       x2SDV.setText("");
-       y1SDV.setText("");
-       y2SDV.setText("");
-       resultado1SDV.setText("");
-       resultado2SDV.setText("");
+       if(limparSDV.isEnabled()){
+           xFinalSDV.setText("");
+           yFinalSDV.setText("");
+           x1SDV.setText("");
+           x2SDV.setText("");
+           y1SDV.setText("");
+           y2SDV.setText("");
+           resultado1SDV.setText("");
+           resultado2SDV.setText("");
+       }
     }//GEN-LAST:event_limparSDVMouseClicked
 
     private void resultadoSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSDVMouseClicked
-        double[][] coeficientes = new double[3][3];
-        coeficientes[0][0] = Double.parseDouble(x1SDV.getText());
-        coeficientes[1][0] = Double.parseDouble(x2SDV.getText());
-        coeficientes[0][1] = Double.parseDouble(y1SDV.getText());
-        coeficientes[1][1] = Double.parseDouble(y2SDV.getText());
-        
-        double[] resultadosParciais = new double[2];
-        resultadosParciais[0] = Double.parseDouble(resultado1SDV.getText());
-        resultadosParciais[1] = Double.parseDouble(resultado2SDV.getText());
-        
-        double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
-        
-        String xFormatado = formatador.format(resultados[0]);
-        xFinalSDV.setText(xFormatado);
-        
-        String yFormatado = formatador.format(resultados[1]);
-        yFinalSDV.setText(yFormatado);
+        if(resultadoSDV.isEnabled()){
+            double[][] coeficientes = new double[3][3];
+            coeficientes[0][0] = Double.parseDouble(x1SDV.getText());
+            coeficientes[1][0] = Double.parseDouble(x2SDV.getText());
+            coeficientes[0][1] = Double.parseDouble(y1SDV.getText());
+            coeficientes[1][1] = Double.parseDouble(y2SDV.getText());
+
+            double[] resultadosParciais = new double[2];
+            resultadosParciais[0] = Double.parseDouble(resultado1SDV.getText());
+            resultadosParciais[1] = Double.parseDouble(resultado2SDV.getText());
+
+            double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
+
+            String xFormatado = formatador.format(resultados[0]);
+            xFinalSDV.setText(xFormatado);
+
+            String yFormatado = formatador.format(resultados[1]);
+            yFinalSDV.setText(yFormatado);
+        }
     }//GEN-LAST:event_resultadoSDVMouseClicked
 
     private void voltarSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarSDVMouseClicked
@@ -759,6 +976,34 @@ public class Equacoes extends javax.swing.JFrame {
         escolha.setVisible(true);
     }//GEN-LAST:event_voltarESGMouseClicked
 
+    private final Document numero1SDV;
+    private final Document numero2SDV;
+    private final Document numero3SDV;
+    private final Document numero4SDV;
+    private final Document numero5SDV;
+    private final Document numero6SDV;
+    
+    private final Document numero1STV;
+    private final Document numero2STV;
+    private final Document numero3STV;
+    private final Document numero4STV;
+    private final Document numero5STV;
+    private final Document numero6STV;
+    private final Document numero7STV;
+    private final Document numero8STV;
+    private final Document numero9STV;
+    private final Document numero10STV;
+    private final Document numero11STV;
+    private final Document numero12STV;
+   
+    private final Document numero1ESG;
+    private final Document numero2ESG;
+    private final Document numero3ESG;
+    
+    public static int camposCheiosSDV = 0;
+    public static int camposCheiosSTV = 0;
+    public static int camposCheiosESG = 0;
+    
     private final CalculadoraEquacoes equacoes;
     private final CalculadoraSistemas sistemas;
     private final DecimalFormat formatador;

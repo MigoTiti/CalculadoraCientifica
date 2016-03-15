@@ -162,13 +162,18 @@ public class Calculadora extends MetodosPrimitivos{
     protected ArrayList<Double> operacao(ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> prioridades, int maior){
         int indexUsado = 0;
         String sinal;
-        boolean sucesso = false, operacaoUnica = false;
+        boolean sucesso = false, operacaoUnica = false, op2 = false;
         
             for(int i=0;i<numeros.size();i++){
                 if(prioridades.get(i)==maior && sucesso==false){
                     sinal = sinais.get(i);
                     if("+".equals(sinal)||"%".equals(sinal)||"-".equals(sinal)||"*".equals(sinal)||"/".equals(sinal)||"^".equals(sinal)){
-                        operacaoDupla(numeros,sinal,i);
+                        if(sinais.size()>1 && i>0 && ("sqrt".equals(sinais.get(i-1))||"sen".equals(sinais.get(i-1))||"cos".equals(sinais.get(i-1))||"tg".equals(sinais.get(i-1))||"log".equals(sinais.get(i-1))||"ln".equals(sinais.get(i-1)))){
+                            operacaoDupla(numeros,sinal,i-1);
+                            op2 = true;
+                        }
+                        else
+                            operacaoDupla(numeros,sinal,i);
                         operacaoUnica = false;
                         sucesso = true;
                         indexUsado = i;
@@ -184,8 +189,12 @@ public class Calculadora extends MetodosPrimitivos{
             }
             
             if(sucesso){
-                if(numeros.size()>1 && operacaoUnica == false)
-                    numeros.remove(indexUsado+1);
+                if(numeros.size()>1 && operacaoUnica == false){
+                    if(op2)
+                        numeros.remove(indexUsado-1);
+                    else
+                        numeros.remove(indexUsado+1);
+                }
                 sinais.remove(indexUsado);
                 prioridades.remove(indexUsado);
             }

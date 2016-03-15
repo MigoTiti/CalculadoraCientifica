@@ -68,10 +68,12 @@ public class Calculadora extends MetodosPrimitivos{
             }  
         }
         posicoesRemoverSinais.clear();
+        int size = sinais.size();
         do{
             int maior = maiorIndice(prioridades);
             numeros = operacao(numeros,sinais,prioridades,maior);
-        }while((numeros.size()>=2) && (sinais.size()>0));
+            size--;
+        }while(size>=1);
 
         return numeros.get(0);
     } 

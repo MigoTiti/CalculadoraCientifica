@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -74,25 +75,35 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     Action action = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
-            double elemento;
-            
+            double elemento = 0;
             if(!"".equals(adicionarValor.getText())){
-                elemento = Double.parseDouble(adicionarValor.getText());
-                String elementoFormatado = formatador.format(elemento);
-                operadores.add(elemento);
-                elementos.addRow(new Object[]{elementoFormatado});        
-                adicionarValor.setText(VAZIO);
-                adicionarValor.requestFocusInWindow();
+                boolean sucesso;
+                try{
+                    elemento = Double.parseDouble(adicionarValor.getText());
+                    sucesso = true;
+                }
+                catch(NumberFormatException e2){
+                    JOptionPane.showMessageDialog(null, "Apenas números!");
+                    sucesso = false;
+                }
 
-                if(!igual.isEnabled())
-                    igual.setEnabled(true);
+                if(sucesso){
+                    String elementoFormatado = formatador.format(elemento);
+                    operadores.add(elemento);
+                    elementos.addRow(new Object[]{elementoFormatado});        
+                    adicionarValor.setText(VAZIO);
+                    adicionarValor.requestFocusInWindow();
 
-                if(!removerElemento.isEnabled())
-                    removerElemento.setEnabled(true);
+                    if(!igual.isEnabled())
+                        igual.setEnabled(true);
 
-                if(!limpar.isEnabled())
-                    limpar.setEnabled(true);
-        }
+                    if(!removerElemento.isEnabled())
+                        removerElemento.setEnabled(true);
+
+                    if(!limpar.isEnabled())
+                        limpar.setEnabled(true);
+                }
+            }
         }
     };
     
@@ -343,24 +354,34 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     }//GEN-LAST:event_voltarMouseClicked
 
     private void adicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarMouseClicked
-        double elemento;
-        
+        double elemento = 0;
         if(!"".equals(adicionarValor.getText())){
-            elemento = Double.parseDouble(adicionarValor.getText());
-            String elementoFormatado = formatador.format(elemento);
-            operadores.add(elemento);
-            elementos.addRow(new Object[]{elementoFormatado});        
-            adicionarValor.setText(VAZIO);
-            adicionarValor.requestFocusInWindow();
+            boolean sucesso;
+            try{
+                elemento = Double.parseDouble(adicionarValor.getText());
+                sucesso = true;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                sucesso = false;
+            }
             
-            if(!igual.isEnabled())
-                igual.setEnabled(true);
-            
-            if(!removerElemento.isEnabled())
-                removerElemento.setEnabled(true);
-            
-            if(!limpar.isEnabled())
-                limpar.setEnabled(true);
+            if(sucesso){
+                String elementoFormatado = formatador.format(elemento);
+                operadores.add(elemento);
+                elementos.addRow(new Object[]{elementoFormatado});        
+                adicionarValor.setText(VAZIO);
+                adicionarValor.requestFocusInWindow();
+
+                if(!igual.isEnabled())
+                    igual.setEnabled(true);
+
+                if(!removerElemento.isEnabled())
+                    removerElemento.setEnabled(true);
+
+                if(!limpar.isEnabled())
+                    limpar.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_adicionarMouseClicked
 

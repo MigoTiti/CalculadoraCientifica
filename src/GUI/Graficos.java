@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -487,23 +489,35 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
 
     @Override
     public void obterResposta() {
-        double limiteInferior = Double.parseDouble(comecoIntervalo.getText());
-        double limiteSuperior = Double.parseDouble(fimIntervalo.getText());
-        double delta = Double.parseDouble(xVariando.getText());
-        ArrayList<Integer> xPosicoes2;
-        ArrayList<Double> operadoresAuxiliar2;
-        ArrayList<String> sinais2;
-        for(double i = limiteInferior;i<=limiteSuperior;i+=delta){
-            xPosicoes2 = new ArrayList<>(xPosicoes);
-            operadoresAuxiliar2 = new ArrayList<>(operadoresAuxiliar);
-            sinais2 = new ArrayList<>(sinais);
-            x.add(i);
-            y.add(graficos.interpretadorIntermediario(i, xPosicoes2, operadoresAuxiliar2, sinais2));
+        boolean sucesso;
+        
+        try{
+            limiteInferior = Double.parseDouble(comecoIntervalo.getText());
+            limiteSuperior = Double.parseDouble(fimIntervalo.getText());
+            delta = Double.parseDouble(xVariando.getText());
+            sucesso = true;
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Apenas números!");
+            sucesso = false;
         }
         
-        criarGrafico();
-        y.clear();
-        x.clear();
+        if(sucesso){
+            ArrayList<Integer> xPosicoes2;
+            ArrayList<Double> operadoresAuxiliar2;
+            ArrayList<String> sinais2;
+            for(double i = limiteInferior;i<=limiteSuperior;i+=delta){
+                xPosicoes2 = new ArrayList<>(xPosicoes);
+                operadoresAuxiliar2 = new ArrayList<>(operadoresAuxiliar);
+                sinais2 = new ArrayList<>(sinais);
+                x.add(i);
+                y.add(graficos.interpretadorIntermediario(i, xPosicoes2, operadoresAuxiliar2, sinais2));
+            }
+
+            criarGrafico();
+            y.clear();
+            x.clear();
+        }
     }
     
     private ArrayList<Double> y;
@@ -518,12 +532,16 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private ArrayList<Double> operadoresAuxiliar;
     private ArrayList<String> operadores;
     private ArrayList<String> sinais;
-    
+   
+    private double limiteInferior;
+    private double limiteSuperior;
+    private double delta;
+        
     public static int camposCheios = 0;
     
-    private Document numero1;
-    private Document numero2;
-    private Document numero3;
+    private final Document numero1;
+    private final Document numero2;
+    private final Document numero3;
     
     private final CalculadoraGraficos graficos;
     

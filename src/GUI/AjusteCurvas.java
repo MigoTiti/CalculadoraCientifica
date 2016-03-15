@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -113,30 +114,44 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         @Override
         public void actionPerformed(ActionEvent e){
             if(!"".equals(xPonto.getText())&&!"".equals(yPonto.getText())){
-                double xValor = Double.parseDouble(xPonto.getText());
-                double yValor = Double.parseDouble(yPonto.getText());
-                x.add(xValor);
-                y.add(yValor);
+                boolean sucesso;
 
-                String xFormatado, yFormatado;
-                xFormatado = formatador.format(xValor);
-                yFormatado = formatador.format(yValor);
+                try{
+                    xValor = Double.parseDouble(xPonto.getText());
+                    yValor = Double.parseDouble(yPonto.getText());
+                    sucesso = true;
+                }
+                catch(NumberFormatException e2){
+                    JOptionPane.showMessageDialog(null, "Apenas números!");
+                    sucesso = false;
+                }
 
-                pontos.addRow(new Object[]{xFormatado,yFormatado});
+                if(sucesso){
+                    x.add(xValor);
+                    y.add(yValor);
 
-                xPonto.setText(vazio);
-                yPonto.setText(vazio);
+                    String xFormatado, yFormatado;
+                    xFormatado = formatador.format(xValor);
+                    yFormatado = formatador.format(yValor);
 
-                if(ajustar.isEnabled()==false && x.size()>1)
-                    ajustar.setEnabled(true);
-                if(removerPonto.isEnabled()==false)
-                    removerPonto.setEnabled(true);
-                if(limparTudo.isEnabled()==false)
-                    limparTudo.setEnabled(true);
+                    pontos.addRow(new Object[]{xFormatado,yFormatado});
 
+                    xPonto.setText(vazio);
+                    yPonto.setText(vazio);
+
+                    if(ajustar.isEnabled()==false && x.size()>1)
+                        ajustar.setEnabled(true);
+                    if(removerPonto.isEnabled()==false)
+                        removerPonto.setEnabled(true);
+                    if(limparTudo.isEnabled()==false)
+                        limparTudo.setEnabled(true);
+
+                    xPonto.requestFocusInWindow();
+                    contadorPontos++;
+                }
+
+            }else
                 xPonto.requestFocusInWindow();
-                contadorPontos++;
-            }
         }
     };
     
@@ -401,29 +416,42 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
 
     private void adicionarPontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarPontoMouseClicked
         if(!"".equals(xPonto.getText())&&!"".equals(yPonto.getText())){
-            double xValor = Double.parseDouble(xPonto.getText());
-            double yValor = Double.parseDouble(yPonto.getText());
-            x.add(xValor);
-            y.add(yValor);
+            boolean sucesso;
+        
+            try{
+                xValor = Double.parseDouble(xPonto.getText());
+                yValor = Double.parseDouble(yPonto.getText());
+                sucesso = true;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                sucesso = false;
+            }
+            
+            if(sucesso){
+                x.add(xValor);
+                y.add(yValor);
 
-            String xFormatado, yFormatado;
-            xFormatado = formatador.format(xValor);
-            yFormatado = formatador.format(yValor);
+                String xFormatado, yFormatado;
+                xFormatado = formatador.format(xValor);
+                yFormatado = formatador.format(yValor);
 
-            pontos.addRow(new Object[]{xFormatado,yFormatado});
+                pontos.addRow(new Object[]{xFormatado,yFormatado});
 
-            xPonto.setText(vazio);
-            yPonto.setText(vazio);
+                xPonto.setText(vazio);
+                yPonto.setText(vazio);
 
-            if(ajustar.isEnabled()==false && x.size()>1)
-                ajustar.setEnabled(true);
-            if(removerPonto.isEnabled()==false)
-                removerPonto.setEnabled(true);
-            if(limparTudo.isEnabled()==false)
-                limparTudo.setEnabled(true);
+                if(ajustar.isEnabled()==false && x.size()>1)
+                    ajustar.setEnabled(true);
+                if(removerPonto.isEnabled()==false)
+                    removerPonto.setEnabled(true);
+                if(limparTudo.isEnabled()==false)
+                    limparTudo.setEnabled(true);
 
-            xPonto.requestFocusInWindow();
-            contadorPontos++;
+                xPonto.requestFocusInWindow();
+                contadorPontos++;
+            }
+            
         }else
             xPonto.requestFocusInWindow();
     }//GEN-LAST:event_adicionarPontoMouseClicked
@@ -700,6 +728,9 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     private StringBuilder equacaoExp;
     private StringBuilder equacaoQuadratica;
     private StringBuilder equacaoPotencial;
+    
+    private double xValor;
+    private double yValor;
     
     private String equacaoLinearString;
     private String equacaoQuadraticaString;

@@ -5,6 +5,7 @@ import calculadoracientifica.Equacoes.CalculadoraSistemas;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
@@ -829,32 +830,41 @@ public class Equacoes extends javax.swing.JFrame {
 
     private void resultadoSTVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSTVMouseClicked
         if(resultadoSTV.isEnabled()){
-            double[][] coeficientes = new double[3][3];
-            coeficientes[0][0] = Double.parseDouble(x1STV.getText());
-            coeficientes[1][0] = Double.parseDouble(x2STV.getText());
-            coeficientes[2][0] = Double.parseDouble(x3STV.getText());
-            coeficientes[0][1] = Double.parseDouble(y1STV.getText());
-            coeficientes[1][1] = Double.parseDouble(y2STV.getText());
-            coeficientes[2][1] = Double.parseDouble(y3STV.getText());
-            coeficientes[0][2] = Double.parseDouble(z1STV.getText());
-            coeficientes[1][2] = Double.parseDouble(z2STV.getText());
-            coeficientes[2][2] = Double.parseDouble(z3STV.getText());
-
             double[] resultadosParciais = new double[3];
-            resultadosParciais[0] = Double.parseDouble(resultado1STV.getText());
-            resultadosParciais[1] = Double.parseDouble(resultado2STV.getText());
-            resultadosParciais[2] = Double.parseDouble(resultado3STV.getText()); 
+            double[][] coeficientes = new double[3][3];
+            boolean sucesso;
+            try{
+                coeficientes[0][0] = Double.parseDouble(x1STV.getText());
+                coeficientes[1][0] = Double.parseDouble(x2STV.getText());
+                coeficientes[2][0] = Double.parseDouble(x3STV.getText());
+                coeficientes[0][1] = Double.parseDouble(y1STV.getText());
+                coeficientes[1][1] = Double.parseDouble(y2STV.getText());
+                coeficientes[2][1] = Double.parseDouble(y3STV.getText());
+                coeficientes[0][2] = Double.parseDouble(z1STV.getText());
+                coeficientes[1][2] = Double.parseDouble(z2STV.getText());
+                coeficientes[2][2] = Double.parseDouble(z3STV.getText());
+                resultadosParciais[0] = Double.parseDouble(resultado1STV.getText());
+                resultadosParciais[1] = Double.parseDouble(resultado2STV.getText());
+                resultadosParciais[2] = Double.parseDouble(resultado3STV.getText()); 
+                sucesso = true;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                sucesso = false;
+            }
+ 
+            if(sucesso){
+                double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
 
-            double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
+                String xFormatado = formatador.format(resultados[0]);
+                xFinalSTV.setText(xFormatado);
 
-            String xFormatado = formatador.format(resultados[0]);
-            xFinalSTV.setText(xFormatado);
+                String yFormatado = formatador.format(resultados[1]);
+                yFinalSTV.setText(yFormatado);
 
-            String yFormatado = formatador.format(resultados[1]);
-            yFinalSTV.setText(yFormatado);
-
-            String zFormatado = formatador.format(resultados[2]);
-            zFinalSTV.setText(zFormatado);
+                String zFormatado = formatador.format(resultados[2]);
+                zFinalSTV.setText(zFormatado);
+            }
         }
     }//GEN-LAST:event_resultadoSTVMouseClicked
 
@@ -895,37 +905,50 @@ public class Equacoes extends javax.swing.JFrame {
 
     private void resultadoESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoESGMouseClicked
         if(resultadoESG.isEnabled()){
-            double aValor = Double.parseDouble(aTexto.getText()); 
-            double bValor =  Double.parseDouble(bTexto.getText());
-            double cValor = Double.parseDouble(cTexto.getText());
+            double aValor = 0;
+            double bValor = 0;
+            double cValor = 0;
+            boolean sucesso;
+            try{
+                aValor = Double.parseDouble(aTexto.getText()); 
+                bValor =  Double.parseDouble(bTexto.getText());
+                cValor = Double.parseDouble(cTexto.getText());
+                sucesso = true;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                sucesso = false;
+            }
+            
+            if(sucesso){
+                String aFormatado = formatador.format(aValor);
+                String bFormatado = formatador.format(bValor);
+                String cFormatado = formatador.format(cValor);
+                String deltaFormatado = formatador.format(equacoes.delta(aValor, bValor, cValor));
 
-            String aFormatado = formatador.format(aValor);
-            String bFormatado = formatador.format(bValor);
-            String cFormatado = formatador.format(cValor);
-            String deltaFormatado = formatador.format(equacoes.delta(aValor, bValor, cValor));
+                a.setText(aFormatado);
+                b.setText(bFormatado);
+                c.setText(cFormatado);
+                delta.setText(deltaFormatado);
 
-            a.setText(aFormatado);
-            b.setText(bFormatado);
-            c.setText(cFormatado);
-            delta.setText(deltaFormatado);
+                ArrayList<String> solucoes = equacoes.equacaoSegundoGrau(aValor, bValor, cValor);
 
-            ArrayList<String> solucoes = equacoes.equacaoSegundoGrau(aValor, bValor, cValor);
+                double raiz1Valor, raiz2Valor;
+                String raiz1Formatada, raiz2Formatada;
+                if(!"Não existe raiz real.".equals(solucoes.get(0)) && !"Apenas uma raiz real.".equals(solucoes.get(0))){
+                    raiz1Valor = Double.parseDouble(solucoes.get(0));
+                    raiz1Formatada = formatador.format(raiz1Valor);
+                    raiz1.setText(raiz1Formatada);
+                }else
+                    raiz1.setText(solucoes.get(0));
 
-            double raiz1Valor, raiz2Valor;
-            String raiz1Formatada, raiz2Formatada;
-            if(!"Não existe raiz real.".equals(solucoes.get(0)) && !"Apenas uma raiz real.".equals(solucoes.get(0))){
-                raiz1Valor = Double.parseDouble(solucoes.get(0));
-                raiz1Formatada = formatador.format(raiz1Valor);
-                raiz1.setText(raiz1Formatada);
-            }else
-                raiz1.setText(solucoes.get(0));
-
-            if(!"Não existe raiz real.".equals(solucoes.get(1)) && !"Apenas uma raiz real.".equals(solucoes.get(1))){
-                raiz2Valor = Double.parseDouble(solucoes.get(1));
-                raiz2Formatada = formatador.format(raiz2Valor);
-                raiz2.setText(raiz2Formatada);
-            }else
-                raiz2.setText(solucoes.get(1));
+                if(!"Não existe raiz real.".equals(solucoes.get(1)) && !"Apenas uma raiz real.".equals(solucoes.get(1))){
+                    raiz2Valor = Double.parseDouble(solucoes.get(1));
+                    raiz2Formatada = formatador.format(raiz2Valor);
+                    raiz2.setText(raiz2Formatada);
+                }else
+                    raiz2.setText(solucoes.get(1));
+            }
         }
     }//GEN-LAST:event_resultadoESGMouseClicked
 
@@ -945,22 +968,31 @@ public class Equacoes extends javax.swing.JFrame {
     private void resultadoSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSDVMouseClicked
         if(resultadoSDV.isEnabled()){
             double[][] coeficientes = new double[3][3];
-            coeficientes[0][0] = Double.parseDouble(x1SDV.getText());
-            coeficientes[1][0] = Double.parseDouble(x2SDV.getText());
-            coeficientes[0][1] = Double.parseDouble(y1SDV.getText());
-            coeficientes[1][1] = Double.parseDouble(y2SDV.getText());
-
             double[] resultadosParciais = new double[2];
-            resultadosParciais[0] = Double.parseDouble(resultado1SDV.getText());
-            resultadosParciais[1] = Double.parseDouble(resultado2SDV.getText());
+            boolean sucesso;
+            try{
+                coeficientes[0][0] = Double.parseDouble(x1SDV.getText());
+                coeficientes[1][0] = Double.parseDouble(x2SDV.getText());
+                coeficientes[0][1] = Double.parseDouble(y1SDV.getText());
+                coeficientes[1][1] = Double.parseDouble(y2SDV.getText());
+                resultadosParciais[0] = Double.parseDouble(resultado1SDV.getText());
+                resultadosParciais[1] = Double.parseDouble(resultado2SDV.getText());
+                sucesso = true;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                sucesso = false;
+            }
+            
+            if(sucesso){
+                double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
 
-            double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
+                String xFormatado = formatador.format(resultados[0]);
+                xFinalSDV.setText(xFormatado);
 
-            String xFormatado = formatador.format(resultados[0]);
-            xFinalSDV.setText(xFormatado);
-
-            String yFormatado = formatador.format(resultados[1]);
-            yFinalSDV.setText(yFormatado);
+                String yFormatado = formatador.format(resultados[1]);
+                yFinalSDV.setText(yFormatado);
+            }
         }
     }//GEN-LAST:event_resultadoSDVMouseClicked
 

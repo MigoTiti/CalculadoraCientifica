@@ -409,30 +409,46 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }// </editor-fold>//GEN-END:initComponents
 
     private void eventoPrimitivo(String sinal){
-        caixaEquacao.requestFocusInWindow();          
+        caixaEquacao.requestFocusInWindow(); 
+        boolean sucesso = false;
         if(permitirSinal == false){
-            operador = Double.parseDouble(caixaEquacao.getText());
-            operadores.add(operador);
-            caixaEquacao.setText(vazio);
-            operadorFormatado = formatador.format(operador);
-            equacao.append(operadorFormatado).append(sinal);
-            sinais.add(sinal);
+            
+            try{
+                operador = Double.parseDouble(caixaEquacao.getText());
+                sucesso = true;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                sucesso = false;
+            }
+            
+            if(sucesso){
+                operador = Double.parseDouble(caixaEquacao.getText());
+                operadores.add(operador);
+                caixaEquacao.setText(vazio);
+                operadorFormatado = formatador.format(operador);
+                equacao.append(operadorFormatado).append(sinal);
+                sinais.add(sinal);
+            }
         }else if(permitirSinal){
             equacao.append(sinal);
             sinais.add(sinal);
             permitirSinal = false;
+            sucesso = true;
         }
         
-        if(fimOperacao){
+        if(fimOperacao&&sucesso){
             caixaResposta.setText(vazio);
             fimOperacao = false;
         }    
         
-        caixaResposta.setText(equacao.toString());
-        if(!igual.isEnabled())
-            igual.setEnabled(true);
-        if(!limparEquacao.isEnabled())
-            limparEquacao.setEnabled(true);
+        if(sucesso){
+            caixaResposta.setText(equacao.toString());
+            if(!igual.isEnabled())
+                igual.setEnabled(true);
+            if(!limparEquacao.isEnabled())
+                limparEquacao.setEnabled(true);
+        }
     }
     
     private void eventoTRL(String sinal, String sinalExibido){

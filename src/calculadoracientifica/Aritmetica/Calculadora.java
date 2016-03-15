@@ -71,7 +71,7 @@ public class Calculadora extends MetodosPrimitivos{
         do{
             int maior = maiorIndice(prioridades);
             numeros = operacao(numeros,sinais,prioridades,maior);
-        }while(numeros.size()>=2);
+        }while((numeros.size()>=2) && (sinais.size()>0));
 
         return numeros.get(0);
     } 
@@ -191,7 +191,7 @@ public class Calculadora extends MetodosPrimitivos{
             if(sucesso){
                 if(numeros.size()>1 && operacaoUnica == false){
                     if(op2)
-                        numeros.remove(indexUsado-1);
+                        numeros.remove(indexUsado);
                     else
                         numeros.remove(indexUsado+1);
                 }

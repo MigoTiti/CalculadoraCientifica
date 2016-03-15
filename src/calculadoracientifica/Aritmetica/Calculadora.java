@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Calculadora extends MetodosPrimitivos{
     
-    public Calculadora(){
-        Calculadora.radianos = true;
-    }
+    public Calculadora(){}
     
     public static void mudarStatus(String nome){
         if("radianos".equals(nome)&&radianos==false)
             radianos = true;
+        else if("graus".equals(nome)&&radianos)
+            radianos = false;
     }
     
     public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais)
@@ -72,42 +72,40 @@ public class Calculadora extends MetodosPrimitivos{
             int maior = maiorIndice(prioridades);
             numeros = operacao(numeros,sinais,prioridades,maior);
         }while(numeros.size()>=2);
-        if(radianos)
-            return numeros.get(0);
-        else
-            return Math.toDegrees(numeros.get(0));
+
+        return numeros.get(0);
     } 
     
     protected ArrayList<Double> operacaoDupla(ArrayList<Double> numeros, String sinal, int i){
         double auxiliar;
         switch(sinal){
             case "+":
-                auxiliar = numeros.get(i)+numeros.get(i+1);
+                auxiliar = soma(numeros.get(i),numeros.get(i+1));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "-":
-                auxiliar = numeros.get(i)-numeros.get(i+1);
+                auxiliar = subtracao(numeros.get(i),numeros.get(i+1));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "*":
-                auxiliar = numeros.get(i)*numeros.get(i+1);
+                auxiliar = multiplicacao(numeros.get(i),numeros.get(i+1));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "/":
-                auxiliar = numeros.get(i)/numeros.get(i+1);
+                auxiliar = divisao(numeros.get(i),numeros.get(i+1));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "^":
-                auxiliar = Math.pow(numeros.get(i), numeros.get(i+1));
+                auxiliar = potencia(numeros.get(i),numeros.get(i+1));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "%":
-                auxiliar = numeros.get(i)%numeros.get(i+1);
+                auxiliar = resto(numeros.get(i),numeros.get(i+1));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
@@ -119,32 +117,41 @@ public class Calculadora extends MetodosPrimitivos{
         double auxiliar;
         switch(sinal){
             case "sqrt":
-                auxiliar = Math.sqrt(numeros.get(i));
+                auxiliar = raizQuadrada(numeros.get(i));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "log":
-                auxiliar = Math.log10(numeros.get(i));
+                auxiliar = log10(numeros.get(i));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "ln":
-                auxiliar = Math.log(numeros.get(i));
+                auxiliar = logNatural(numeros.get(i));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "sen":
-                auxiliar = Math.sin(numeros.get(i));
+                if(radianos)
+                    auxiliar = seno(numeros.get(i));
+                else
+                    auxiliar = seno(Math.toRadians(numeros.get(i)));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "cos":
-                auxiliar = Math.cos(numeros.get(i));
+                if(radianos)
+                    auxiliar = cosseno(numeros.get(i));
+                else
+                    auxiliar = cosseno(Math.toRadians(numeros.get(i)));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "tg":
-                auxiliar = Math.tan(numeros.get(i));
+                if(radianos)
+                    auxiliar = tangente(numeros.get(i));
+                else
+                    auxiliar = tangente(Math.toRadians(numeros.get(i)));
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
@@ -197,7 +204,7 @@ public class Calculadora extends MetodosPrimitivos{
        return maior;
     }
     
-    private static boolean radianos;
+    private static boolean radianos = true;
     public static final int PRIORIDADE_PARENTESES = 3;
     public static final int PRIORIDADE_POTENCIA = 3;
     public static final int PRIORIDADE_MULTIPLICACAO = 2;

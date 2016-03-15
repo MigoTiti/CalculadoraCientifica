@@ -8,10 +8,14 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -28,7 +32,6 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.y = new ArrayList<>();
         this.x = new ArrayList<>();
         this.xProximo = false;
-        this.equacaoCompleta = false;
         this.posicao = 0;
         this.contadorParenteses = 0;
         this.sinal = false;
@@ -39,6 +42,18 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.operadores = new ArrayList<>();
         this.sinais = new ArrayList<>(); 
         this.graficos = new CalculadoraGraficos();
+        this.limparEquacao.setEnabled(false);
+        this.limparTudo.setEnabled(false);
+        this.plotar.setEnabled(false);
+        
+        this.numero1 = comecoIntervalo.getDocument();
+        this.numero1.addDocumentListener(new ControladorBotao(limparTudo));
+        
+        this.numero2 = fimIntervalo.getDocument();
+        this.numero2.addDocumentListener(new ControladorBotao(limparTudo));
+        
+        this.numero3 = xVariando.getDocument();
+        this.numero3.addDocumentListener(new ControladorBotao(limparTudo));
     }
 
     @SuppressWarnings("unchecked")
@@ -61,6 +76,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         voltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gráficos");
         setResizable(false);
 
         equacaoLer.setEditable(false);
@@ -192,27 +208,32 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     }// </editor-fold>//GEN-END:initComponents
 
     private void equacaoDigitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equacaoDigitarMouseClicked
-        if(equacaoCompleta==false){
+        if(equacaoDigitar.isEnabled()){ 
             boolean sucesso = digitarEquacao();
             if(sucesso){
+                equacaoDigitar.setEnabled(false);
                 equacaoLer.setText(equacao.toString());
             }
         }
-        else{
-
-        }   
     }//GEN-LAST:event_equacaoDigitarMouseClicked
 
     private void limparEquacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparEquacaoMouseClicked
-        operadoresAuxiliar.clear();
-        sinais.clear();
-        equacao.setLength(0);
-        equacaoLer.setText(VAZIO);
-        xPosicoes.clear();
+        if(limparEquacao.isEnabled()){
+            operadoresAuxiliar.clear();
+            sinais.clear();
+            equacao.setLength(0);
+            equacaoLer.setText(VAZIO);
+            xPosicoes.clear();
+            posicao = 0;
+            equacaoDigitar.setEnabled(true);
+            if(plotar.isEnabled())
+                plotar.setEnabled(false);
+        }
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
     private void limparTudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparTudoMouseClicked
-        limpar();
+        if(limparTudo.isEnabled())
+            limpar();
     }//GEN-LAST:event_limparTudoMouseClicked
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
@@ -220,28 +241,30 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     }//GEN-LAST:event_voltarMouseClicked
 
     private void plotarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarMouseClicked
-        obterResposta();
+        if(plotar.isEnabled()&&camposCheios==3)
+            obterResposta();
     }//GEN-LAST:event_plotarMouseClicked
 
     public void criarGrafico(){
         XYDataset dados;
         dados = criarPontos();
         
-        JFreeChart chart = criarChart(dados);
-        ChartPanel myChartPanel = new ChartPanel(chart, true);
+        JFreeChart grafico = criarChart(dados);
+        ChartPanel telaGrafico = new ChartPanel(grafico, true);
          
-        myChartPanel.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
-        myChartPanel.setVisible(true);
+        telaGrafico.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
+        telaGrafico.setVisible(true);
         
-        myChartPanel.setMouseZoomable(true);
+        telaGrafico.setMouseZoomable(true);
+        telaGrafico.setMouseWheelEnabled(true);
         
-        myChartPanel.getChart().removeLegend();
+        telaGrafico.getChart().removeLegend();
         
         areaGrafico.removeAll();
-        areaGrafico.add(myChartPanel);
+        areaGrafico.add(telaGrafico);
         areaGrafico.revalidate();
         areaGrafico.repaint();
-        chart.setBackgroundPaint(Color.WHITE);
+        grafico.setBackgroundPaint(Color.WHITE);
     }
     
     private JFreeChart criarChart(final XYDataset dados){
@@ -251,6 +274,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         plot1.setBackgroundPaint(Color.lightGray);
         plot1.setDomainGridlinePaint(Color.white);
         plot1.setRangeGridlinePaint(Color.white);
+        plot1.setRangePannable(true);
+        plot1.setDomainPannable(true);
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot1.getRenderer();
         renderer.setBaseShapesVisible(true);
         return chart;
@@ -331,7 +356,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                     if(sinal)
                         sinal = false;
                     sucesso = true;
-                }else if("x".equals(atual)&&sinal&&xProximo==false){
+                }else if(("x".equals(atual)&&sinal&&xProximo==false) || ("x".equals(atual)&&"".equals(equacaoLer2.getText()))){
                     xProximo = true;
                     xPosicoes.add(posicao);
                     sucesso = true;
@@ -350,12 +375,13 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         equacaoDigitar2.addActionListener(action);
                 
         JPanel equacaoPainel = new JPanel(new GridLayout(0, 1));
+        
         equacaoPainel.add(new JLabel("Função: "));
         equacaoPainel.add(equacaoDigitar2);
-        
         equacaoPainel.add(equacaoLer2);
-        equacaoLer2.setEditable(false);
         
+        equacaoLer2.setEditable(false);
+
         int result = JOptionPane.showConfirmDialog(null, equacaoPainel, "Equação", JOptionPane.OK_CANCEL_OPTION);
         
         if (result == JOptionPane.OK_OPTION) {
@@ -366,8 +392,12 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             parenteses = false;
             sinal = false;
             contadorParenteses = 0;
-            equacaoCompleta = true;
             xProximo = false;
+            if(camposCheios==3)
+                plotar.setEnabled(true);
+            limparEquacao.setEnabled(true);
+            if(!limparTudo.isEnabled())
+                limparTudo.setEnabled(true);
             return true;
         } else {
             operadores.clear();
@@ -388,7 +418,6 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         sinais.clear();
         equacao.setLength(0);
         equacaoLer.setText(VAZIO);
-        equacaoCompleta = false;
         xPosicoes.clear();
         comecoIntervalo.setText(VAZIO);
         fimIntervalo.setText(VAZIO);
@@ -397,6 +426,10 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         y.clear();
         criarGrafico();
         posicao = 0;
+        plotar.setEnabled(false);
+        limparEquacao.setEnabled(false);
+        limparTudo.setEnabled(false);
+        equacaoDigitar.setEnabled(true);
     }
 
     @Override
@@ -423,12 +456,13 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         }
         
         criarGrafico();
+        y.clear();
+        x.clear();
     }
     
     private ArrayList<Double> y;
     private ArrayList<Double> x;
     private boolean xProximo;
-    private boolean equacaoCompleta;
     private int posicao;
     private int contadorParenteses;
     private boolean sinal;
@@ -438,6 +472,13 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private ArrayList<Double> operadoresAuxiliar;
     private ArrayList<String> operadores;
     private ArrayList<String> sinais;
+    
+    public static int camposCheios = 0;
+    
+    private Document numero1;
+    private Document numero2;
+    private Document numero3;
+    
     private final CalculadoraGraficos graficos;
     
     public static final String VAZIO = "";  
@@ -458,4 +499,50 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private javax.swing.JButton voltar;
     private javax.swing.JTextField xVariando;
     // End of variables declaration//GEN-END:variables
+    
+    class ControladorBotao implements DocumentListener {
+        JButton limparTudoBotao;
+
+        ControladorBotao(JButton button) {
+            this.limparTudoBotao = button;
+            this.estadoPassadoVazio = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength() == 0){
+                Graficos.camposCheios--;
+                if(Graficos.camposCheios==0 && limparTudoBotao.isEnabled())
+                    limparTudoBotao.setEnabled(false);
+                if(Graficos.camposCheios<3 && plotar.isEnabled())
+                    plotar.setEnabled(false);
+                if(!estadoPassadoVazio)
+                    estadoPassadoVazio = true;
+            }else if(e.getDocument().getLength() > 0){
+                if(estadoPassadoVazio){
+                    Graficos.camposCheios++;
+                    estadoPassadoVazio = false;
+                }
+                if(Graficos.camposCheios>0 && !limparTudoBotao.isEnabled())
+                    limparTudoBotao.setEnabled(true);
+                if(Graficos.camposCheios==3 && !plotar.isEnabled() && !"".equals(equacaoLer.getText()))
+                    plotar.setEnabled(true);
+            }   
+        }
+        private boolean estadoPassadoVazio;
+    }
 }

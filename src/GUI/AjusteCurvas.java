@@ -6,8 +6,11 @@ import calculadoracientifica.ajusteCurvas.CalculadoraAjusteLinear;
 import calculadoracientifica.ajusteCurvas.CalculadoraAjustePotencial;
 import calculadoracientifica.ajusteCurvas.CalculadoraAjusteQuadratico;
 import calculadoracientifica.ajusteCurvas.CalculadoraGraficosAjustados;
+import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.table.DefaultTableModel;
 
 public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimitivas{
@@ -29,6 +32,8 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         this.removerPonto.setEnabled(false);
         this.ajustar.setEnabled(false);
         this.limparTudo.setEnabled(false);
+        this.xPonto.addActionListener(action);
+        this.yPonto.addActionListener(action);
         this.x = new ArrayList<>();
         this.y = new ArrayList<>();
         
@@ -47,6 +52,37 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         this.equacaoPotencial = new StringBuilder();
     }
 
+    Action action = new AbstractAction(){
+        @Override
+        public void actionPerformed(ActionEvent e){
+            if(!"".equals(xPonto.getText())&&!"".equals(yPonto.getText())){
+                double xValor = Double.parseDouble(xPonto.getText());
+                double yValor = Double.parseDouble(yPonto.getText());
+                x.add(xValor);
+                y.add(yValor);
+
+                String xFormatado, yFormatado;
+                xFormatado = formatador.format(xValor);
+                yFormatado = formatador.format(yValor);
+
+                pontos.addRow(new Object[]{xFormatado,yFormatado});
+
+                xPonto.setText(vazio);
+                yPonto.setText(vazio);
+
+                if(ajustar.isEnabled()==false && x.size()>1)
+                    ajustar.setEnabled(true);
+                if(removerPonto.isEnabled()==false)
+                    removerPonto.setEnabled(true);
+                if(limparTudo.isEnabled()==false)
+                    limparTudo.setEnabled(true);
+
+                xPonto.requestFocusInWindow();
+                contadorPontos++;
+            }
+        }
+    };
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -94,6 +130,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         jButton6.setText("jButton6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ajuste de curvas");
         setResizable(false);
 
         tabelaPontos.setModel(new javax.swing.table.DefaultTableModel(
@@ -218,28 +255,27 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
                             .addComponent(plotarPotencial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(xPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(yPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(58, 58, 58)
-                                .addComponent(jLabel3)
-                                .addGap(28, 28, 28))
-                            .addComponent(adicionarPonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(equacaoLinearExpressao, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(equacaoQuadraticaExpressao)
-                            .addComponent(equacaoExpExpressao)
-                            .addComponent(plotarLinear, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(plotarQuadratica, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(plotarExp, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(equacaoPotencialExpressao, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(xPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(yPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(58, 58, 58)
+                            .addComponent(jLabel3)
+                            .addGap(28, 28, 28))
+                        .addComponent(adicionarPonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(equacaoLinearExpressao, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(equacaoQuadraticaExpressao)
+                        .addComponent(equacaoExpExpressao)
+                        .addComponent(plotarLinear, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(plotarQuadratica, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(plotarExp, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(equacaoPotencialExpressao, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(limparTudo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ajustar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -307,29 +343,32 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     }//GEN-LAST:event_voltarMouseClicked
 
     private void adicionarPontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarPontoMouseClicked
-        double xValor = Double.parseDouble(xPonto.getText());
-        double yValor = Double.parseDouble(yPonto.getText());
-        x.add(xValor);
-        y.add(yValor);
-        
-        String xFormatado, yFormatado;
-        xFormatado = formatador.format(xValor);
-        yFormatado = formatador.format(yValor);
-        
-        pontos.addRow(new Object[]{xFormatado,yFormatado});
-        
-        xPonto.setText(vazio);
-        yPonto.setText(vazio);
-        
-        if(ajustar.isEnabled()==false)
-            ajustar.setEnabled(true);
-        if(removerPonto.isEnabled()==false)
-            removerPonto.setEnabled(true);
-        if(limparTudo.isEnabled()==false)
-            limparTudo.setEnabled(true);
-                
-        xPonto.requestFocusInWindow();
-        contadorPontos++;
+        if(!"".equals(xPonto.getText())&&!"".equals(yPonto.getText())){
+            double xValor = Double.parseDouble(xPonto.getText());
+            double yValor = Double.parseDouble(yPonto.getText());
+            x.add(xValor);
+            y.add(yValor);
+
+            String xFormatado, yFormatado;
+            xFormatado = formatador.format(xValor);
+            yFormatado = formatador.format(yValor);
+
+            pontos.addRow(new Object[]{xFormatado,yFormatado});
+
+            xPonto.setText(vazio);
+            yPonto.setText(vazio);
+
+            if(ajustar.isEnabled()==false && x.size()>1)
+                ajustar.setEnabled(true);
+            if(removerPonto.isEnabled()==false)
+                removerPonto.setEnabled(true);
+            if(limparTudo.isEnabled()==false)
+                limparTudo.setEnabled(true);
+
+            xPonto.requestFocusInWindow();
+            contadorPontos++;
+        }else
+            xPonto.requestFocusInWindow();
     }//GEN-LAST:event_adicionarPontoMouseClicked
 
     private void removerPontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerPontoMouseClicked
@@ -338,9 +377,16 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         y.remove(index);
         pontos.removeRow(index);
         contadorPontos--;
-        if(contadorPontos==0){
-            ajustar.setEnabled(false);
+        
+        if(contadorPontos==0)
             removerPonto.setEnabled(false);
+        
+        if(contadorPontos<2){
+            ajustar.setEnabled(false);
+            plotarLinear.setEnabled(false);
+            plotarQuadratica.setEnabled(false);
+            plotarExp.setEnabled(false);
+            plotarPotencial.setEnabled(false);
         }
     }//GEN-LAST:event_removerPontoMouseClicked
 
@@ -349,31 +395,40 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     }//GEN-LAST:event_ajustarMouseClicked
 
     private void limparTudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparTudoMouseClicked
-        limpar();
+        if(limparTudo.isEnabled())
+            limpar();
     }//GEN-LAST:event_limparTudoMouseClicked
 
     private void plotarLinearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarLinearMouseClicked
-        CalculadoraGraficosAjustados graficoLinear = new CalculadoraGraficosAjustados(equacaoLinearString);
-        graficoLinear.interpretadorStrings();
-        graficoLinear.criarPontosAjustados(x,y);
+        if(plotarLinear.isEnabled()){
+            CalculadoraGraficosAjustados graficoLinear = new CalculadoraGraficosAjustados(equacaoLinearString);
+            graficoLinear.interpretadorStrings();
+            graficoLinear.criarPontosAjustados(x,y);
+        }
     }//GEN-LAST:event_plotarLinearMouseClicked
 
     private void plotarExpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarExpMouseClicked
-        CalculadoraGraficosAjustados graficoExp = new CalculadoraGraficosAjustados(equacaoExpStringExibir);
-        graficoExp.interpretadorStrings();
-        graficoExp.criarPontosAjustados(x,y);
+        if(plotarExp.isEnabled()){
+            CalculadoraGraficosAjustados graficoExp = new CalculadoraGraficosAjustados(equacaoExpStringExibir);
+            graficoExp.interpretadorStrings();
+            graficoExp.criarPontosAjustados(x,y);
+        }
     }//GEN-LAST:event_plotarExpMouseClicked
 
     private void plotarQuadraticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarQuadraticaMouseClicked
-        CalculadoraGraficosAjustados graficoQuadratico = new CalculadoraGraficosAjustados(equacaoQuadraticaString);
-        graficoQuadratico.interpretadorStrings();
-        graficoQuadratico.criarPontosAjustados(x,y);
+        if(plotarQuadratica.isEnabled()){
+            CalculadoraGraficosAjustados graficoQuadratico = new CalculadoraGraficosAjustados(equacaoQuadraticaString);
+            graficoQuadratico.interpretadorStrings();
+            graficoQuadratico.criarPontosAjustados(x,y);
+        }
     }//GEN-LAST:event_plotarQuadraticaMouseClicked
 
     private void plotarPotencialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarPotencialMouseClicked
-        CalculadoraGraficosAjustados graficoPotencial = new CalculadoraGraficosAjustados(equacaoPotencialStringExibir);
-        graficoPotencial.interpretadorStrings();
-        graficoPotencial.criarPontosAjustados(x,y);
+        if(plotarPotencial.isEnabled()){
+            CalculadoraGraficosAjustados graficoPotencial = new CalculadoraGraficosAjustados(equacaoPotencialStringExibir);
+            graficoPotencial.interpretadorStrings();
+            graficoPotencial.criarPontosAjustados(x,y);
+        }
     }//GEN-LAST:event_plotarPotencialMouseClicked
 
     @Override
@@ -383,15 +438,26 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         equacaoLinear.setLength(0);
         equacaoQuadratica.setLength(0);
         equacaoExp.setLength(0);
+        equacaoPotencial.setLength(0);
         contadorPontos = 0;
         
         int colunas = pontos.getRowCount();
         for(int i=colunas-1;i>=0;i--)
             pontos.removeRow(i);
         
+        removerPonto.setEnabled(false);
+        ajustar.setEnabled(false);
+        limparTudo.setEnabled(false);
+        
+        plotarLinear.setEnabled(false);
+        plotarExp.setEnabled(false);
+        plotarQuadratica.setEnabled(false);
+        plotarPotencial.setEnabled(false);
+        
         equacaoLinearExpressao.setText(vazio);
         equacaoExpExpressao.setText(vazio);
         equacaoQuadraticaExpressao.setText(vazio);
+        equacaoPotencialExpressao.setText(vazio);
     }
 
     @Override
@@ -403,6 +469,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
 
     @Override
     public void obterResposta() {
+        if(x.size()>1 && ajustar.isEnabled()){
         double[] coeficientesLineares;
         coeficientesLineares = linear.MinimosQuadradosAjuste(x, y);
         String aLinearFormatado = formatador.format(coeficientesLineares[0]);
@@ -465,7 +532,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                         if("1".equals(bQuadraticoFormatado))
                             equacaoQuadratica.append(" - x");
                         else
-                            equacaoQuadratica.append(" - ").append(bQuadraticoFormatado).append("x");
+                            equacaoQuadratica.append(" ").append(bQuadraticoFormatado).append("x");
                     }else{
                         if("1".equals(bQuadraticoFormatado))
                             equacaoQuadratica.append(" + x");
@@ -508,7 +575,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                 break;
             default:
                 if(aQuadraticoNegativo)
-                    equacaoQuadratica.append("-").append(aQuadraticoFormatado).append("x^2");
+                    equacaoQuadratica.append(aQuadraticoFormatado).append("x^2");
                 else
                     equacaoQuadratica.append(aQuadraticoFormatado).append("x^2");
                 
@@ -563,6 +630,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         equacaoPotencialStringExibir = equacaoPotencial.toString();
         equacaoPotencialExpressao.setText(equacaoPotencialStringExibir);
         plotarPotencial.setEnabled(true);
+        }
     }
     
     private int contadorPontos;

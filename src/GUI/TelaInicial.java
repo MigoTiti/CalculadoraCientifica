@@ -18,6 +18,7 @@ public class TelaInicial extends javax.swing.JFrame {
         ajuste = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Titi Calculator 2016");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(491, 331));
         setResizable(false);

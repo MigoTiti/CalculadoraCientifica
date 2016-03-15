@@ -114,6 +114,7 @@ public class Equacoes extends javax.swing.JFrame {
         jTextField7.setText("jTextField7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Equações");
         setResizable(false);
 
         limparSDV.setText("LIMPAR");

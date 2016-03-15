@@ -2,9 +2,16 @@ package GUI;
 
 import calculadoracientifica.Estatistica.CalculadoraEstatistica;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
+import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.Document;
 
 public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitivas{
 
@@ -19,10 +26,75 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         this.elementos.addColumn("Elemento");
         this.tabelaElementos.setModel(elementos);
         
+        this.estatistica = new CalculadoraEstatistica();
         this.operadores = new ArrayList<>();
-        this.vazio = "";
         this.desvioCriado = false;
+        
+        this.adicionarValor.addActionListener(action);
+        
+        this.igual.setEnabled(false);
+        this.limpar.setEnabled(false);
+        this.removerElemento.setEnabled(false);
+        this.adicionar.setEnabled(false);
+        
+        this.numero = adicionarValor.getDocument();
+        this.numero.addDocumentListener(new ControladorBotao(adicionar));
     }
+    
+    class ControladorBotao implements DocumentListener {
+        JButton botao;
+
+        ControladorBotao(JButton button) {
+            this.botao = button ;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength()>0 && !botao.isEnabled())
+                botao.setEnabled(true);
+            else if (e.getDocument().getLength()==0 && botao.isEnabled())
+                botao.setEnabled(false);
+        }   
+    } 
+    
+    Action action = new AbstractAction(){
+        @Override
+        public void actionPerformed(ActionEvent e){
+            double elemento;
+            
+            if(!"".equals(adicionarValor.getText())){
+                elemento = Double.parseDouble(adicionarValor.getText());
+                String elementoFormatado = formatador.format(elemento);
+                operadores.add(elemento);
+                elementos.addRow(new Object[]{elementoFormatado});        
+                adicionarValor.setText(VAZIO);
+                adicionarValor.requestFocusInWindow();
+
+                if(!igual.isEnabled())
+                    igual.setEnabled(true);
+
+                if(!removerElemento.isEnabled())
+                    removerElemento.setEnabled(true);
+
+                if(!limpar.isEnabled())
+                    limpar.setEnabled(true);
+        }
+        }
+    };
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -90,6 +162,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         jScrollPane4.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Estatística");
         setFocusable(false);
         setResizable(false);
 
@@ -270,43 +343,68 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     }//GEN-LAST:event_voltarMouseClicked
 
     private void adicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarMouseClicked
-        double elemento = Double.parseDouble(adicionarValor.getText());
-        String elementoFormatado = formatador.format(elemento);
-        operadores.add(elemento);
-        elementos.addRow(new Object[]{elementoFormatado});        
-        adicionarValor.setText(vazio);
-        adicionarValor.requestFocusInWindow();
+        double elemento;
+        
+        if(!"".equals(adicionarValor.getText())){
+            elemento = Double.parseDouble(adicionarValor.getText());
+            String elementoFormatado = formatador.format(elemento);
+            operadores.add(elemento);
+            elementos.addRow(new Object[]{elementoFormatado});        
+            adicionarValor.setText(VAZIO);
+            adicionarValor.requestFocusInWindow();
+            
+            if(!igual.isEnabled())
+                igual.setEnabled(true);
+            
+            if(!removerElemento.isEnabled())
+                removerElemento.setEnabled(true);
+            
+            if(!limpar.isEnabled())
+                limpar.setEnabled(true);
+        }
     }//GEN-LAST:event_adicionarMouseClicked
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
-        obterResposta();
+        if(igual.isEnabled())
+            obterResposta();
     }//GEN-LAST:event_igualMouseClicked
 
     private void removerElementoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerElementoMouseClicked
-        int index = tabelaElementos.getSelectedRow();
-        operadores.remove(index);        
-        elementos.removeRow(index); 
+        if(removerElemento.isEnabled()){
+            int index = tabelaElementos.getSelectedRow();
+            operadores.remove(index);        
+            elementos.removeRow(index);
+            if(elementos.getRowCount()==0)
+                removerElemento.setEnabled(false);
+        }
     }//GEN-LAST:event_removerElementoMouseClicked
 
     private void limparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparMouseClicked
-        limpar();
+        if(limpar.isEnabled())
+            limpar();
     }//GEN-LAST:event_limparMouseClicked
     
     @Override
     public void limpar() {
-        media.setText(vazio);
-        mediana.setText(vazio);
-        moda.setText(vazio);
-        variancia.setText(vazio);
-        desvioPadrao.setText(vazio);
-        coeficienteVariacao.setText(vazio);
+        media.setText(VAZIO);
+        mediana.setText(VAZIO);
+        moda.setText(VAZIO);
+        variancia.setText(VAZIO);
+        desvioPadrao.setText(VAZIO);
+        coeficienteVariacao.setText(VAZIO);
         
         int colunas = elementos.getRowCount();
         for(int i=colunas-1;i>=0;i--)
             elementos.removeRow(i);
        
+        elementos.setColumnCount(1);
+        
         operadores.clear();
+        limpar.setEnabled(false);
+        removerElemento.setEnabled(false);
+        igual.setEnabled(false);
+        adicionar.setEnabled(false);
     }
 
     @Override
@@ -323,15 +421,15 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         desvioCriado = true;
         }
         
-        double mediaValor = CalculadoraEstatistica.media(operadores);
+        double mediaValor = estatistica.media(operadores);
         String mediaFormatada = formatador.format(mediaValor);
         media.setText(mediaFormatada);
         
-        double medianaValor = CalculadoraEstatistica.mediana(operadores);
+        double medianaValor = estatistica.mediana(operadores);
         String medianaFormatada = formatador.format(medianaValor);
         mediana.setText(medianaFormatada);
         
-        String modaValor = CalculadoraEstatistica.moda(operadores);
+        String modaValor = estatistica.moda(operadores);
         if("Não existe moda.".equals(modaValor))
             moda.setText(modaValor);
         else{
@@ -339,20 +437,20 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
             moda.setText(formatador.format(modaValorNumero));
         }
         
-        double varianciaValor = CalculadoraEstatistica.variancia(operadores);
+        double varianciaValor = estatistica.variancia(operadores);
         String varianciaFormatada = formatador.format(varianciaValor);
         variancia.setText(varianciaFormatada);
         
-        double desvioPadraoValor = CalculadoraEstatistica.desvioPadrao(operadores);
+        double desvioPadraoValor = estatistica.desvioPadrao(operadores);
         String desvioPadraoFormatado = formatador.format(desvioPadraoValor);
         desvioPadrao.setText(desvioPadraoFormatado);
         
-        double coeficienteVariacaoValor = CalculadoraEstatistica.coeficienteVariacao(operadores);
+        double coeficienteVariacaoValor = estatistica.coeficienteVariacao(operadores);
         String coeficienteVariacaoFormatado = formatador.format(coeficienteVariacaoValor);
         coeficienteVariacaoFormatado+="%";
         coeficienteVariacao.setText(coeficienteVariacaoFormatado);
         
-        ArrayList<Double> desvios = CalculadoraEstatistica.desvios(operadores);
+        ArrayList<Double> desvios = estatistica.desvios(operadores);
         int colunas = elementos.getRowCount();
         for(int i=colunas-1;i>=0;i--)
             elementos.removeRow(i);
@@ -373,8 +471,11 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     private boolean desvioCriado;
     private ArrayList<Double> operadores;
     
+    private Document numero;
+    
+    private final CalculadoraEstatistica estatistica;
     private final DecimalFormat formatador;
-    private final String vazio;
+    public static final String VAZIO = "";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JTextField adicionarValor;
@@ -404,4 +505,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     private javax.swing.JTextField variancia;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
+
+
 }
+

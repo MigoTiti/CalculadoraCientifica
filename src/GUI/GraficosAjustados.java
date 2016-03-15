@@ -20,8 +20,6 @@ public class GraficosAjustados extends javax.swing.JFrame {
         this.y = yAjustado;
         this.yOriginal = yOriginal;
         this.vazio = "";
-        this.seriesArrayList = new ArrayList<>();
-        this.datasetIndex = 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -31,6 +29,7 @@ public class GraficosAjustados extends javax.swing.JFrame {
         areaGrafico = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gráfico ajustado");
         setResizable(false);
 
         javax.swing.GroupLayout areaGraficoLayout = new javax.swing.GroupLayout(areaGrafico);
@@ -69,7 +68,7 @@ public class GraficosAjustados extends javax.swing.JFrame {
         dadosAjustes.addSeries(pontosOriginais);
 
         JFreeChart grafico = criarChart(dadosAjustes);
-        ChartPanel painelGrafico = new ChartPanel(grafico);
+        ChartPanel telaGrafico = new ChartPanel(grafico);
 
         tracarGrafico = grafico.getXYPlot();
         
@@ -81,16 +80,19 @@ public class GraficosAjustados extends javax.swing.JFrame {
         tracarGrafico.setBackgroundPaint(Color.lightGray);
         tracarGrafico.setDomainGridlinePaint(Color.white);
         tracarGrafico.setRangeGridlinePaint(Color.white);
+        
+        tracarGrafico.setRangePannable(true);
+        tracarGrafico.setDomainPannable(true);
 
-        painelGrafico.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
-        painelGrafico.setVisible(true);
+        telaGrafico.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
+        telaGrafico.setVisible(true);
+        telaGrafico.setMouseZoomable(true);
+        telaGrafico.setMouseWheelEnabled(true);
 
-        painelGrafico.setMouseZoomable(true);
-
-        painelGrafico.getChart().removeLegend();
+        telaGrafico.getChart().removeLegend();
 
         areaGrafico.removeAll();
-        areaGrafico.add(painelGrafico);
+        areaGrafico.add(telaGrafico);
         areaGrafico.revalidate();
         areaGrafico.repaint();
         grafico.setBackgroundPaint(Color.WHITE);
@@ -127,8 +129,6 @@ public class GraficosAjustados extends javax.swing.JFrame {
     }
     
     private XYPlot tracarGrafico;
-    private int datasetIndex;
-    private List<XYSeriesCollection> seriesArrayList;
     private ArrayList<Double> x;
     private ArrayList<Double> y;
     private ArrayList<Double> yOriginal;

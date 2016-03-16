@@ -1,6 +1,8 @@
 package GUI;
 
+import static GUI.Graficos.VAZIO;
 import calculadoracientifica.Aritmetica.Calculadora;
+import calculadoracientifica.Aritmetica.Derivada.CalculadoraDerivada;
 import calculadoracientifica.Aritmetica.Integral.CalculadoraIntegral;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.GridLayout;
@@ -41,20 +43,21 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         this.formatador.setDecimalSeparatorAlwaysShown(false);
         this.caixaEquacao.requestFocusInWindow();
         
-        //Integral
-        //CalculadoraIntegral
+        this.calculadoraDerivada = new CalculadoraDerivada();
+        
+        this.xPosicoesIntDer = new ArrayList<>();
         this.calculadoraIntegral = new CalculadoraIntegral();
-        //ArrayLists
-        this.sinaisIntegral = new ArrayList<>();
-        this.operadoresIntegral = new ArrayList<>();
-        //StringBuilder
-        this.equacaoIntegral = new StringBuilder();
-        //Booleanas
-        this.parentesesIntegral = false;
-        this.sinalIntegral = false;
-        //Contador
-        this.contadorParentesesIntegral = 0;
-        this.radianos.setSelected(true);
+        this.sinaisIntDer = new ArrayList<>();
+        this.operadoresIntDer = new ArrayList<>();
+        this.equacaoIntDer = new StringBuilder();
+        this.parentesesIntDer = false;
+        this.sinalIntDer = false;
+        this.contadorParentesesIntDer = 0;
+        this.radianos.setSelected(true); 
+        this.sinalIntDer = false;
+        this.xAnteriorIntDer = false;
+        this.posicaoIntDer = 0;
+        this.operadoresAuxiliar = new ArrayList<>();
         this.vazio = "";
     }
 
@@ -85,7 +88,6 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         igual = new javax.swing.JButton();
         resposta = new javax.swing.JButton();
         voltar = new javax.swing.JButton();
-        limite = new javax.swing.JButton();
         abreParentese = new javax.swing.JButton();
         fechaParenteses = new javax.swing.JButton();
         xCubo = new javax.swing.JButton();
@@ -177,6 +179,11 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         });
 
         derivada.setText("DERIVADA");
+        derivada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                derivadaMouseClicked(evt);
+            }
+        });
 
         quadrado.setText("X²");
         quadrado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -233,8 +240,6 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 voltarMouseClicked(evt);
             }
         });
-
-        limite.setText("LIMITE");
 
         abreParentese.setText("(");
         abreParentese.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -303,16 +308,6 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(igual))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(quadrado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(xCubo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(elevadoY)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(raiz)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(derivada))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(eElevadoX)
@@ -332,10 +327,10 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                                 .addComponent(cosseno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tangente)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(integral, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(limparEquacao, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(limparEquacao, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(derivada, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(mais)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -347,11 +342,21 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mod)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(limite))
+                        .addComponent(integral))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(radianos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(graus)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(quadrado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(xCubo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(elevadoY)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(raiz))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(radianos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(graus)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -372,21 +377,20 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                     .addComponent(menos)
                     .addComponent(multiplicacao)
                     .addComponent(divisao)
-                    .addComponent(limite)
-                    .addComponent(mod))
+                    .addComponent(mod)
+                    .addComponent(integral))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(seno)
                     .addComponent(cosseno)
                     .addComponent(tangente)
-                    .addComponent(integral)
-                    .addComponent(piBotao))
+                    .addComponent(piBotao)
+                    .addComponent(derivada))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(quadrado)
                     .addComponent(elevadoY)
                     .addComponent(raiz)
-                    .addComponent(derivada)
                     .addComponent(xCubo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -549,7 +553,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 operador = Double.parseDouble(caixaEquacao.getText());
                 operadores.add(operador);
                 caixaEquacao.setText(vazio);
-                equacao.append(operador).append(")");
+                equacao.append(formatador.format(operador)).append(")");
                 sinais.add(")");
                 parentesesContador--;
                 caixaResposta.setText(equacao.toString());
@@ -684,15 +688,15 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }//GEN-LAST:event_logXMouseClicked
 
     private void integralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_integralMouseClicked
-        boolean concluido = digitarEquacao();
+        boolean concluido = digitarEquacaoIntegral();
         if(concluido){
             equacao.append(resultado);
             operadores.add(resultado);
             caixaEquacao.requestFocusInWindow(); 
             caixaResposta.setText(equacao.toString());
             permitirSinal = true;
-            if(!igual.isEnabled())
-                igual.setEnabled(true);
+            if(!limparEquacao.isEnabled())
+                limparEquacao.setEnabled(true);
         }
     }//GEN-LAST:event_integralMouseClicked
 
@@ -715,112 +719,320 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }//GEN-LAST:event_voltarMouseClicked
 
     private void grausMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grausMouseClicked
-        if(!graus.isSelected())
+        if(graus.isSelected())
             Calculadora.mudarStatus("graus");
     }//GEN-LAST:event_grausMouseClicked
 
     private void radianosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radianosMouseClicked
-        if(!radianos.isSelected())
+        if(radianos.isSelected())
             Calculadora.mudarStatus("radianos");
     }//GEN-LAST:event_radianosMouseClicked
+
+    private void derivadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_derivadaMouseClicked
+        boolean concluido = digitarEquacaoDerivada();
+        if(concluido){
+            equacao.append(resultado);
+            operadores.add(resultado);
+            caixaEquacao.requestFocusInWindow(); 
+            caixaResposta.setText(equacao.toString());
+            permitirSinal = true;
+            if(!limparEquacao.isEnabled())
+                limparEquacao.setEnabled(true);
+        }
+    }//GEN-LAST:event_derivadaMouseClicked
         
-    public boolean digitarEquacao(){
-        JTextField field1 = new JTextField(vazio);
-        JTextField field2 = new JTextField(vazio);
-        JTextField field3 = new JTextField(vazio);
-        JTextField field4 = new JTextField(vazio);
+    public boolean digitarEquacaoIntegral(){
+        JTextField limiteSuperiorTexto = new JTextField(vazio);
+        JTextField limiteInferiorTexto = new JTextField(vazio);
+        JTextField equacaoDigitar = new JTextField(vazio);
+        JTextField equacaoLer = new JTextField(vazio);
         
         Action action = new AbstractAction()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                boolean sucessoParse = false;
                 boolean sucesso = false;
-                String atual = field3.getText();
-                if(("+".equals(atual)||"-".equals(atual)||"*".equals(atual)||"/".equals(atual)||"^".equals(atual))&&sinalIntegral==false){
-                    sinaisIntegral.add(atual);
-                    sinalIntegral = true;
+                String atual = equacaoDigitar.getText();
+                if(("+".equals(atual)||"-".equals(atual)||"*".equals(atual)||"/".equals(atual)||"^".equals(atual))&&(!sinalIntDer||xAnteriorIntDer)){
+                    sinaisIntDer.add(atual);
+                    sinalIntDer = true;
                     sucesso = true;
-                }else if("(".equals(atual)&&sinalIntegral){
-                    sinaisIntegral.add(atual);
-                    if(parentesesIntegral == false)
-                        parentesesIntegral = true;
-                    contadorParentesesIntegral++;
+                    posicaoIntDer--;
+                    if(xAnteriorIntDer)
+                        xAnteriorIntDer = false;
+                }else if("(".equals(atual)&&sinalIntDer){
+                    sinaisIntDer.add(atual);
+                    if(parentesesIntDer == false)
+                        parentesesIntDer = true;
+                    contadorParentesesIntDer++;
+                    posicaoIntDer--;
                     sucesso = true;
                 }else if("ln".equals(atual)||"sqrt".equals(atual)||"sen".equals(atual)||"cos".equals(atual)||"tg".equals(atual)||"log".equals(atual)){
-                    sinaisIntegral.add(atual);
-                    sinaisIntegral.add("(");
+                    sinaisIntDer.add(atual);
+                    sinaisIntDer.add("(");
+                    posicaoIntDer--;
                     atual = atual.concat("(");
-                    if(parentesesIntegral == false)
-                        parentesesIntegral = true;
-                    contadorParentesesIntegral++;
+                    if(parentesesIntDer == false)
+                        parentesesIntDer = true;
+                    contadorParentesesIntDer++;
                     sucesso = true;
-                }else if(parentesesIntegral && ")".equals(atual)){
-                    sinaisIntegral.add(atual);
-                    contadorParentesesIntegral--;
-                    if(contadorParentesesIntegral <= 0)
-                        parentesesIntegral = false;
-                    if(sinalIntegral)
-                        sinalIntegral = false;
+                }else if(parentesesIntDer && ")".equals(atual)){
+                    sinaisIntDer.add(atual);
+                    contadorParentesesIntDer--;
+                    if(contadorParentesesIntDer <= 0)
+                        parentesesIntDer = false;
+                    if(sinalIntDer)
+                        sinalIntDer = false;
                     sucesso = true;
-                }else if((!")".equals(atual))&&(!"+".equals(atual))&&(!"-".equals(atual))&&(!"/".equals(atual))&&(!"*".equals(atual))&&(!"^".equals(atual))&&(!"(".equals(atual))){
-                    operadoresIntegral.add(atual);
-                    if(sinalIntegral)
-                        sinalIntegral = false;
+                }else if((!")".equals(atual))&&(!"+".equals(atual))&&(!"-".equals(atual))&&(!"/".equals(atual))&&(!"*".equals(atual))&&(!"^".equals(atual))&&(!"(".equals(atual))&&(!"x".equals(atual))&&(!"-x".equals(atual))){
+                    if(null!=atual)switch (atual) {
+                        case "PI":
+                        case "Pi":
+                        case "pi":
+                        case "pI":
+                            operadoresIntDer.add(Double.toString(Math.PI));
+                            sucessoParse = true;
+                            break;
+                        case "E":
+                        case "e":
+                            operadoresIntDer.add(Double.toString(Math.E));
+                            sucessoParse = true;
+                            break;
+                        default:
+                            double operadorTemp;
+                            try{
+                                operadorTemp = Double.parseDouble(atual);
+                                sucessoParse = true;
+                            }
+                            catch(NumberFormatException e2){
+                                JOptionPane.showMessageDialog(null, "Apenas números!");
+                                sucessoParse = false;
+                            }
+                            if(sucessoParse)
+                                operadoresIntDer.add(atual);
+                            break;
+                    }
+                    if(sucessoParse){
+                        if(sinalIntDer)
+                            sinalIntDer = false;
+                        sucesso = true;
+                    }
+                }else if(("x".equals(atual)&&sinalIntDer&&xAnteriorIntDer==false) || ("x".equals(atual)&&"".equals(equacaoLer.getText()))){
+                    xAnteriorIntDer = true;
+                    xPosicoesIntDer.add(posicaoIntDer);
+                    sucesso = true;
+                }else if(("-x".equals(atual)&&sinalIntDer&&xAnteriorIntDer==false) || ("-x".equals(atual)&&"".equals(equacaoLer.getText()))){
+                    xAnteriorIntDer = true;
+                    xPosicoesIntDer.add(-posicaoIntDer);
                     sucesso = true;
                 }
    
-                if(sucesso)
-                    equacaoIntegral.append(atual);
+                if(sucesso){
+                    equacaoIntDer.append(atual);
+                    posicaoIntDer++;
+                }
                 
-                field3.setText(vazio);
-                field4.setText(equacaoIntegral.toString());
+                equacaoDigitar.setText(VAZIO);
+                equacaoLer.setText(equacaoIntDer.toString());
             }
         };
         
-        field3.addActionListener(action);
+        equacaoDigitar.addActionListener(action);
         
         double limS, limI;
                 
         JPanel integralPainel = new JPanel(new GridLayout(0, 1));
         integralPainel.add(new JLabel("Limite superior: "));
-        integralPainel.add(field1);
+        integralPainel.add(limiteSuperiorTexto);
         integralPainel.add(new JLabel("Limite inferior: "));
-        integralPainel.add(field2);
+        integralPainel.add(limiteInferiorTexto);
         integralPainel.add(new JLabel("Função: "));
-        integralPainel.add(field3);
+        integralPainel.add(equacaoDigitar);
         
-        integralPainel.add(field4);
-        field4.setEditable(false);
+        integralPainel.add(equacaoLer);
+        equacaoLer.setEditable(false);
         
         int result = JOptionPane.showConfirmDialog(null, integralPainel, "Integral", JOptionPane.OK_CANCEL_OPTION);
         
         if (result == JOptionPane.OK_OPTION){
-            limS = Double.parseDouble(field1.getText());
-            limI = Double.parseDouble(field2.getText());
+            limS = Double.parseDouble(limiteSuperiorTexto.getText());
+            limI = Double.parseDouble(limiteInferiorTexto.getText());
             if(limS == limI){
                 resultado = 0;
                 return true;
             }
-            for (String operador : operadoresIntegral) {
+            for (String operador : operadoresIntDer) {
                 operadoresAuxiliar.add(Double.parseDouble(operador));
             }
-            operadores.clear();
-            resultado = calculadoraIntegral.integral(limS,limI,operadoresAuxiliar,sinaisIntegral);
-            operadoresIntegral.clear();
-            sinaisIntegral.clear();
-            equacaoIntegral.setLength(0);
-            parentesesIntegral = false;
-            sinalIntegral = false;
-            contadorParentesesIntegral = 0;
+            operadoresIntDer.clear();
+            resultado = calculadoraIntegral.integral(limS,limI,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
+            operadoresIntDer.clear();
+            sinaisIntDer.clear();
+            equacaoIntDer.setLength(0);
+            parentesesIntDer = false;
+            sinalIntDer = false;
+            xAnteriorIntDer = false;
+            contadorParentesesIntDer = 0;
+            posicaoIntDer = 0;
+            xPosicoesIntDer.clear();
+            operadoresAuxiliar.clear();
             return true;
         }else{
-            operadoresIntegral.clear();
-            sinaisIntegral.clear();
-            equacaoIntegral.setLength(0);
-            parentesesIntegral = false;
-            sinalIntegral = false;
-            contadorParentesesIntegral = 0;
+            operadoresIntDer.clear();
+            sinaisIntDer.clear();
+            equacaoIntDer.setLength(0);
+            parentesesIntDer = false;
+            sinalIntDer = false;
+            xAnteriorIntDer = false;
+            contadorParentesesIntDer = 0;
+            xPosicoesIntDer.clear();
+            operadoresAuxiliar.clear();
+            return false;
+        }
+    }
+    
+    public boolean digitarEquacaoDerivada(){
+        JTextField x = new JTextField(vazio);
+        JTextField equacaoDigitar = new JTextField(vazio);
+        JTextField equacaoLer = new JTextField(vazio);
+        
+        Action action = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                boolean sucessoParse = false;
+                boolean sucesso = false;
+                String atual = equacaoDigitar.getText();
+                if(("+".equals(atual)||"-".equals(atual)||"*".equals(atual)||"/".equals(atual)||"^".equals(atual))&&(!sinalIntDer||xAnteriorIntDer)){
+                    sinaisIntDer.add(atual);
+                    sinalIntDer = true;
+                    sucesso = true;
+                    posicaoIntDer--;
+                    if(xAnteriorIntDer)
+                        xAnteriorIntDer = false;
+                }else if("(".equals(atual)&&sinalIntDer){
+                    sinaisIntDer.add(atual);
+                    if(parentesesIntDer == false)
+                        parentesesIntDer = true;
+                    contadorParentesesIntDer++;
+                    posicaoIntDer--;
+                    sucesso = true;
+                }else if("ln".equals(atual)||"sqrt".equals(atual)||"sen".equals(atual)||"cos".equals(atual)||"tg".equals(atual)||"log".equals(atual)){
+                    sinaisIntDer.add(atual);
+                    sinaisIntDer.add("(");
+                    posicaoIntDer--;
+                    atual = atual.concat("(");
+                    if(parentesesIntDer == false)
+                        parentesesIntDer = true;
+                    contadorParentesesIntDer++;
+                    sucesso = true;
+                }else if(parentesesIntDer && ")".equals(atual)){
+                    sinaisIntDer.add(atual);
+                    contadorParentesesIntDer--;
+                    if(contadorParentesesIntDer <= 0)
+                        parentesesIntDer = false;
+                    if(sinalIntDer)
+                        sinalIntDer = false;
+                    sucesso = true;
+                }else if((!")".equals(atual))&&(!"+".equals(atual))&&(!"-".equals(atual))&&(!"/".equals(atual))&&(!"*".equals(atual))&&(!"^".equals(atual))&&(!"(".equals(atual))&&(!"x".equals(atual))&&(!"-x".equals(atual))){
+                    if(null!=atual)switch (atual) {
+                        case "PI":
+                        case "Pi":
+                        case "pi":
+                        case "pI":
+                            operadoresIntDer.add(Double.toString(Math.PI));
+                            sucessoParse = true;
+                            break;
+                        case "E":
+                        case "e":
+                            operadoresIntDer.add(Double.toString(Math.E));
+                            sucessoParse = true;
+                            break;
+                        default:
+                            double operadorTemp;
+                            try{
+                                operadorTemp = Double.parseDouble(atual);
+                                sucessoParse = true;
+                            }
+                            catch(NumberFormatException e2){
+                                JOptionPane.showMessageDialog(null, "Apenas números!");
+                                sucessoParse = false;
+                            }
+                            if(sucessoParse)
+                                operadoresIntDer.add(atual);
+                            break;
+                    }
+                    if(sucessoParse){
+                        if(sinalIntDer)
+                            sinalIntDer = false;
+                        sucesso = true;
+                    }
+                }else if(("x".equals(atual)&&sinalIntDer&&xAnteriorIntDer==false) || ("x".equals(atual)&&"".equals(equacaoLer.getText()))){
+                    xAnteriorIntDer = true;
+                    xPosicoesIntDer.add(posicaoIntDer);
+                    sucesso = true;
+                }else if(("-x".equals(atual)&&sinalIntDer&&xAnteriorIntDer==false) || ("-x".equals(atual)&&"".equals(equacaoLer.getText()))){
+                    xAnteriorIntDer = true;
+                    xPosicoesIntDer.add(-posicaoIntDer);
+                    sucesso = true;
+                }
+   
+                if(sucesso){
+                    equacaoIntDer.append(atual);
+                    posicaoIntDer++;
+                }
+                
+                equacaoDigitar.setText(VAZIO);
+                equacaoLer.setText(equacaoIntDer.toString());
+            }
+        };
+        
+        equacaoDigitar.addActionListener(action);
+        
+        double xValor;
+                
+        JPanel integralPainel = new JPanel(new GridLayout(0, 1));
+        integralPainel.add(new JLabel("Valor do x: "));
+        integralPainel.add(x);
+        integralPainel.add(new JLabel("Função: "));
+        integralPainel.add(equacaoDigitar);
+        
+        integralPainel.add(equacaoLer);
+        equacaoLer.setEditable(false);
+        
+        int result = JOptionPane.showConfirmDialog(null, integralPainel, "Integral", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (result == JOptionPane.OK_OPTION){
+            xValor = Double.parseDouble(x.getText());
+            for (String operador : operadoresIntDer) {
+                operadoresAuxiliar.add(Double.parseDouble(operador));
+            }
+            operadoresIntDer.clear();
+            resultado = calculadoraDerivada.derivada(xValor,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
+            operadoresIntDer.clear();
+            sinaisIntDer.clear();
+            equacaoIntDer.setLength(0);
+            parentesesIntDer = false;
+            sinalIntDer = false;
+            xAnteriorIntDer = false;
+            contadorParentesesIntDer = 0;
+            posicaoIntDer = 0;
+            xPosicoesIntDer.clear();
+            operadoresAuxiliar.clear();
+            return true;
+        }else{
+            operadoresIntDer.clear();
+            sinaisIntDer.clear();
+            equacaoIntDer.setLength(0);
+            parentesesIntDer = false;
+            sinalIntDer = false;
+            xAnteriorIntDer = false;
+            contadorParentesesIntDer = 0;
+            xPosicoesIntDer.clear();
+            operadoresAuxiliar.clear();
             return false;
         }
     }
@@ -881,15 +1093,16 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }
     
     //Integral
-    private int contadorParentesesIntegral;
-    
-    private boolean sinalIntegral;
-    private boolean parentesesIntegral;
-    
-    private StringBuilder equacaoIntegral;
+    private int contadorParentesesIntDer;
+    private boolean sinalIntDer;
+    private boolean parentesesIntDer;
+    private boolean xAnteriorIntDer;
+    private int posicaoIntDer;
+    private ArrayList<Integer> xPosicoesIntDer;
+    private StringBuilder equacaoIntDer;
     private ArrayList<Double> operadoresAuxiliar;
-    private ArrayList<String> operadoresIntegral;
-    private ArrayList<String> sinaisIntegral;    
+    private ArrayList<String> operadoresIntDer;
+    private ArrayList<String> sinaisIntDer;   
     
     //Geral
     private String operadorFormatado;
@@ -912,6 +1125,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private StringBuilder equacao;
     
     //Composição
+    private final CalculadoraDerivada calculadoraDerivada;
     private final CalculadoraIntegral calculadoraIntegral;
     private final Calculadora calculadora;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -929,7 +1143,6 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private javax.swing.JRadioButton graus;
     private javax.swing.JButton igual;
     private javax.swing.JButton integral;
-    private javax.swing.JButton limite;
     private javax.swing.JButton limparEquacao;
     private javax.swing.JButton logNeperiano;
     private javax.swing.JButton logX;

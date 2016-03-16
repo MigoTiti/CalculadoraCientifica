@@ -31,7 +31,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         initComponents();
         this.y = new ArrayList<>();
         this.x = new ArrayList<>();
-        this.xProximo = false;
+        this.xAnterior = false;
         this.posicao = 0;
         this.contadorParenteses = 0;
         this.sinal = false;
@@ -120,6 +120,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         xVariando = new javax.swing.JTextField();
         areaGrafico = new javax.swing.JPanel();
         voltar = new javax.swing.JButton();
+        exemploGrafico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gráficos");
@@ -171,7 +172,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         );
         areaGraficoLayout.setVerticalGroup(
             areaGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 382, Short.MAX_VALUE)
         );
 
         voltar.setText("VOLTAR");
@@ -180,6 +181,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                 voltarMouseClicked(evt);
             }
         });
+
+        exemploGrafico.setText("EXEMPLO DE GRÁFICO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,13 +213,16 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                             .addComponent(limparEquacao, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(plotar, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(82, 82, 82)
-                                .addComponent(jLabel4))
-                            .addComponent(xVariando, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(82, 82, 82)
+                                        .addComponent(jLabel4))
+                                    .addComponent(xVariando, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(exemploGrafico))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(limparTudo)))
                 .addContainerGap())
@@ -226,12 +232,15 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(areaGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(limparTudo)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(exemploGrafico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(limparEquacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -352,13 +361,13 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             {
                 boolean sucesso = false;
                 String atual = equacaoDigitar2.getText();
-                if(("+".equals(atual)||"-".equals(atual)||"*".equals(atual)||"/".equals(atual)||"^".equals(atual))&&(sinal==false||xProximo)){
+                if(("+".equals(atual)||"-".equals(atual)||"*".equals(atual)||"/".equals(atual)||"^".equals(atual))&&(sinal==false||xAnterior)){
                     sinais.add(atual);
                     sinal = true;
                     sucesso = true;
                     posicao--;
-                    if(xProximo)
-                        xProximo = false;
+                    if(xAnterior)
+                        xAnterior = false;
                 }else if("(".equals(atual)&&sinal){
                     sinais.add(atual);
                     if(parenteses == false)
@@ -383,7 +392,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                     if(sinal)
                         sinal = false;
                     sucesso = true;
-                }else if((!")".equals(atual))&&(!"+".equals(atual))&&(!"-".equals(atual))&&(!"/".equals(atual))&&(!"*".equals(atual))&&(!"^".equals(atual))&&(!"(".equals(atual))&&(!"x".equals(atual))){
+                }else if((!")".equals(atual))&&(!"+".equals(atual))&&(!"-".equals(atual))&&(!"/".equals(atual))&&(!"*".equals(atual))&&(!"^".equals(atual))&&(!"(".equals(atual))&&(!"x".equals(atual))&&(!"-x".equals(atual))){
                     if(null!=atual)switch (atual) {
                         case "PI":
                         case "Pi":
@@ -402,9 +411,13 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                     if(sinal)
                         sinal = false;
                     sucesso = true;
-                }else if(("x".equals(atual)&&sinal&&xProximo==false) || ("x".equals(atual)&&"".equals(equacaoLer2.getText()))){
-                    xProximo = true;
+                }else if(("x".equals(atual)&&sinal&&xAnterior==false) || ("x".equals(atual)&&"".equals(equacaoLer2.getText()))){
+                    xAnterior = true;
                     xPosicoes.add(posicao);
+                    sucesso = true;
+                }else if(("-x".equals(atual)&&sinal&&xAnterior==false) || ("-x".equals(atual)&&"".equals(equacaoLer2.getText()))){
+                    xAnterior = true;
+                    xPosicoes.add(-posicao);
                     sucesso = true;
                 }
    
@@ -438,7 +451,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             parenteses = false;
             sinal = false;
             contadorParenteses = 0;
-            xProximo = false;
+            xAnterior = false;
             if(camposCheios==3)
                 plotar.setEnabled(true);
             limparEquacao.setEnabled(true);
@@ -453,7 +466,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             sinal = false;
             contadorParenteses = 0;
             posicao = 0;
-            xProximo = false;
+            xAnterior = false;
             return false;
         }
     }
@@ -520,7 +533,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     
     private ArrayList<Double> y;
     private ArrayList<Double> x;
-    private boolean xProximo;
+    private boolean xAnterior;
     private int posicao;
     private int contadorParenteses;
     private boolean sinal;
@@ -550,6 +563,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private javax.swing.JTextField comecoIntervalo;
     private javax.swing.JButton equacaoDigitar;
     private javax.swing.JTextField equacaoLer;
+    private javax.swing.JButton exemploGrafico;
     private javax.swing.JTextField fimIntervalo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

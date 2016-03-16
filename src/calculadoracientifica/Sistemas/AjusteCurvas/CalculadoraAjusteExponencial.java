@@ -1,22 +1,22 @@
-package calculadoracientifica.ajusteCurvas;
+package calculadoracientifica.Sistemas.AjusteCurvas;
 
-import calculadoracientifica.Sistemas.CalculadoraSistemas;
 import calculadoracientifica.Interfaces.MinimosQuadrados;
+import calculadoracientifica.Sistemas.CalculadoraSistemas;
 import java.util.ArrayList;
 
-public class CalculadoraAjustePotencial extends CalculadoraSistemas implements MinimosQuadrados {
+public class CalculadoraAjusteExponencial extends CalculadoraSistemas implements MinimosQuadrados{
 
-    public CalculadoraAjustePotencial(){}
+    public CalculadoraAjusteExponencial(){};
     
     @Override
-    public double[] MinimosQuadradosAjuste(ArrayList<Double> x, ArrayList<Double> y) {
+    public double[] MinimosQuadradosAjuste(ArrayList<Double> x, ArrayList<Double> y){
         int n = x.size();
         double sX = 0, sY = 0, sX2 = 0, sXY = 0;
         for(int i = 0;i<n;i++){
-            sX+=Math.log(x.get(i));
+            sX+=x.get(i);
             sY+=Math.log(y.get(i));
-            sX2+=Math.pow(Math.log(x.get(i)), 2);
-            sXY+=Math.log(x.get(i))*Math.log(y.get(i));
+            sX2+=Math.pow(x.get(i), 2);
+            sXY+=x.get(i)*Math.log(y.get(i));
         }
         
         double[][] incognitas;
@@ -37,5 +37,4 @@ public class CalculadoraAjustePotencial extends CalculadoraSistemas implements M
         
         return resultados;
     }
-    
 }

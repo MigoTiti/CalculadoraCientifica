@@ -53,17 +53,6 @@
                       <Component id="igual" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="quadrado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="xCubo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="elevadoY" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="raiz" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="derivada" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="eElevadoX" min="-2" max="-2" attributes="0"/>
@@ -86,10 +75,10 @@
                               <Component id="tangente" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="113" max="32767" attributes="0"/>
+                      <EmptySpace pref="111" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="integral" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="limparEquacao" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="derivada" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -103,12 +92,25 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="mod" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="limite" min="-2" max="-2" attributes="0"/>
+                      <Component id="integral" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="radianos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="graus" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="quadrado" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="xCubo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="elevadoY" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="raiz" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="radianos" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="graus" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -134,23 +136,22 @@
                   <Component id="menos" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="multiplicacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="divisao" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="limite" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="mod" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="integral" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="seno" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cosseno" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tangente" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="integral" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="piBotao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="derivada" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="quadrado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="elevadoY" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="raiz" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="derivada" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="xCubo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -271,6 +272,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="DERIVADA"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="derivadaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="quadrado">
       <Properties>
@@ -335,11 +339,6 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="voltarMouseClicked"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="limite">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="LIMITE"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="abreParentese">
       <Properties>

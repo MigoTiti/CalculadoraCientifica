@@ -1,4 +1,4 @@
-package calculadoracientifica.ajusteCurvas;
+package calculadoracientifica.Sistemas.AjusteCurvas;
 
 import calculadoracientifica.Interfaces.MinimosQuadrados;
 import calculadoracientifica.Sistemas.CalculadoraSistemas;

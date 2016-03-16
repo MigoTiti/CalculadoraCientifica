@@ -1,6 +1,7 @@
-package calculadoracientifica.ajusteCurvas;
+package calculadoracientifica.Graficos.CurvasAjustadas;
 
 import GUI.GraficosAjustados;
+import calculadoracientifica.Graficos.CalculadoraGraficos;
 import calculadoracientifica.Graficos.CalculadoraGraficos;
 import calculadoracientifica.Interfaces.AjustesGraficos;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package GUI;
 
-import static GUI.Graficos.VAZIO;
 import calculadoracientifica.Aritmetica.Calculadora;
 import calculadoracientifica.Aritmetica.Derivada.CalculadoraDerivada;
 import calculadoracientifica.Aritmetica.Integral.CalculadoraIntegral;
@@ -834,7 +833,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                     posicaoIntDer++;
                 }
                 
-                equacaoDigitar.setText(VAZIO);
+                equacaoDigitar.setText(vazio);
                 equacaoLer.setText(equacaoIntDer.toString());
             }
         };
@@ -985,7 +984,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                     posicaoIntDer++;
                 }
                 
-                equacaoDigitar.setText(VAZIO);
+                equacaoDigitar.setText(vazio);
                 equacaoLer.setText(equacaoIntDer.toString());
             }
         };

@@ -1,7 +1,7 @@
 package GUI;
 
 import calculadoracientifica.Aritmetica.Calculadora;
-import calculadoracientifica.Aritmetica.CalculadoraIntegral;
+import calculadoracientifica.Aritmetica.Integral.CalculadoraIntegral;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -802,7 +802,11 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 resultado = 0;
                 return true;
             }
-            resultado = calculadoraIntegral.integral(limS,limI,operadoresIntegral,sinaisIntegral);
+            for (String operador : operadoresIntegral) {
+                operadoresAuxiliar.add(Double.parseDouble(operador));
+            }
+            operadores.clear();
+            resultado = calculadoraIntegral.integral(limS,limI,operadoresAuxiliar,sinaisIntegral);
             operadoresIntegral.clear();
             sinaisIntegral.clear();
             equacaoIntegral.setLength(0);
@@ -883,7 +887,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private boolean parentesesIntegral;
     
     private StringBuilder equacaoIntegral;
-    
+    private ArrayList<Double> operadoresAuxiliar;
     private ArrayList<String> operadoresIntegral;
     private ArrayList<String> sinaisIntegral;    
     

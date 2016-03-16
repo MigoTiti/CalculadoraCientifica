@@ -12,8 +12,11 @@ public class CalculadoraGraficos extends Calculadora{
         if(posicoes.size()>0){
             do{
                 for(int i=0;i<index;i++){
-                    if(posicoes.get(0)==i){
-                        numeros.add(i, x);
+                    if(Math.abs(posicoes.get(0))==i){
+                        if(posicoes.get(0)<0)
+                            numeros.add(i, -x);
+                        else
+                            numeros.add(i, x);
                         posicoes.remove(0);
                         break;
                     }

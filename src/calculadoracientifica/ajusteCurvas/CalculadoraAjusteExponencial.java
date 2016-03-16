@@ -1,7 +1,7 @@
 package calculadoracientifica.ajusteCurvas;
 
 import calculadoracientifica.Interfaces.MinimosQuadrados;
-import calculadoracientifica.Equacoes.CalculadoraSistemas;
+import calculadoracientifica.Sistemas.CalculadoraSistemas;
 import java.util.ArrayList;
 
 public class CalculadoraAjusteExponencial extends CalculadoraSistemas implements MinimosQuadrados{

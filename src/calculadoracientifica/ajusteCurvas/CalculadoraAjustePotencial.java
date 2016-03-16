@@ -1,6 +1,6 @@
 package calculadoracientifica.ajusteCurvas;
 
-import calculadoracientifica.Equacoes.CalculadoraSistemas;
+import calculadoracientifica.Sistemas.CalculadoraSistemas;
 import calculadoracientifica.Interfaces.MinimosQuadrados;
 import java.util.ArrayList;
 

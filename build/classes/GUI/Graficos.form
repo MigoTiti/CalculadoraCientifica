@@ -208,6 +208,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="EXEMPLO DE GR&#xc1;FICO"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="exemploGraficoMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

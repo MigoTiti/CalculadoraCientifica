@@ -183,6 +183,11 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         });
 
         exemploGrafico.setText("EXEMPLO DE GRÁFICO");
+        exemploGrafico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exemploGraficoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -299,6 +304,10 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         if(plotar.isEnabled()&&camposCheios==3)
             obterResposta();
     }//GEN-LAST:event_plotarMouseClicked
+
+    private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
+        
+    }//GEN-LAST:event_exemploGraficoMouseClicked
 
     public void criarGrafico(){
         XYDataset dados;

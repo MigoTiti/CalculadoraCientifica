@@ -2,6 +2,7 @@ package calculadoracientifica.Graficos.GerarAleatorio;
 
 import calculadoracientifica.Graficos.CalculadoraGraficos;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
     
@@ -9,6 +10,10 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
+        this.x = new ArrayList<>();
+        this.y = new ArrayList<>();
+        this.gerador = new Random();
+        this.equacao = "";
     }
     
     public void interpretadorStrings(){
@@ -108,15 +113,70 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
     }
     
     public void gerarEquacao(String tipo){
-        
+        switch(tipo){
+            case "linear":
+                gerarLinear();
+                break;
+            case "quadratica":
+                gerarQuadratica();
+                break;
+            case "exponencial":
+                gerarExponencial();
+                break;
+            case "logaritmica":
+                gerarLogaritmica();
+                break;
+            case "trigonometrica":
+                gerarTrigonometrica();
+                break;
+        }
     }
     
     private void gerarLinear(){
-        
+        int a = gerador.nextInt(20);
+        if(a==0)
+            a++;
+        equacao+= a+"x";
+        int b = gerador.nextInt(20);
+        boolean sinalB;
+        if(b!=0){
+            sinalB = gerador.nextBoolean();
+            if(sinalB){
+                equacao+="+"+b;
+            }else{
+                b = Math.negateExact(b);
+                equacao+=b;
+            }
+        }
     }
     
     private void gerarQuadratica(){
-        
+        int a = gerador.nextInt(20);
+        if(a==0)
+            a++;
+        equacao+=a+"x^2";
+        int b = gerador.nextInt(20);
+        boolean sinalB;
+        if(b!=0){
+            sinalB = gerador.nextBoolean();
+            if(sinalB){
+                equacao+="+"+b+"x";
+            }else{
+                b = Math.negateExact(b);
+                equacao+=b+"x";
+            }
+        }
+        int c = gerador.nextInt(20);
+        boolean sinalC;
+        if(b!=0){
+            sinalC = gerador.nextBoolean();
+            if(sinalC){
+                equacao+="+"+c;
+            }else{
+                b = Math.negateExact(c);
+                equacao+=c;
+            }
+        }
     }
     
     private void gerarExponencial(){
@@ -131,6 +191,9 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         
     }
     
+    private final Random gerador;
+    private ArrayList<Double> x;
+    private ArrayList<Double> y;
     private ArrayList<String> sinaisConstrutor;
     private ArrayList<Double> numerosConstrutor;
     private ArrayList<Integer> posicoesX;

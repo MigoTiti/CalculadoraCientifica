@@ -58,5 +58,5 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
         return resultadoIntegral;
     }
     
-    private static double iteracoes = 10;
+    private static double iteracoes = 19;
 }

@@ -56,8 +56,6 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         
         this.numero3 = xVariando.getDocument();
         this.numero3.addDocumentListener(new ControladorBotao(limparTudo));
-        
-        this.aleatorios = new CalculadoraGraficosAleatorios();
     }
        
     class ControladorBotao implements DocumentListener {
@@ -110,6 +108,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         
         FrameEscolha(){
             iniciarFrame();
+            this.aleatorios = new CalculadoraGraficosAleatorios();
         }
         
         private void iniciarFrame(){
@@ -234,7 +233,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         }
         
         private void linearMouseClicked(java.awt.event.MouseEvent evt){
-            tipoExemplo = "linear";
+            aleatorios.gerarEquacao("linear");
             dispose();
         }
         
@@ -258,6 +257,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         private JButton exponencial;
         private JButton logaritmica;
         private JButton trigonometrica;
+        
+        private final CalculadoraGraficosAleatorios aleatorios;
     }
 
     @SuppressWarnings("unchecked")
@@ -465,7 +466,6 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
 
     private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
         FrameEscolha frameEscolha = new FrameEscolha();
-        aleatorios.gerarEquacao(tipoExemplo);
     }//GEN-LAST:event_exemploGraficoMouseClicked
 
     public void criarGrafico(){
@@ -724,7 +724,6 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private final Document numero3;
     
     private final CalculadoraGraficos graficos;
-    private final CalculadoraGraficosAleatorios aleatorios;
     
     public static final String VAZIO = "";  
     

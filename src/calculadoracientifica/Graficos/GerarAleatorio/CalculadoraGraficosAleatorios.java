@@ -10,10 +10,10 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
-        this.x = new ArrayList<>();
-        this.y = new ArrayList<>();
         this.gerador = new Random();
         this.equacao = "";
+        this.limInferior = gerador.nextInt(4)+1;
+        this.limSuperior = gerador.nextInt(100)+10;
     }
     
     public void interpretadorStrings(){
@@ -100,6 +100,13 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
                             break OUTER;
                         }
                         break;
+                    case "sen":
+                    case "cos":
+                    case "tg":
+                        sinaisConstrutor.add(atual);
+                        equacaoInteira.deleteCharAt(i);
+                        anteriorNumero = false;
+                        break OUTER;
                     default:
                         anteriorNumero = true;
                         break;
@@ -112,7 +119,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         }
     }
     
-    public void gerarEquacao(String tipo){
+    public void gerarPontosAleatorios(String tipo){
         switch(tipo){
             case "linear":
                 gerarLinear();
@@ -130,6 +137,32 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
                 gerarTrigonometrica();
                 break;
         }
+        equacao+="!";
+        interpretadorStrings();
+    }
+    
+    public ArrayList<String> getSinais(){
+        return sinaisConstrutor;
+    }
+    
+    public ArrayList<Double> getNumeros(){
+        return numerosConstrutor;
+    }
+    
+    public ArrayList<Integer> getPosicoes(){
+        return posicoesX;
+    }
+    
+    public int getLimiteI(){
+        return limInferior;
+    }
+    
+    public int getLimiteS(){
+        return limSuperior;
+    }
+    
+    public int getDelta(){
+        return delta;
     }
     
     private void gerarLinear(){
@@ -137,6 +170,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         if(a==0)
             a++;
         equacao+= a+"x";
+        
         int b = gerador.nextInt(20);
         boolean sinalB;
         if(b!=0){
@@ -155,6 +189,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         if(a==0)
             a++;
         equacao+=a+"x^2";
+        
         int b = gerador.nextInt(20);
         boolean sinalB;
         if(b!=0){
@@ -166,21 +201,37 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
                 equacao+=b+"x";
             }
         }
+        
         int c = gerador.nextInt(20);
         boolean sinalC;
-        if(b!=0){
+        if(c!=0){
             sinalC = gerador.nextBoolean();
             if(sinalC){
                 equacao+="+"+c;
             }else{
-                b = Math.negateExact(c);
+                c = Math.negateExact(c);
                 equacao+=c;
             }
         }
     }
     
     private void gerarExponencial(){
+        int a = gerador.nextInt();
+        if(a==0)
+            a+=2;
+        equacao+=a+"^x";
         
+        int b = gerador.nextInt(20);
+        boolean sinalB;
+        if(b!=0){
+            sinalB = gerador.nextBoolean();
+            if(sinalB){
+                equacao+="+"+b;
+            }else{
+                b = Math.negateExact(b);
+                equacao+=b;
+            }
+        }
     }
     
     private void gerarLogaritmica(){
@@ -188,12 +239,24 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
     }
     
     private void gerarTrigonometrica(){
-        
+        int escolha = gerador.nextInt(2)+1;
+        switch(escolha){
+            case '1':
+                equacao+="senx";
+                break;
+            case '2':
+                equacao+="cosx";
+                break;
+            case '3':
+                equacao+="tgx";
+                break;
+        }
     }
     
+    private final int limSuperior;
+    private final int limInferior;
+    private final int delta = 1;
     private final Random gerador;
-    private ArrayList<Double> x;
-    private ArrayList<Double> y;
     private ArrayList<String> sinaisConstrutor;
     private ArrayList<Double> numerosConstrutor;
     private ArrayList<Integer> posicoesX;

@@ -229,27 +229,83 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         
         private void exponencialMouseClicked(java.awt.event.MouseEvent evt){
             tipoExemplo = "exponencial";
+            aleatorios.gerarPontosAleatorios(tipoExemplo);
+            operadoresAuxiliar = aleatorios.getNumeros();
+            xPosicoes = aleatorios.getPosicoes();
+            sinais = aleatorios.getSinais();
+            limiteInferior = aleatorios.getLimiteI();
+            limiteSuperior = aleatorios.getLimiteS();
+            delta = aleatorios.getDelta();
+            criarExemplo();
             dispose();
         }
         
         private void linearMouseClicked(java.awt.event.MouseEvent evt){
-            aleatorios.gerarEquacao("linear");
+            aleatorios.gerarPontosAleatorios("linear");
+            operadoresAuxiliar = aleatorios.getNumeros();
+            xPosicoes = aleatorios.getPosicoes();
+            sinais = aleatorios.getSinais();
+            limiteInferior = aleatorios.getLimiteI();
+            limiteSuperior = aleatorios.getLimiteS();
+            delta = aleatorios.getDelta();
+            criarExemplo();
             dispose();
         }
         
         private void quadraticaMouseClicked(java.awt.event.MouseEvent evt){
             tipoExemplo = "quadratica";
+            aleatorios.gerarPontosAleatorios(tipoExemplo);
+            operadoresAuxiliar = aleatorios.getNumeros();
+            xPosicoes = aleatorios.getPosicoes();
+            sinais = aleatorios.getSinais();
+            limiteInferior = aleatorios.getLimiteI();
+            limiteSuperior = aleatorios.getLimiteS();
+            delta = aleatorios.getDelta();
+            criarExemplo();
             dispose();
         }
         
         private void logaritmicaMouseClicked(java.awt.event.MouseEvent evt){
             tipoExemplo = "logaritmica";
+            aleatorios.gerarPontosAleatorios(tipoExemplo);
+            operadoresAuxiliar = aleatorios.getNumeros();
+            xPosicoes = aleatorios.getPosicoes();
+            sinais = aleatorios.getSinais();
+            limiteInferior = aleatorios.getLimiteI();
+            limiteSuperior = aleatorios.getLimiteS();
+            delta = aleatorios.getDelta();
+            criarExemplo();
             dispose();
         }
         
         private void trigonometricaMouseClicked(java.awt.event.MouseEvent evt){
             tipoExemplo = "trigonometrica";
+            aleatorios.gerarPontosAleatorios(tipoExemplo);
+            operadoresAuxiliar = aleatorios.getNumeros();
+            xPosicoes = aleatorios.getPosicoes();
+            sinais = aleatorios.getSinais();
+            limiteInferior = aleatorios.getLimiteI();
+            limiteSuperior = aleatorios.getLimiteS();
+            delta = aleatorios.getDelta();
+            criarExemplo();
             dispose();
+        }
+        
+        private void criarExemplo(){
+            ArrayList<Integer> xPosicoes2;
+            ArrayList<Double> operadoresAuxiliar2;
+            ArrayList<String> sinais2;
+            for(double i = limiteInferior;i<=limiteSuperior;i+=delta){
+                xPosicoes2 = new ArrayList<>(xPosicoes);
+                operadoresAuxiliar2 = new ArrayList<>(operadoresAuxiliar);
+                sinais2 = new ArrayList<>(sinais);
+                x.add(i);
+                y.add(graficos.interpretadorIntermediario(i, xPosicoes2, operadoresAuxiliar2, sinais2));
+            }
+
+            criarGrafico();
+            y.clear();
+            x.clear();
         }
         
         private JButton linear;

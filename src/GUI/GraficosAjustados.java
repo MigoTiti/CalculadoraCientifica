@@ -2,7 +2,6 @@ package GUI;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

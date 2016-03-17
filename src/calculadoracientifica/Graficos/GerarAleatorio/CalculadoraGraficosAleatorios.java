@@ -107,7 +107,29 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         }
     }
     
+    public void gerarEquacao(String tipo){
+        
+    }
     
+    private void gerarLinear(){
+        
+    }
+    
+    private void gerarQuadratica(){
+        
+    }
+    
+    private void gerarExponencial(){
+        
+    }
+    
+    private void gerarLogaritmica(){
+        
+    }
+    
+    private void gerarTrigonometrica(){
+        
+    }
     
     private ArrayList<String> sinaisConstrutor;
     private ArrayList<Double> numerosConstrutor;

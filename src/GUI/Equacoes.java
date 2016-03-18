@@ -77,7 +77,6 @@ public class Equacoes extends javax.swing.JFrame {
         this.numero3ESG.addDocumentListener(new ControladorBotaoESG(limparESG,resultadoESG));
     }
 
-        
     class ControladorBotaoSDV implements DocumentListener {
         JButton limparBotao;
         JButton resultadoBotao;
@@ -228,7 +227,7 @@ public class Equacoes extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jTextField7 = new javax.swing.JTextField();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        painelEquacoes = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         limparSDV = new javax.swing.JButton();
         resultadoSDV = new javax.swing.JButton();
@@ -460,7 +459,7 @@ public class Equacoes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("SISTEMA DE DUAS VARIÁVEIS", jPanel1);
+        painelEquacoes.addTab("SISTEMA DE DUAS VARIÁVEIS", jPanel1);
 
         jLabel1.setText("x");
 
@@ -659,7 +658,7 @@ public class Equacoes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("SISTEMA DE TRÊS VARIÁVEIS", jPanel3);
+        painelEquacoes.addTab("SISTEMA DE TRÊS VARIÁVEIS", jPanel3);
 
         jLabel16.setText("x²");
 
@@ -805,17 +804,17 @@ public class Equacoes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("EQUAÇÃO DE SEGUNDO GRAU", jPanel4);
+        painelEquacoes.addTab("EQUAÇÃO DE SEGUNDO GRAU", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(painelEquacoes)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(painelEquacoes, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -834,18 +833,66 @@ public class Equacoes extends javax.swing.JFrame {
             double[][] coeficientes = new double[3][3];
             boolean sucesso;
             try{
-                coeficientes[0][0] = Double.parseDouble(x1STV.getText());
-                coeficientes[1][0] = Double.parseDouble(x2STV.getText());
-                coeficientes[2][0] = Double.parseDouble(x3STV.getText());
-                coeficientes[0][1] = Double.parseDouble(y1STV.getText());
-                coeficientes[1][1] = Double.parseDouble(y2STV.getText());
-                coeficientes[2][1] = Double.parseDouble(y3STV.getText());
-                coeficientes[0][2] = Double.parseDouble(z1STV.getText());
-                coeficientes[1][2] = Double.parseDouble(z2STV.getText());
-                coeficientes[2][2] = Double.parseDouble(z3STV.getText());
-                resultadosParciais[0] = Double.parseDouble(resultado1STV.getText());
-                resultadosParciais[1] = Double.parseDouble(resultado2STV.getText());
-                resultadosParciais[2] = Double.parseDouble(resultado3STV.getText()); 
+                auxiliarNumero = x1STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[0][0] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = x2STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[1][0] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = x3STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[2][0] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = y1STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[0][1] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = y2STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[1][1] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = y3STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[2][1] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = z1STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[0][2] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = z2STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[1][2] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = z3STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[2][2] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = resultado1STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                resultadosParciais[0] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = resultado2STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                resultadosParciais[1] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = resultado3STV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                resultadosParciais[2] = Double.parseDouble(auxiliarNumero);
+                
                 sucesso = true;
             }
             catch(NumberFormatException e){
@@ -910,9 +957,22 @@ public class Equacoes extends javax.swing.JFrame {
             double cValor = 0;
             boolean sucesso;
             try{
-                aValor = Double.parseDouble(aTexto.getText()); 
-                bValor =  Double.parseDouble(bTexto.getText());
-                cValor = Double.parseDouble(cTexto.getText());
+                auxiliarNumero = aTexto.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                aValor = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = bTexto.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                bValor = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = cTexto.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                cValor = Double.parseDouble(auxiliarNumero);
+                
+                
                 sucesso = true;
             }
             catch(NumberFormatException e){
@@ -971,12 +1031,36 @@ public class Equacoes extends javax.swing.JFrame {
             double[] resultadosParciais = new double[2];
             boolean sucesso;
             try{
-                coeficientes[0][0] = Double.parseDouble(x1SDV.getText());
-                coeficientes[1][0] = Double.parseDouble(x2SDV.getText());
-                coeficientes[0][1] = Double.parseDouble(y1SDV.getText());
-                coeficientes[1][1] = Double.parseDouble(y2SDV.getText());
-                resultadosParciais[0] = Double.parseDouble(resultado1SDV.getText());
-                resultadosParciais[1] = Double.parseDouble(resultado2SDV.getText());
+                auxiliarNumero = x1SDV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[0][0] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = x2SDV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[1][0] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = y1SDV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[0][1] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = y2SDV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                coeficientes[1][1] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = resultado1SDV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                resultadosParciais[0] = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = resultado2SDV.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                resultadosParciais[1] = Double.parseDouble(auxiliarNumero);
+                
                 sucesso = true;
             }
             catch(NumberFormatException e){
@@ -1036,6 +1120,8 @@ public class Equacoes extends javax.swing.JFrame {
     public static int camposCheiosSTV = 0;
     public static int camposCheiosESG = 0;
     
+    private String auxiliarNumero;
+    
     private final CalculadoraEquacoes equacoes;
     private final CalculadoraSistemas sistemas;
     private final DecimalFormat formatador;
@@ -1083,11 +1169,11 @@ public class Equacoes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JButton limparESG;
     private javax.swing.JButton limparSDV;
     private javax.swing.JButton limparSTV;
+    private javax.swing.JTabbedPane painelEquacoes;
     private javax.swing.JTextField raiz1;
     private javax.swing.JTextField raiz2;
     private javax.swing.JTextField resultado1SDV;

@@ -415,18 +415,20 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         caixaEquacao.requestFocusInWindow(); 
         boolean sucesso = false;
         if(permitirSinal == false){
-            
             try{
-                operador = Double.parseDouble(caixaEquacao.getText());
+                auxiliarNumero = caixaEquacao.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                operador = Double.parseDouble(auxiliarNumero);
                 sucesso = true;
             }
             catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Apenas números!");
+                auxiliarNumero = null;
                 sucesso = false;
             }
             
             if(sucesso){
-                operador = Double.parseDouble(caixaEquacao.getText());
                 operadores.add(operador);
                 caixaEquacao.setText(vazio);
                 operadorFormatado = formatador.format(operador);
@@ -541,6 +543,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     private void fechaParentesesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaParentesesMouseClicked
         caixaEquacao.requestFocusInWindow();
+        boolean sucesso = false;
         if(permitirSinal==false && parentesesInterno){
             if(")".equals(sinais.get(sinais.size()-1))){
                 equacao.append(")");
@@ -549,14 +552,27 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 caixaResposta.setText(equacao.toString());
                 permitirSinal = true;
             }else{
-                operador = Double.parseDouble(caixaEquacao.getText());
-                operadores.add(operador);
-                caixaEquacao.setText(vazio);
-                equacao.append(formatador.format(operador)).append(")");
-                sinais.add(")");
-                parentesesContador--;
-                caixaResposta.setText(equacao.toString());
-                permitirSinal = true;
+                try{
+                    auxiliarNumero = caixaEquacao.getText();
+                    if(auxiliarNumero.contains(","))
+                        auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    operador = Double.parseDouble(auxiliarNumero);
+                    sucesso = true;
+                }
+                catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "Apenas números!");
+                    auxiliarNumero = null;
+                    sucesso = false;
+                }
+                if(sucesso){
+                    operadores.add(operador);
+                    caixaEquacao.setText(vazio);
+                    equacao.append(formatador.format(operador)).append(")");
+                    sinais.add(")");
+                    parentesesContador--;
+                    caixaResposta.setText(equacao.toString());
+                    permitirSinal = true;
+                }
             }
         }else if(permitirSinal && parentesesInterno){
             equacao.append(")");
@@ -586,14 +602,28 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     private void quadradoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quadradoMouseClicked
         caixaEquacao.requestFocusInWindow();
+        boolean sucesso;
         if(permitirSinal == false){
-            operador = Double.parseDouble(caixaEquacao.getText());
-            operadores.add(operador);
-            caixaEquacao.setText(vazio);
-            operadorFormatado = formatador.format(operador);
-            equacao.append(operadorFormatado).append("^2");
-            sinais.add("^");
-            operadores.add(2.0);
+            try{
+                    auxiliarNumero = caixaEquacao.getText();
+                    if(auxiliarNumero.contains(","))
+                        auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    operador = Double.parseDouble(auxiliarNumero);
+                    sucesso = true;
+                }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                auxiliarNumero = null;
+                sucesso = false;
+            }
+            if(sucesso){
+                operadores.add(operador);
+                caixaEquacao.setText(vazio);
+                operadorFormatado = formatador.format(operador);
+                equacao.append(operadorFormatado).append("^2");
+                sinais.add("^");
+                operadores.add(2.0);
+            } 
         }else if(permitirSinal){
             equacao.append("^2");
             sinais.add("^");
@@ -609,14 +639,28 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     private void elevadoYMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elevadoYMouseClicked
         caixaEquacao.requestFocusInWindow();
+        boolean sucesso;
         if(permitirSinal == false){
-            operador = Double.parseDouble(caixaEquacao.getText());
-            operadores.add(operador);
-            caixaEquacao.setText(vazio);
-            operadorFormatado = formatador.format(operador);
-            equacao.append(operadorFormatado).append("^").append("(");
-            sinais.add("(");
-            sinais.add("^");
+            try{
+                    auxiliarNumero = caixaEquacao.getText();
+                    if(auxiliarNumero.contains(","))
+                        auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    operador = Double.parseDouble(auxiliarNumero);
+                    sucesso = true;
+                }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                auxiliarNumero = null;
+                sucesso = false;
+            }
+            if(sucesso){
+                operadores.add(operador);
+                caixaEquacao.setText(vazio);
+                operadorFormatado = formatador.format(operador);
+                equacao.append(operadorFormatado).append("^").append("(");
+                sinais.add("(");
+                sinais.add("^");
+            }
         }else if(permitirSinal){
             equacao.append("^").append("(");
             sinais.add("(");
@@ -657,14 +701,28 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     private void xCuboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xCuboMouseClicked
         caixaEquacao.requestFocusInWindow();
+        boolean sucesso;
         if(permitirSinal == false){
-            operador = Double.parseDouble(caixaEquacao.getText());
-            operadores.add(operador);
-            caixaEquacao.setText(vazio);
-            operadorFormatado = formatador.format(operador);
-            equacao.append(operadorFormatado).append("^3");
-            sinais.add("^");
-            operadores.add(3.0);
+            try{
+                    auxiliarNumero = caixaEquacao.getText();
+                    if(auxiliarNumero.contains(","))
+                        auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    operador = Double.parseDouble(auxiliarNumero);
+                    sucesso = true;
+                }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                auxiliarNumero = null;
+                sucesso = false;
+            }
+            if(sucesso){
+                operadores.add(operador);
+                caixaEquacao.setText(vazio);
+                operadorFormatado = formatador.format(operador);
+                equacao.append(operadorFormatado).append("^3");
+                sinais.add("^");
+                operadores.add(3.0);
+            }
         }else if(permitirSinal){
             equacao.append("^3");
             sinais.add("^");
@@ -739,7 +797,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 limparEquacao.setEnabled(true);
         }
     }//GEN-LAST:event_derivadaMouseClicked
-        
+                                                            
     public boolean digitarEquacaoIntegral(){
         JTextField limiteSuperiorTexto = new JTextField(vazio);
         JTextField limiteInferiorTexto = new JTextField(vazio);
@@ -800,9 +858,9 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                             sucessoParse = true;
                             break;
                         default:
-                            double operadorTemp;
                             try{
-                                operadorTemp = Double.parseDouble(atual);
+                                if(atual.contains(","))
+                                    atual = atual.replaceAll("\\,", ".");
                                 sucessoParse = true;
                             }
                             catch(NumberFormatException e2){
@@ -862,8 +920,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 resultado = 0;
                 return true;
             }
-            for (String operador : operadoresIntDer) {
-                operadoresAuxiliar.add(Double.parseDouble(operador));
+            for (String operador2 : operadoresIntDer) {
+                operadoresAuxiliar.add(Double.parseDouble(operador2));
             }
             operadoresIntDer.clear();
             resultado = calculadoraIntegral.integral(limS,limI,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
@@ -891,7 +949,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             return false;
         }
     }
-    
+                                                            
     public boolean digitarEquacaoDerivada(){
         JTextField x = new JTextField(vazio);
         JTextField equacaoDigitar = new JTextField(vazio);
@@ -951,9 +1009,9 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                             sucessoParse = true;
                             break;
                         default:
-                            double operadorTemp;
                             try{
-                                operadorTemp = Double.parseDouble(atual);
+                                if(atual.contains(","))
+                                    atual = atual.replaceAll("\\,", ".");
                                 sucessoParse = true;
                             }
                             catch(NumberFormatException e2){
@@ -1006,8 +1064,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         
         if (result == JOptionPane.OK_OPTION){
             xValor = Double.parseDouble(x.getText());
-            for (String operador : operadoresIntDer) {
-                operadoresAuxiliar.add(Double.parseDouble(operador));
+            for (String operador2 : operadoresIntDer) {
+                operadoresAuxiliar.add(Double.parseDouble(operador2));
             }
             operadoresIntDer.clear();
             resultado = calculadoraDerivada.derivada(xValor,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
@@ -1052,7 +1110,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         if(resposta.isEnabled())
             resposta.setEnabled(false);
        limparEquacao.setEnabled(false);
-        resultado = 0;
+       resultado = 0;
     }
 
     @Override
@@ -1064,11 +1122,25 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     @Override
     public void obterResposta() {
+        boolean sucesso;
         if(permitirSinal == false){
-            operador = Double.parseDouble(caixaEquacao.getText());
-            operadores.add(operador);
-            caixaEquacao.setText(vazio);
-            equacao.append(operador);
+            try{
+                    auxiliarNumero = caixaEquacao.getText();
+                    if(auxiliarNumero.contains(","))
+                        auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    operador = Double.parseDouble(auxiliarNumero);
+                    sucesso = true;
+                }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
+                auxiliarNumero = null;
+                sucesso = false;
+            }
+            if(sucesso){
+                operadores.add(operador);
+                caixaEquacao.setText(vazio);
+                equacao.append(operador);
+            }
         }else
             caixaEquacao.setText(vazio); 
         
@@ -1102,6 +1174,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private ArrayList<Double> operadoresAuxiliar;
     private ArrayList<String> operadoresIntDer;
     private ArrayList<String> sinaisIntDer;   
+    
+    private String auxiliarNumero;
     
     //Geral
     private String operadorFormatado;

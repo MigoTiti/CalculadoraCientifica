@@ -79,8 +79,11 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
             if(!"".equals(adicionarValor.getText())){
                 boolean sucesso;
                 try{
-                    elemento = Double.parseDouble(adicionarValor.getText());
-                    sucesso = true;
+                auxiliarNumero = adicionarValor.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                elemento = Double.parseDouble(auxiliarNumero);
+                sucesso = true;
                 }
                 catch(NumberFormatException e2){
                     JOptionPane.showMessageDialog(null, "Apenas números!");
@@ -122,22 +125,22 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         limpar = new javax.swing.JButton();
         adicionarValor = new javax.swing.JTextField();
         adicionar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        mediaNome = new javax.swing.JLabel();
+        medianaNome = new javax.swing.JLabel();
         media = new javax.swing.JTextField();
         mediana = new javax.swing.JTextField();
         removerElemento = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        desvioPadraoNome = new javax.swing.JLabel();
         coeficienteVariacao = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        modaNome = new javax.swing.JLabel();
         moda = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        varianciaNome = new javax.swing.JLabel();
         variancia = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        coeficienteVariacaoNome = new javax.swing.JLabel();
         desvioPadrao = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaElementos = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        elementoNome = new javax.swing.JLabel();
 
         jList2.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -205,9 +208,9 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
             }
         });
 
-        jLabel1.setText("MÉDIA");
+        mediaNome.setText("MÉDIA");
 
-        jLabel2.setText("MEDIANA");
+        medianaNome.setText("MEDIANA");
 
         media.setEditable(false);
         media.setFocusable(false);
@@ -222,19 +225,19 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
             }
         });
 
-        jLabel3.setText("DESVIO PADRÃO");
+        desvioPadraoNome.setText("DESVIO PADRÃO");
 
         coeficienteVariacao.setEditable(false);
 
-        jLabel4.setText("MODA");
+        modaNome.setText("MODA");
 
         moda.setEditable(false);
 
-        jLabel5.setText("VARIÂNCIA");
+        varianciaNome.setText("VARIÂNCIA");
 
         variancia.setEditable(false);
 
-        jLabel6.setText("COEFICIENTE DE VARIAÇÃO");
+        coeficienteVariacaoNome.setText("COEFICIENTE DE VARIAÇÃO");
 
         desvioPadrao.setEditable(false);
 
@@ -251,7 +254,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         jScrollPane5.setViewportView(tabelaElementos);
         tabelaElementos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jLabel7.setText("ELEMENTO");
+        elementoNome.setText("ELEMENTO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,12 +279,12 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(adicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mediaNome)
+                            .addComponent(medianaNome)
+                            .addComponent(desvioPadraoNome)
+                            .addComponent(modaNome)
+                            .addComponent(varianciaNome)
+                            .addComponent(coeficienteVariacaoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(coeficienteVariacao)
                             .addComponent(variancia)
                             .addComponent(desvioPadrao)
@@ -292,7 +295,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
                         .addContainerGap(27, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addComponent(jLabel7)
+                        .addComponent(elementoNome)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -309,33 +312,33 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel7)
+                        .addComponent(elementoNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(adicionarValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(adicionar)
                         .addGap(1, 1, 1)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(mediaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
                         .addComponent(media, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(medianaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
                         .addComponent(mediana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel4)
+                        .addComponent(modaNome)
                         .addGap(6, 6, 6)
                         .addComponent(moda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel3)
+                        .addComponent(desvioPadraoNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(desvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
+                        .addComponent(varianciaNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(variancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addComponent(coeficienteVariacaoNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(coeficienteVariacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -358,7 +361,10 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         if(!"".equals(adicionarValor.getText())){
             boolean sucesso;
             try{
-                elemento = Double.parseDouble(adicionarValor.getText());
+                auxiliarNumero = adicionarValor.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                elemento = Double.parseDouble(auxiliarNumero);
                 sucesso = true;
             }
             catch(NumberFormatException e){
@@ -494,6 +500,8 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     
     private Document numero;
     
+    private String auxiliarNumero;
+    
     private final CalculadoraEstatistica estatistica;
     private final DecimalFormat formatador;
     public static final String VAZIO = "";
@@ -501,15 +509,11 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     private javax.swing.JButton adicionar;
     private javax.swing.JTextField adicionarValor;
     private javax.swing.JTextField coeficienteVariacao;
+    private javax.swing.JLabel coeficienteVariacaoNome;
     private javax.swing.JTextField desvioPadrao;
+    private javax.swing.JLabel desvioPadraoNome;
+    private javax.swing.JLabel elementoNome;
     private javax.swing.JButton igual;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -519,11 +523,15 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     private javax.swing.JTable jTable2;
     private javax.swing.JButton limpar;
     private javax.swing.JTextField media;
+    private javax.swing.JLabel mediaNome;
     private javax.swing.JTextField mediana;
+    private javax.swing.JLabel medianaNome;
     private javax.swing.JTextField moda;
+    private javax.swing.JLabel modaNome;
     private javax.swing.JButton removerElemento;
     private javax.swing.JTable tabelaElementos;
     private javax.swing.JTextField variancia;
+    private javax.swing.JLabel varianciaNome;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 

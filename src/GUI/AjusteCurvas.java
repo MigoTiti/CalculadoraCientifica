@@ -117,8 +117,15 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                 boolean sucesso;
 
                 try{
-                    xValor = Double.parseDouble(xPonto.getText());
-                    yValor = Double.parseDouble(yPonto.getText());
+                    auxiliarNumero = xPonto.getText();
+                    if(auxiliarNumero.contains(","))
+                        auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    xValor = Double.parseDouble(auxiliarNumero);
+
+                    auxiliarNumero = yPonto.getText();
+                    if(auxiliarNumero.contains(","))
+                        auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    yValor = Double.parseDouble(auxiliarNumero);
                     sucesso = true;
                 }
                 catch(NumberFormatException e2){
@@ -419,8 +426,15 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
             boolean sucesso;
         
             try{
-                xValor = Double.parseDouble(xPonto.getText());
-                yValor = Double.parseDouble(yPonto.getText());
+                auxiliarNumero = xPonto.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                xValor = Double.parseDouble(auxiliarNumero);
+                
+                auxiliarNumero = yPonto.getText();
+                if(auxiliarNumero.contains(","))
+                    auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                yValor = Double.parseDouble(auxiliarNumero);
                 sucesso = true;
             }
             catch(NumberFormatException e){
@@ -734,6 +748,8 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     
     private String equacaoLinearString;
     private String equacaoQuadraticaString;
+    
+    private String auxiliarNumero;
     
     private String equacaoLinearStringExibir;
     private String equacaoExpStringExibir;

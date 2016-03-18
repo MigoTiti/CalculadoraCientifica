@@ -6,6 +6,7 @@ import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -107,6 +108,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     class FrameEscolha extends JFrame{
         
         FrameEscolha(){
+            this.formatador = new DecimalFormat();
+            this.formatador.setDecimalSeparatorAlwaysShown(false);
             iniciarFrame();
             this.aleatorios = new CalculadoraGraficosAleatorios();
         }
@@ -227,8 +230,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             setLocationRelativeTo(null);
         }
         
-        private void exponencialMouseClicked(java.awt.event.MouseEvent evt){
-            tipoExemplo = "exponencial";
+        private void evento(){
             aleatorios.gerarPontosAleatorios(tipoExemplo);
             operadoresAuxiliar = aleatorios.getNumeros();
             xPosicoes = aleatorios.getPosicoes();
@@ -236,59 +238,54 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             limiteInferior = aleatorios.getLimiteI();
             limiteSuperior = aleatorios.getLimiteS();
             delta = aleatorios.getDelta();
+            if(equacao.length()!=0)
+                equacao.setLength(0);
+            equacao.append(aleatorios.getEquacao());
+            equacao.deleteCharAt(equacao.length()-1);
+            equacaoLer.setText(equacao.toString());
+            xVariando.setText(formatador.format(delta));
+            xVariando.setEditable(false);
+            comecoIntervalo.setText(formatador.format(limiteInferior));
+            comecoIntervalo.setEditable(false);
+            fimIntervalo.setText(formatador.format(limiteSuperior));
+            fimIntervalo.setEditable(false);
             criarExemplo();
+            if(!limparTudo.isEnabled())
+                limparTudo.setEnabled(true);
+            if(!limparEquacao.isEnabled())
+                limparEquacao.setEnabled(true);
+            if(equacaoDigitar.isEnabled())
+                equacaoDigitar.setEnabled(false);
+            if(exemploGrafico.isEnabled())
+                exemploGrafico.setEnabled(false);
+            if(plotar.isEnabled())
+                plotar.setEnabled(false);
             dispose();
         }
         
+        private void exponencialMouseClicked(java.awt.event.MouseEvent evt){
+            tipoExemplo = "exponencial";
+            evento();
+        }
+        
         private void linearMouseClicked(java.awt.event.MouseEvent evt){
-            aleatorios.gerarPontosAleatorios("linear");
-            operadoresAuxiliar = aleatorios.getNumeros();
-            xPosicoes = aleatorios.getPosicoes();
-            sinais = aleatorios.getSinais();
-            limiteInferior = aleatorios.getLimiteI();
-            limiteSuperior = aleatorios.getLimiteS();
-            delta = aleatorios.getDelta();
-            criarExemplo();
-            dispose();
+            tipoExemplo = "linear";
+            evento();
         }
         
         private void quadraticaMouseClicked(java.awt.event.MouseEvent evt){
             tipoExemplo = "quadratica";
-            aleatorios.gerarPontosAleatorios(tipoExemplo);
-            operadoresAuxiliar = aleatorios.getNumeros();
-            xPosicoes = aleatorios.getPosicoes();
-            sinais = aleatorios.getSinais();
-            limiteInferior = aleatorios.getLimiteI();
-            limiteSuperior = aleatorios.getLimiteS();
-            delta = aleatorios.getDelta();
-            criarExemplo();
-            dispose();
+            evento();
         }
         
         private void logaritmicaMouseClicked(java.awt.event.MouseEvent evt){
             tipoExemplo = "logaritmica";
-            aleatorios.gerarPontosAleatorios(tipoExemplo);
-            operadoresAuxiliar = aleatorios.getNumeros();
-            xPosicoes = aleatorios.getPosicoes();
-            sinais = aleatorios.getSinais();
-            limiteInferior = aleatorios.getLimiteI();
-            limiteSuperior = aleatorios.getLimiteS();
-            delta = aleatorios.getDelta();
-            criarExemplo();
-            dispose();
+            evento();
         }
         
         private void trigonometricaMouseClicked(java.awt.event.MouseEvent evt){
             tipoExemplo = "trigonometrica";
-            aleatorios.gerarPontosAleatorios(tipoExemplo);
-            operadoresAuxiliar = aleatorios.getNumeros();
-            xPosicoes = aleatorios.getPosicoes();
-            sinais = aleatorios.getSinais();
-            limiteInferior = aleatorios.getLimiteI();
-            limiteSuperior = aleatorios.getLimiteS();
-            delta = aleatorios.getDelta();
-            criarExemplo();
-            dispose();
+            evento();
         }
         
         private void criarExemplo(){
@@ -313,6 +310,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         private JButton exponencial;
         private JButton logaritmica;
         private JButton trigonometrica;
+        
+        private final DecimalFormat formatador;
         
         private final CalculadoraGraficosAleatorios aleatorios;
     }
@@ -521,7 +520,9 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     }//GEN-LAST:event_plotarMouseClicked
 
     private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
-        FrameEscolha frameEscolha = new FrameEscolha();
+        FrameEscolha frameEscolha;
+        if(exemploGrafico.isEnabled())
+            frameEscolha = new FrameEscolha();
     }//GEN-LAST:event_exemploGraficoMouseClicked
 
     public void criarGrafico(){
@@ -583,6 +584,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                boolean sucessoParse;
                 boolean sucesso = false;
                 String atual = equacaoDigitar2.getText();
                 if(("+".equals(atual)||"-".equals(atual)||"*".equals(atual)||"/".equals(atual)||"^".equals(atual))&&(sinal==false||xAnterior)){
@@ -602,6 +604,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                 }else if("ln".equals(atual)||"sqrt".equals(atual)||"sen".equals(atual)||"cos".equals(atual)||"tg".equals(atual)||"log".equals(atual)){
                     sinais.add(atual);
                     sinais.add("(");
+                    sinal = true;
                     posicao--;
                     atual = atual.concat("(");
                     if(parenteses == false)
@@ -629,7 +632,17 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                             operadores.add(Double.toString(Math.E));
                             break;
                         default:
-                            operadores.add(atual);
+                            try{
+                                if(atual.contains(","))
+                                    atual = atual.replaceAll("\\,", ".");
+                                sucessoParse = true;
+                            }
+                            catch(NumberFormatException e2){
+                                JOptionPane.showMessageDialog(null, "Apenas números!");
+                                sucessoParse = false;
+                            }
+                            if(sucessoParse)
+                                operadores.add(atual);
                             break;
                     }
                     if(sinal)
@@ -713,6 +726,14 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         limparEquacao.setEnabled(false);
         limparTudo.setEnabled(false);
         equacaoDigitar.setEnabled(true);
+        if(!exemploGrafico.isEnabled())
+            exemploGrafico.setEnabled(true);
+        if(!comecoIntervalo.isEditable())
+            comecoIntervalo.setEditable(true);
+        if(!fimIntervalo.isEditable())
+            fimIntervalo.setEditable(true);
+        if(!xVariando.isEditable())
+            xVariando.setEditable(true);
     }
 
     @Override
@@ -727,9 +748,20 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         boolean sucesso;
         
         try{
-            limiteInferior = Double.parseDouble(comecoIntervalo.getText());
-            limiteSuperior = Double.parseDouble(fimIntervalo.getText());
-            delta = Double.parseDouble(xVariando.getText());
+            auxiliarNumero = comecoIntervalo.getText();
+            if(auxiliarNumero.contains(","))
+                auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+            limiteInferior = Double.parseDouble(auxiliarNumero);
+            
+            auxiliarNumero = fimIntervalo.getText();
+            if(auxiliarNumero.contains(","))
+                auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+            limiteSuperior = Double.parseDouble(auxiliarNumero);
+            
+            auxiliarNumero = xVariando.getText();
+            if(auxiliarNumero.contains(","))
+                auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+            delta = Double.parseDouble(auxiliarNumero);
             sucesso = true;
         }
         catch(NumberFormatException e){
@@ -774,6 +806,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         
     public static int camposCheios = 0;
     private String tipoExemplo;
+    
+    private String auxiliarNumero;
     
     private final Document numero1;
     private final Document numero2;

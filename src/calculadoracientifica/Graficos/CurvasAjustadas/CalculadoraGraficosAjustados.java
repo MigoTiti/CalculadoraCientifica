@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class CalculadoraGraficosAjustados extends CalculadoraGraficos implements AjustesGraficos{
     
     public CalculadoraGraficosAjustados(String equacao){
-        equacao = equacao + "!";
+        equacao+="!";
         
         if(equacao.contains(","))
             equacao = equacao.replaceAll("\\,", ".");

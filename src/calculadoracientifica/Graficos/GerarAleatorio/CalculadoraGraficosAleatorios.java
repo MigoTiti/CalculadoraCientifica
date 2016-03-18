@@ -20,9 +20,6 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         @SuppressWarnings("ReplaceStringBufferByString")
                 
         StringBuilder equacaoInteira = new StringBuilder(equacao);
-        boolean exp = false;
-        if(equacao.contains("e"))
-            exp = true;
         boolean anteriorNumero = false;
         boolean anteriorSinal = true;
         int contadorNumero = 0;
@@ -58,7 +55,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
                             sinaisConstrutor.add(atual);
                             equacaoInteira.delete(0, i+1);
                             contadorNumero++;
-                            anteriorNumero = true;
+                            anteriorNumero = false;
                             break OUTER;
                         } else {
                             sinaisConstrutor.add(atual);
@@ -100,23 +97,40 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
                             break OUTER;
                         }
                         break;
-                    case "sen":
-                    case "cos":
-                    case "tg":
-                        sinaisConstrutor.add(atual);
-                        equacaoInteira.deleteCharAt(i);
-                        anteriorNumero = false;
-                        break OUTER;
+                    case "s":
+                        if(equacaoInteira.charAt(i+1)=='e'&&equacaoInteira.charAt(i+2)=='n'){
+                            sinaisConstrutor.add("sen");
+                            equacaoInteira.delete(i, i+3);
+                            anteriorNumero = false;
+                            break OUTER;
+                        }
+                    case "c":
+                        if(equacaoInteira.charAt(i+1)=='o'&&equacaoInteira.charAt(i+2)=='s'){
+                            sinaisConstrutor.add("cos");
+                            equacaoInteira.delete(i, i+3);
+                            anteriorNumero = false;
+                            break OUTER;
+                        }
+                    case "t":
+                        if(equacaoInteira.charAt(i+1)=='g'){
+                            sinaisConstrutor.add("tg");
+                            equacaoInteira.delete(i, i+2);
+                            anteriorNumero = false;
+                            break OUTER;
+                        }
+                    case "l":
+                        if(equacaoInteira.charAt(i+1)=='o'&&equacaoInteira.charAt(i+2)=='g'){
+                            sinaisConstrutor.add("log");
+                            equacaoInteira.delete(i, i+3);
+                            anteriorNumero = false;
+                            break OUTER;
+                        }
                     default:
                         anteriorNumero = true;
                         break;
                 }
             }
         }while(equacaoInteira.length()>0);
-        if(exp){
-            sinaisConstrutor.add(2, "(");
-            sinaisConstrutor.add(4, ")");
-        }
     }
     
     public void gerarPontosAleatorios(String tipo){
@@ -139,6 +153,10 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         }
         equacao+="!";
         interpretadorStrings();
+    }
+    
+    public String getEquacao(){
+        return equacao;
     }
     
     public ArrayList<String> getSinais(){
@@ -216,7 +234,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
     }
     
     private void gerarExponencial(){
-        int a = gerador.nextInt();
+        int a = gerador.nextInt(20);
         if(a==0)
             a+=2;
         equacao+=a+"^x";
@@ -229,25 +247,28 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
                 equacao+="+"+b;
             }else{
                 b = Math.negateExact(b);
-                equacao+=b;
+                equacao+=b+"";
             }
         }
     }
     
     private void gerarLogaritmica(){
-        
+        int a = gerador.nextInt(20);
+        if(a==0)
+            a+=2;
+        equacao+=a+"+logx";
     }
     
     private void gerarTrigonometrica(){
         int escolha = gerador.nextInt(2)+1;
         switch(escolha){
-            case '1':
+            case 1:
                 equacao+="senx";
                 break;
-            case '2':
+            case 2:
                 equacao+="cosx";
                 break;
-            case '3':
+            case 3:
                 equacao+="tgx";
                 break;
         }

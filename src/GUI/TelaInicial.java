@@ -10,7 +10,7 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label1 = new java.awt.Label();
+        titulo = new java.awt.Label();
         Aritmetica = new java.awt.Button();
         Estatistica = new java.awt.Button();
         Equacoes = new java.awt.Button();
@@ -24,8 +24,8 @@ public class TelaInicial extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(491, 331));
 
-        label1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        label1.setText("TITI CALCULATOR 2016");
+        titulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        titulo.setText("TITI CALCULATOR 2016");
 
         Aritmetica.setLabel("Aritmética");
         Aritmetica.setName("Aritmética"); // NOI18N
@@ -81,13 +81,13 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(Graficos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(103, 103, 103)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Estatistica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -142,6 +142,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private java.awt.Button Estatistica;
     private java.awt.Button Graficos;
     private java.awt.Button ajuste;
-    private java.awt.Label label1;
+    private java.awt.Label titulo;
     // End of variables declaration//GEN-END:variables
 }

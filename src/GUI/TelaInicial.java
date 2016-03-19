@@ -2,10 +2,10 @@ package GUI;
 
 public class TelaInicial extends javax.swing.JFrame {
 
-    public TelaInicial()
-    {
+    public TelaInicial(){
         initComponents();
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,36 +106,41 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AritmeticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AritmeticaMouseClicked
-        dispose();
-        Aritmetica aritmetica = new Aritmetica();
+        aritmetica = new Aritmetica();
         aritmetica.setVisible(true);
+        dispose();
     }//GEN-LAST:event_AritmeticaMouseClicked
 
     private void EstatisticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstatisticaMouseClicked
-        dispose();
-        Estatistica estatistica = new Estatistica();
+        estatistica = new Estatistica();
         estatistica.setVisible(true);
+        dispose();
     }//GEN-LAST:event_EstatisticaMouseClicked
 
     private void EquacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EquacoesMouseClicked
-        dispose();
-        Equacoes equacoes = new Equacoes();
+        equacoes = new Equacoes();
         equacoes.setVisible(true);
+        dispose();
     }//GEN-LAST:event_EquacoesMouseClicked
 
     private void GraficosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GraficosMouseClicked
-        dispose();
-        Graficos graficos = new Graficos();
+        graficos = new Graficos();
         graficos.setVisible(true);
         graficos.criarGrafico();
+        dispose();
     }//GEN-LAST:event_GraficosMouseClicked
 
     private void ajusteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajusteMouseClicked
-        dispose();
-        AjusteCurvas ajustes = new AjusteCurvas();
+        ajustes = new AjusteCurvas();
         ajustes.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ajusteMouseClicked
 
+    private Aritmetica aritmetica;
+    private Equacoes equacoes;
+    private Estatistica estatistica;
+    private Graficos graficos;
+    private AjusteCurvas ajustes;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button Aritmetica;
     private java.awt.Button Equacoes;

@@ -1,11 +1,10 @@
-package calculadoracientifica.Equacoes;
+package calculadoracientifica.AjusteCurvas;
 
 import calculadoracientifica.Interfaces.EscalonarMatriz;
+import java.util.ArrayList;
 
-public class CalculadoraSistemas implements EscalonarMatriz{
-    
-    public CalculadoraSistemas(){}
-    
+abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz{
+   
     @Override
     public double[] escalonarMatriz(double[][] incognitas, double[] resultados){
         int N  = resultados.length;
@@ -47,4 +46,5 @@ public class CalculadoraSistemas implements EscalonarMatriz{
         return resultado;
     }
     
+    abstract double[] MinimosQuadradosAjuste(ArrayList<Double> x, ArrayList<Double> y);
 }

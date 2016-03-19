@@ -13,8 +13,7 @@ public class Calculadora extends MetodosPrimitivos{
             radianos = false;
     }
     
-    public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais)
-    {
+    public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais){
         int contParenteses = 0;
         String sinal;
                 

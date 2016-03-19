@@ -1,10 +1,10 @@
 package GUI;
 
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
-import calculadoracientifica.Sistemas.AjusteCurvas.CalculadoraAjusteExponencial;
-import calculadoracientifica.Sistemas.AjusteCurvas.CalculadoraAjusteLinear;
-import calculadoracientifica.Sistemas.AjusteCurvas.CalculadoraAjustePotencial;
-import calculadoracientifica.Sistemas.AjusteCurvas.CalculadoraAjusteQuadratico;
+import calculadoracientifica.AjusteCurvas.CalculadoraAjusteExponencial;
+import calculadoracientifica.AjusteCurvas.CalculadoraAjusteLinear;
+import calculadoracientifica.AjusteCurvas.CalculadoraAjustePotencial;
+import calculadoracientifica.AjusteCurvas.CalculadoraAjusteQuadratico;
 import calculadoracientifica.Graficos.CurvasAjustadas.CalculadoraGraficosAjustados;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;

@@ -1,10 +1,8 @@
-package calculadoracientifica.Sistemas.AjusteCurvas;
+package calculadoracientifica.AjusteCurvas;
 
-import calculadoracientifica.Interfaces.MinimosQuadrados;
-import calculadoracientifica.Sistemas.CalculadoraSistemas;
 import java.util.ArrayList;
 
-public class CalculadoraAjusteLinear extends CalculadoraSistemas implements MinimosQuadrados{
+public class CalculadoraAjusteLinear extends CalculadoraMinimosQuadrados{
     
     public CalculadoraAjusteLinear(){}
     

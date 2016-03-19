@@ -1,7 +1,7 @@
 package GUI;
 
 import calculadoracientifica.Equacoes.CalculadoraEquacoes;
-import calculadoracientifica.Equacoes.CalculadoraSistemas;
+import calculadoracientifica.Sistemas.CalculadoraSistemas;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JButton;

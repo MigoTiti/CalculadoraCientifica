@@ -485,14 +485,19 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private void limparEquacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparEquacaoMouseClicked
         if(limparEquacao.isEnabled()){
             operadoresAuxiliar.clear();
+            operadores.clear();
             sinais.clear();
+            sinal = false;
             equacao.setLength(0);
             equacaoLer.setText(VAZIO);
+            xAnterior = false;
             xPosicoes.clear();
             posicao = 0;
+            contadorParenteses = 0;
             equacaoDigitar.setEnabled(true);
             if(plotar.isEnabled())
                 plotar.setEnabled(false);
+            limparEquacao.setEnabled(false);
         }
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
@@ -511,9 +516,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     }//GEN-LAST:event_plotarMouseClicked
 
     private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
-        FrameEscolha frameEscolha;
         if(exemploGrafico.isEnabled())
-            frameEscolha = new FrameEscolha();
+            new FrameEscolha();
     }//GEN-LAST:event_exemploGraficoMouseClicked
 
     public void criarGrafico(){

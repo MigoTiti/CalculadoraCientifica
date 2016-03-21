@@ -12,10 +12,17 @@ import javax.swing.text.Document;
 
 public class Equacoes extends javax.swing.JFrame {
 
-    public Equacoes() {
+    public Equacoes(int decimais) {
         initComponents();
         this.x1STV.requestFocusInWindow();
-        this.formatador = new DecimalFormat();
+        
+        this.decimais = decimais;
+        String aux = "#.";
+        for(int i=1;i<=decimais;i++){
+            aux+="#";
+        }
+        
+        this.formatador = new DecimalFormat(aux);
         this.formatador.setDecimalSeparatorAlwaysShown(false);
         this.equacoes = new CalculadoraEquacoes();
         this.sistemas = new CalculadoraSistemas();
@@ -823,7 +830,7 @@ public class Equacoes extends javax.swing.JFrame {
 
     private void voltarSTVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarSTVMouseClicked
         dispose();
-        TelaInicial escolha = new TelaInicial();
+        TelaInicial escolha = new TelaInicial(decimais);
         escolha.setVisible(true);
     }//GEN-LAST:event_voltarSTVMouseClicked
 
@@ -1082,13 +1089,13 @@ public class Equacoes extends javax.swing.JFrame {
 
     private void voltarSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarSDVMouseClicked
         dispose();
-        TelaInicial escolha = new TelaInicial();
+        TelaInicial escolha = new TelaInicial(decimais);
         escolha.setVisible(true);
     }//GEN-LAST:event_voltarSDVMouseClicked
 
     private void voltarESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarESGMouseClicked
         dispose();
-        TelaInicial escolha = new TelaInicial();
+        TelaInicial escolha = new TelaInicial(decimais);
         escolha.setVisible(true);
     }//GEN-LAST:event_voltarESGMouseClicked
 
@@ -1122,6 +1129,7 @@ public class Equacoes extends javax.swing.JFrame {
     
     private String auxiliarNumero;
     
+    private final int decimais;
     private final CalculadoraEquacoes equacoes;
     private final CalculadoraSistemas sistemas;
     private final DecimalFormat formatador;

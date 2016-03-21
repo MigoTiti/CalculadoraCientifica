@@ -2,8 +2,9 @@ package GUI;
 
 public class TelaInicial extends javax.swing.JFrame {
 
-    public TelaInicial(){
+    public TelaInicial(int decimais){
         initComponents();
+        this.decimais = decimais;
     }
     
     @SuppressWarnings("unchecked")
@@ -106,36 +107,37 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AritmeticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AritmeticaMouseClicked
-        aritmetica = new Aritmetica();
+        aritmetica = new Aritmetica(decimais);
         aritmetica.setVisible(true);
         dispose();
     }//GEN-LAST:event_AritmeticaMouseClicked
 
     private void EstatisticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstatisticaMouseClicked
-        estatistica = new Estatistica();
+        estatistica = new Estatistica(decimais);
         estatistica.setVisible(true);
         dispose();
     }//GEN-LAST:event_EstatisticaMouseClicked
 
     private void EquacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EquacoesMouseClicked
-        equacoes = new Equacoes();
+        equacoes = new Equacoes(decimais);
         equacoes.setVisible(true);
         dispose();
     }//GEN-LAST:event_EquacoesMouseClicked
 
     private void GraficosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GraficosMouseClicked
-        graficos = new Graficos();
+        graficos = new Graficos(decimais);
         graficos.setVisible(true);
         graficos.criarGrafico();
         dispose();
     }//GEN-LAST:event_GraficosMouseClicked
 
     private void ajusteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajusteMouseClicked
-        ajustes = new AjusteCurvas();
+        ajustes = new AjusteCurvas(decimais);
         ajustes.setVisible(true);
         dispose();
     }//GEN-LAST:event_ajusteMouseClicked
 
+    private final int decimais;
     private Aritmetica aritmetica;
     private Equacoes equacoes;
     private Estatistica estatistica;

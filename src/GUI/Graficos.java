@@ -30,7 +30,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
 
-    public Graficos() {
+    public Graficos(int decimais) {
         initComponents();
         this.y = new ArrayList<>();
         this.x = new ArrayList<>();
@@ -57,6 +57,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         
         this.numero3 = xVariando.getDocument();
         this.numero3.addDocumentListener(new ControladorBotao(limparTudo));
+        this.decimais = decimais;
     }
        
     class ControladorBotao implements DocumentListener {
@@ -729,7 +730,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     @Override
     public void voltar() {
         dispose();
-        TelaInicial escolha = new TelaInicial();
+        TelaInicial escolha = new TelaInicial(decimais);
         escolha.setVisible(true);
     }
 
@@ -803,6 +804,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private final Document numero2;
     private final Document numero3;
     
+    private final int decimais;
     private final CalculadoraGraficos graficos;
     
     public static final String VAZIO = "";  

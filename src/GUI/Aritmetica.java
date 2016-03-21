@@ -17,9 +17,8 @@ import javax.swing.JTextField;
 
 public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitivas{
 
-    public Aritmetica() {
+    public Aritmetica(int decimais) {
         initComponents();
-        
         //Geral       
         this.calculadora = new Calculadora();
         //StringBuilder      
@@ -27,8 +26,16 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         //ArrayLists       
         this.operadores = new ArrayList<>();
         this.sinais = new ArrayList<>();       
-        //Formatador       
-        this.formatador = new DecimalFormat();       
+        //Formatador
+        
+        this.decimais = decimais;
+        String aux = "#.";
+        for(int i=1;i<=decimais;i++){
+            aux+="#";
+        }
+        
+        this.formatador = new DecimalFormat(aux);
+        
         //Booleanas        
         this.fimOperacao = false;
         this.permitirSinal = false;
@@ -543,7 +550,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     private void fechaParentesesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaParentesesMouseClicked
         caixaEquacao.requestFocusInWindow();
-        boolean sucesso = false;
+        boolean sucesso;
         if(permitirSinal==false && parentesesInterno){
             if(")".equals(sinais.get(sinais.size()-1))){
                 equacao.append(")");
@@ -861,6 +868,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                             try{
                                 if(atual.contains(","))
                                     atual = atual.replaceAll("\\,", ".");
+                                double aux;
+                                aux = Double.parseDouble(atual);
                                 sucessoParse = true;
                             }
                             catch(NumberFormatException e2){
@@ -1116,7 +1125,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     @Override
     public void voltar() {
         dispose();
-        TelaInicial escolha = new TelaInicial();
+        TelaInicial escolha = new TelaInicial(decimais);
         escolha.setVisible(true);
     }
 
@@ -1178,6 +1187,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private String auxiliarNumero;
     
     //Geral
+    private final int decimais;
     private String operadorFormatado;
     private final String vazio;
     

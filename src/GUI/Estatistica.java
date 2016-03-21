@@ -16,11 +16,17 @@ import javax.swing.text.Document;
 
 public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitivas{
 
-    public Estatistica() {
+    public Estatistica(int decimais) {
         initComponents();
         this.adicionarValor.requestFocusInWindow();
         
-        this.formatador = new DecimalFormat();
+        this.decimais = decimais;
+        String aux = "#.";
+        for(int i=1;i<=decimais;i++){
+            aux+="#";
+        }
+        
+        this.formatador = new DecimalFormat(aux);
         this.formatador.setDecimalSeparatorAlwaysShown(false);
         
         this.elementos = new DefaultTableModel();
@@ -437,7 +443,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     @Override
     public void voltar() {
         dispose();
-        TelaInicial escolha = new TelaInicial();
+        TelaInicial escolha = new TelaInicial(3);
         escolha.setVisible(true); 
     }
 
@@ -493,7 +499,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         
     }
     
-    
+    private final int decimais;
     private DefaultTableModel elementos;
     private boolean desvioCriado;
     private ArrayList<Double> operadores;

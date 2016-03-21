@@ -20,9 +20,15 @@ import javax.swing.text.Document;
 
 public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimitivas{
 
-    public AjusteCurvas() {
+    public AjusteCurvas(int decimais) {
         initComponents();
-        this.formatador = new DecimalFormat();
+        this.decimais = decimais;
+        String aux = "#.";
+        for(int i=1;i<=decimais;i++){
+            aux+="#";
+        }
+        
+        this.formatador = new DecimalFormat(aux);
         this.formatador.setDecimalSeparatorAlwaysShown(false);
         
         this.pontos = new DefaultTableModel();
@@ -564,7 +570,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     @Override
     public void voltar() {
         dispose();
-        TelaInicial escolha = new TelaInicial();
+        TelaInicial escolha = new TelaInicial(decimais);
         escolha.setVisible(true);
     }
 
@@ -761,6 +767,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     
     public static int camposCheios = 0;
     
+    private final int decimais;
     private final String vazio;
     private final DecimalFormat formatador;
     private final CalculadoraAjusteQuadratico quadratico;

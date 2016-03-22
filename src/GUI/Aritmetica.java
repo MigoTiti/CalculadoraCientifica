@@ -835,6 +835,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                     sucesso = true;
                 }else if("ln".equals(atual)||"sqrt".equals(atual)||"sen".equals(atual)||"cos".equals(atual)||"tg".equals(atual)||"log".equals(atual)){
                     sinaisIntDer.add(atual);
+                    sinalIntDer = true;
                     sinaisIntDer.add("(");
                     posicaoIntDer--;
                     atual = atual.concat("(");
@@ -868,8 +869,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                             try{
                                 if(atual.contains(","))
                                     atual = atual.replaceAll("\\,", ".");
-                                double aux;
-                                aux = Double.parseDouble(atual);
+                                Double.parseDouble(atual);
                                 sucessoParse = true;
                             }
                             catch(NumberFormatException e2){
@@ -885,11 +885,11 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                             sinalIntDer = false;
                         sucesso = true;
                     }
-                }else if(("x".equals(atual)&&sinalIntDer&&xAnteriorIntDer==false) || ("x".equals(atual)&&"".equals(equacaoLer.getText()))){
+                }else if((("x".equals(atual)||"X".equals(atual))&&sinalIntDer&&xAnteriorIntDer==false) || (("x".equals(atual)||("X".equals(atual)))&&"".equals(equacaoLer.getText()))){
                     xAnteriorIntDer = true;
                     xPosicoesIntDer.add(posicaoIntDer);
                     sucesso = true;
-                }else if(("-x".equals(atual)&&sinalIntDer&&xAnteriorIntDer==false) || ("-x".equals(atual)&&"".equals(equacaoLer.getText()))){
+                }else if((("-x".equals(atual)||"-X".equals(atual))&&sinalIntDer&&xAnteriorIntDer==false) || (("-x".equals(atual)||("-X".equals(atual)))&&"".equals(equacaoLer.getText()))){
                     xAnteriorIntDer = true;
                     xPosicoesIntDer.add(-posicaoIntDer);
                     sucesso = true;
@@ -933,7 +933,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 operadoresAuxiliar.add(Double.parseDouble(operador2));
             }
             operadoresIntDer.clear();
-            resultado = calculadoraIntegral.integral(limS,limI,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
+            resultado = calculadoraIntegral.integralAdaptativa(limS,limI,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
             operadoresIntDer.clear();
             sinaisIntDer.clear();
             equacaoIntDer.setLength(0);

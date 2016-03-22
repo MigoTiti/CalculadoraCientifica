@@ -58,5 +58,38 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
         return resultadoIntegral;
     }
     
-    private static double iteracoes = 19;
+    public double integralAdaptativa(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
+        ArrayList<Double> x = new ArrayList<>();
+        ArrayList<Double> y = new ArrayList<>();
+        
+        double c = (limS+limI)/2, h = limS - limI;
+        
+        double ya = interpretadorIntermediario(limI,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+        double yb = interpretadorIntermediario(limS,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+        double yc = interpretadorIntermediario(c,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+        
+        double s = (h/6)*(ya + 4*yc + yb);
+        
+        return auxSimpson(limS,limI,s,ya,yb,yc,numeros,sinais,posicoes,tol);
+    }
+    
+    private double auxSimpson(double limS, double limI, double s, double ya, double yb, double yc, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes, double epsilon){
+        double c = (limS+limI)/2, h = limS - limI;
+        double d = (limI+c)/2, e = (c+limS)/2;
+        
+        double yd = interpretadorIntermediario(d,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+        double ye = interpretadorIntermediario(e,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+        
+        double sEsquerda = (h/12)*(ya + 4*yd + yc);
+        double sDireita = (h/12)*(yc + 4*ye + yb);
+        
+        double s2 = sEsquerda+sDireita;
+        
+        if(Math.abs((s2-s))<=15*epsilon)
+            return s2 + (s2-s)/15;
+        return auxSimpson(limI,c,sEsquerda,ya,yc,yd,numeros,sinais,posicoes,tol/2)+auxSimpson(c,limS,sDireita,yc,yb,ye,numeros,sinais,posicoes,tol/2);
+    }
+    
+    private static double iteracoes = 6;
+    private static final double tol = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001;
 }

@@ -59,18 +59,19 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
     }
     
     public double integralAdaptativa(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
-        ArrayList<Double> x = new ArrayList<>();
-        ArrayList<Double> y = new ArrayList<>();
+
         
         double c = (limS+limI)/2, h = limS - limI;
+        double ya, yb, yc, s;
+        if(h<=tolTeste){
+            ya = interpretadorIntermediario(limI,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            yc = interpretadorIntermediario(c,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            yb = interpretadorIntermediario(limS,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            s = (h/6)*(ya + 4*yc + yb);
+            return auxSimpson(limS,limI,s,ya,yb,yc,numeros,sinais,posicoes,tol);
+        }else
+            return integralAdaptativa(limS,c,new ArrayList<>(numeros),new ArrayList<>(sinais),new ArrayList<>(posicoes))+integralAdaptativa(c,limI,new ArrayList<>(numeros),new ArrayList<>(sinais),new ArrayList<>(posicoes));
         
-        double ya = interpretadorIntermediario(limI,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
-        double yb = interpretadorIntermediario(limS,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
-        double yc = interpretadorIntermediario(c,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
-        
-        double s = (h/6)*(ya + 4*yc + yb);
-        
-        return auxSimpson(limS,limI,s,ya,yb,yc,numeros,sinais,posicoes,tol);
     }
     
     private double auxSimpson(double limS, double limI, double s, double ya, double yb, double yc, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes, double epsilon){
@@ -91,5 +92,6 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
     }
     
     private static double iteracoes = 6;
+    private static final double tolTeste = 1;
     private static final double tol = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001;
 }

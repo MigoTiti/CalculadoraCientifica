@@ -515,6 +515,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             obterResposta();
     }//GEN-LAST:event_plotarMouseClicked
 
+    @SuppressWarnings("ResultOfObjectAllocationIgnored")
     private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
         if(exemploGrafico.isEnabled())
             new FrameEscolha();

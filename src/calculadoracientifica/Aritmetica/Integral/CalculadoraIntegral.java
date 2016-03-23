@@ -8,71 +8,57 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
     public CalculadoraIntegral(){}
     
     public static void mudarPrecisao(double P){
-        if(P>2)
-            CalculadoraIntegral.iteracoes = P;
+        if(P<1)
+            CalculadoraIntegral.TOL = P;
     }
     
-    public double integral(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
-        ArrayList<Double> x = new ArrayList<>();
-        ArrayList<Double> y = new ArrayList<>();
-        ArrayList<Integer> k = new ArrayList<>();
-        ArrayList<Double> numeros2;
-        ArrayList<String> sinais2;
-        ArrayList<Integer> posicoes2;
-        
-        double delta = divisao(subtracao(limS,limI),iteracoes);
-        
-        for(double i=limI;i<=limS;i+=delta){
-            numeros2 = new ArrayList<>(numeros);
-            sinais2 = new ArrayList<>(sinais);
-            posicoes2 = new ArrayList<>(posicoes);
-            x.add(i);
-            y.add(interpretadorIntermediario(i,posicoes2,numeros2,sinais2));
-        }
-        
-        k.add(0, 1);
-        
-        for(int i=0;i<x.size()-1;i++){
-            if(i % 2==0)
-                k.add(i, 2);
-            else
-                k.add(i, 4);
-        }
-        
-        k.add(x.size()-1,1);
-        
-        for(int i=0;i<y.size();i++){
-            double resultadoParcial = y.get(i)*k.get(i);
-            y.remove(i);
-            y.add(i, resultadoParcial);
-        }
-        
-        double somatorio = 0;
-        
-        for (Double y1 : y) {
-            somatorio += y1;
-        }
-        
-        double resultadoIntegral = (delta/3)*somatorio;
-        
-        return resultadoIntegral;
-    }
-    
-    public double integralAdaptativa(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
+    public double integralAdaptativaNumerica(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
+         double c = (limS+limI)/2, h = limS - limI;
+         double ya, yb, yc, s;
 
-        double c = (limS+limI)/2, h = limS - limI;
-        double ya, yb, yc, s;
-        
-        
-        ya = interpretadorIntermediario(limI,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
-        yc = interpretadorIntermediario(c,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
-        yb = interpretadorIntermediario(limS,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
-        s = (h/6)*(ya + 4*yc + yb);
-        
-        return (auxSimpson(limS,limI,s,ya,yb,yc,numeros,sinais,posicoes,tol));
+         ya = interpretadorIntermediario(limI,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+         yc = interpretadorIntermediario(c,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+         yb = interpretadorIntermediario(limS,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+         s = (h/6)*(ya + 4*yc + yb);
+         
+         return metodoSimpson(limS,limI,s,ya,yb,yc,numeros,sinais,posicoes,TOL);  
     }
     
-    private double auxSimpson(double limS, double limI, double s, double ya, double yb, double yc, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes, double epsilon){
+    public double integralAdaptativaArea(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
+
+        double ya, yb, yc, yAtual, yAnterior, s, integral = 0, delta = TOL, xInferior = limI+delta, xSuperior, c, h;
+        ArrayList<Double> limites = new ArrayList<>(), integraisParciais = new ArrayList<>();
+        limites.add(limI);
+        
+        for(double n = xInferior;n<=limS-delta;n+=delta){
+            yAnterior = interpretadorIntermediario(n-delta,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            yAtual = interpretadorIntermediario(n,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            if((yAtual<0&&yAnterior>=0)||(yAtual>0&&yAnterior<=0))
+                limites.add(n);
+        }
+        limites.add(limS);
+        
+        while(limites.size()>1){
+            xInferior = limites.get(limites.size()-2);
+            xSuperior = limites.get(limites.size()-1);
+            h = xSuperior - xInferior;
+            c = (xInferior+xSuperior)/2;
+            ya = interpretadorIntermediario(xInferior,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            yc = interpretadorIntermediario(c,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            yb = interpretadorIntermediario(xSuperior,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
+            s = (h/6)*(ya + 4*yc + yb);
+            integraisParciais.add((metodoSimpson(xSuperior,xInferior,s,ya,yb,yc,numeros,sinais,posicoes,TOL)));
+            limites.remove(limites.size()-1);
+        }
+        
+        for(Double integralParcial : integraisParciais){
+            integral+=integralParcial;
+        }
+
+        return integral;
+    }
+    
+    private double metodoSimpson(double limS, double limI, double s, double ya, double yb, double yc, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes, double epsilon){
         double c = (limS+limI)/2, h = limS - limI;
         double d = (limI+c)/2, e = (c+limS)/2;
         
@@ -86,9 +72,8 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
         
         if(Math.abs((s2-s))<=15*epsilon)
             return Math.abs(s2 + (s2-s)/15);
-        return auxSimpson(limI,c,sEsquerda,ya,yc,yd,numeros,sinais,posicoes,tol/2)+auxSimpson(c,limS,sDireita,yc,yb,ye,numeros,sinais,posicoes,tol/2);
+        return metodoSimpson(limI,c,sEsquerda,ya,yc,yd,numeros,sinais,posicoes,TOL/2)+metodoSimpson(c,limS,sDireita,yc,yb,ye,numeros,sinais,posicoes,TOL/2);
     }
     
-    private static double iteracoes = 6;
-    private static final double tol = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001;
+    private static double TOL = 1e-5;
 }

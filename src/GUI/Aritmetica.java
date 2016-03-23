@@ -51,6 +51,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         
         this.calculadoraDerivada = new CalculadoraDerivada();
         
+        this.modoIntegral = "numerica";
+        this.numerica.setSelected(true);
         this.xPosicoesIntDer = new ArrayList<>();
         this.calculadoraIntegral = new CalculadoraIntegral();
         this.sinaisIntDer = new ArrayList<>();
@@ -101,6 +103,9 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         limparEquacao = new javax.swing.JButton();
         graus = new javax.swing.JRadioButton();
         radianos = new javax.swing.JRadioButton();
+        area = new javax.swing.JRadioButton();
+        numerica = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aritmetica");
@@ -298,6 +303,24 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             }
         });
 
+        buttonGroup2.add(area);
+        area.setText("ÁREA");
+        area.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                areaMouseClicked(evt);
+            }
+        });
+
+        buttonGroup2.add(numerica);
+        numerica.setText("NUMÉRICA");
+        numerica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                numericaMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setText("TIPO DE INTEGRAL");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -314,43 +337,40 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(igual))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(eElevadoX)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(logNeperiano)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(logX)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(abreParentese)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(fechaParenteses))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(piBotao)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(seno)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cosseno)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tangente)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(eElevadoX)
+                                .addComponent(radianos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(graus))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(mais)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logNeperiano)
+                                .addComponent(menos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logX)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(abreParentese)
+                                .addComponent(multiplicacao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaParenteses))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(piBotao)
+                                .addComponent(divisao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(seno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cosseno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tangente)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(limparEquacao, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(derivada, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(mais)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(menos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(multiplicacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(divisao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mod)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(integral))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(mod))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(quadrado)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,12 +378,24 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(elevadoY)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(raiz))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(radianos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(graus)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(raiz)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(limparEquacao, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(49, 49, 49)
+                                    .addComponent(derivada))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(51, 51, 51)
+                                    .addComponent(integral))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(numerica)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(area)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(9, 9, 9)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -374,43 +406,56 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(caixaResposta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(graus)
-                    .addComponent(radianos))
-                .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mais)
-                    .addComponent(menos)
-                    .addComponent(multiplicacao)
-                    .addComponent(divisao)
-                    .addComponent(mod)
-                    .addComponent(integral))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seno)
-                    .addComponent(cosseno)
-                    .addComponent(tangente)
-                    .addComponent(piBotao)
-                    .addComponent(derivada))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quadrado)
-                    .addComponent(elevadoY)
-                    .addComponent(raiz)
-                    .addComponent(xCubo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logNeperiano)
-                    .addComponent(abreParentese)
-                    .addComponent(fechaParenteses)
-                    .addComponent(eElevadoX)
-                    .addComponent(logX)
-                    .addComponent(limparEquacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(voltar)
-                    .addComponent(resposta)
-                    .addComponent(igual))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(graus)
+                            .addComponent(radianos))
+                        .addGap(5, 5, 5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mais)
+                            .addComponent(menos)
+                            .addComponent(multiplicacao)
+                            .addComponent(divisao)
+                            .addComponent(mod))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(seno)
+                            .addComponent(cosseno)
+                            .addComponent(tangente)
+                            .addComponent(piBotao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(quadrado)
+                            .addComponent(elevadoY)
+                            .addComponent(raiz)
+                            .addComponent(xCubo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(logNeperiano)
+                            .addComponent(abreParentese)
+                            .addComponent(fechaParenteses)
+                            .addComponent(eElevadoX)
+                            .addComponent(logX)
+                            .addComponent(limparEquacao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(voltar)
+                            .addComponent(resposta)
+                            .addComponent(igual)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(area)
+                            .addComponent(numerica))
+                        .addGap(5, 5, 5)
+                        .addComponent(integral)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(derivada)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -757,7 +802,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             equacao.append(resultado);
             operadores.add(resultado);
             caixaEquacao.requestFocusInWindow(); 
-            caixaResposta.setText(equacao.toString());
+            caixaResposta.setText(formatador.format(Double.parseDouble(equacao.toString())));
             permitirSinal = true;
             if(!limparEquacao.isEnabled())
                 limparEquacao.setEnabled(true);
@@ -798,12 +843,22 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             equacao.append(resultado);
             operadores.add(resultado);
             caixaEquacao.requestFocusInWindow(); 
-            caixaResposta.setText(equacao.toString());
+            caixaResposta.setText(formatador.format(Double.parseDouble(equacao.toString())));
             permitirSinal = true;
             if(!limparEquacao.isEnabled())
                 limparEquacao.setEnabled(true);
         }
     }//GEN-LAST:event_derivadaMouseClicked
+
+    private void numericaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numericaMouseClicked
+        if(numerica.isSelected())
+            modoIntegral = "numerica";
+    }//GEN-LAST:event_numericaMouseClicked
+
+    private void areaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_areaMouseClicked
+        if(area.isSelected())
+            modoIntegral = "area";
+    }//GEN-LAST:event_areaMouseClicked
                                                             
     public boolean digitarEquacaoIntegral(){
         JTextField limiteSuperiorTexto = new JTextField(vazio);
@@ -929,11 +984,22 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 resultado = 0;
                 return true;
             }
+            
             for (String operador2 : operadoresIntDer) {
                 operadoresAuxiliar.add(Double.parseDouble(operador2));
             }
+            
             operadoresIntDer.clear();
-            resultado = calculadoraIntegral.integralAdaptativa(limS,limI,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
+            
+            switch (modoIntegral) {
+                case "area":
+                    resultado = calculadoraIntegral.integralAdaptativaArea(limS,limI,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
+                    break;
+                case "numerica":
+                    resultado = calculadoraIntegral.integralAdaptativaNumerica(limS,limI,operadoresAuxiliar,sinaisIntDer,xPosicoesIntDer);
+                    break;
+            }
+            
             operadoresIntDer.clear();
             sinaisIntDer.clear();
             equacaoIntDer.setLength(0);
@@ -1173,6 +1239,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }
     
     //Integral
+    private String modoIntegral;
     private int contadorParentesesIntDer;
     private boolean sinalIntDer;
     private boolean parentesesIntDer;
@@ -1213,6 +1280,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private final Calculadora calculadora;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abreParentese;
+    private javax.swing.JRadioButton area;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTextField caixaEquacao;
@@ -1226,6 +1294,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private javax.swing.JRadioButton graus;
     private javax.swing.JButton igual;
     private javax.swing.JButton integral;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton limparEquacao;
     private javax.swing.JButton logNeperiano;
     private javax.swing.JButton logX;
@@ -1233,6 +1302,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private javax.swing.JButton menos;
     private javax.swing.JButton mod;
     private javax.swing.JButton multiplicacao;
+    private javax.swing.JRadioButton numerica;
     private javax.swing.JButton piBotao;
     private javax.swing.JButton quadrado;
     private javax.swing.JRadioButton radianos;

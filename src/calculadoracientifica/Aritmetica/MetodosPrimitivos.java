@@ -2,6 +2,8 @@ package calculadoracientifica.Aritmetica;
 
 abstract class MetodosPrimitivos {
     
+    public MetodosPrimitivos(){}
+    
     public double soma(double a, double b){
         return a+b;
     }

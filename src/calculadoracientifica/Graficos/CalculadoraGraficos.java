@@ -1,14 +1,24 @@
 package calculadoracientifica.Graficos;
 
-import calculadoracientifica.Aritmetica.Calculadora;
+import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import java.util.ArrayList;
 
-public class CalculadoraGraficos extends Calculadora{
+public class CalculadoraGraficos extends CalculadoraAritmetica{
     
-    public CalculadoraGraficos(){}
+    public CalculadoraGraficos(){
+        this.index = 0;
+    }
+    
+    public CalculadoraGraficos(int index){
+        this.index = index;
+    }
+    
+    public CalculadoraGraficos(CalculadoraGraficos c1){
+        this.index = c1.index;
+    }
     
     public double interpretadorIntermediario(double x, ArrayList<Integer> posicoes, ArrayList<Double> numeros, ArrayList<String> sinais){
-        int index = numeros.size()+posicoes.size();
+        index = numeros.size()+posicoes.size();
         if(posicoes.size()>0){
             do{
                 for(int i=0;i<index;i++){
@@ -26,4 +36,6 @@ public class CalculadoraGraficos extends Calculadora{
         double y = interpretador(numeros,sinais);
         return y;
     }
+    
+    protected int index;
 }

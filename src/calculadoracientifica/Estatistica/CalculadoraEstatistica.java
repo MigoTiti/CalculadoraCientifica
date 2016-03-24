@@ -1,10 +1,10 @@
 package calculadoracientifica.Estatistica;
 
-import calculadoracientifica.Aritmetica.Calculadora;
+import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CalculadoraEstatistica extends Calculadora{
+public class CalculadoraEstatistica extends CalculadoraAritmetica{
     
     public CalculadoraEstatistica(){}
     

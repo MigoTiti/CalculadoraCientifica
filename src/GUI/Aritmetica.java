@@ -1,6 +1,6 @@
 package GUI;
 
-import calculadoracientifica.Aritmetica.Calculadora;
+import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import calculadoracientifica.Aritmetica.Derivada.CalculadoraDerivada;
 import calculadoracientifica.Aritmetica.Integral.CalculadoraIntegral;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
@@ -20,7 +20,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     public Aritmetica(int decimais) {
         initComponents();
         //Geral       
-        this.calculadora = new Calculadora();
+        this.calculadora = new CalculadoraAritmetica();
         //StringBuilder      
         this.equacao = new StringBuilder();       
         //ArrayLists       
@@ -829,12 +829,12 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     private void grausMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grausMouseClicked
         if(graus.isSelected())
-            Calculadora.mudarStatus("graus");
+            CalculadoraAritmetica.mudarStatus("graus");
     }//GEN-LAST:event_grausMouseClicked
 
     private void radianosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radianosMouseClicked
         if(radianos.isSelected())
-            Calculadora.mudarStatus("radianos");
+            CalculadoraAritmetica.mudarStatus("radianos");
     }//GEN-LAST:event_radianosMouseClicked
 
     private void derivadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_derivadaMouseClicked
@@ -1277,7 +1277,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     //Composição
     private final CalculadoraDerivada calculadoraDerivada;
     private final CalculadoraIntegral calculadoraIntegral;
-    private final Calculadora calculadora;
+    private final CalculadoraAritmetica calculadora;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abreParentese;
     private javax.swing.JRadioButton area;

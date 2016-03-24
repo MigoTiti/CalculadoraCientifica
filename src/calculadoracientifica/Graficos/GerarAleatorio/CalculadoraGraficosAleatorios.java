@@ -14,6 +14,33 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         this.equacao = "";
         this.limInferior = gerador.nextInt(4)+1;
         this.limSuperior = gerador.nextInt(100)+10;
+        this.delta = 1;
+    }
+    
+    public CalculadoraGraficosAleatorios(int delta){
+        this.sinaisConstrutor = new ArrayList<>();
+        this.numerosConstrutor = new ArrayList<>();
+        this.posicoesX = new ArrayList<>();
+        this.gerador = new Random();
+        this.equacao = "";
+        this.limInferior = gerador.nextInt(4)+1;
+        this.limSuperior = gerador.nextInt(100)+10;
+        if(delta!=0)
+            this.delta = delta;
+        else
+            this.delta = 1;
+    }
+    
+    public CalculadoraGraficosAleatorios(CalculadoraGraficosAleatorios c1){
+        super(c1.index);
+        this.sinaisConstrutor = c1.sinaisConstrutor;
+        this.numerosConstrutor = c1.numerosConstrutor;
+        this.posicoesX = c1.posicoesX;
+        this.gerador = c1.gerador;
+        this.equacao = c1.equacao;
+        this.limInferior = c1.limInferior;
+        this.limSuperior = c1.limSuperior;
+        this.delta = c1.delta;
     }
     
     public void interpretadorStrings(){
@@ -276,8 +303,8 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
     
     private final int limSuperior;
     private final int limInferior;
-    private final int delta = 1;
     private final Random gerador;
+    private final int delta;
     private ArrayList<String> sinaisConstrutor;
     private ArrayList<Double> numerosConstrutor;
     private ArrayList<Integer> posicoesX;

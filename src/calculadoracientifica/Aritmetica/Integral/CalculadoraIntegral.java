@@ -7,8 +7,16 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
     
     public CalculadoraIntegral(){}
     
+    public CalculadoraIntegral(int index){
+        super(index);
+    }
+    
+    public CalculadoraIntegral(CalculadoraIntegral c1){
+        super(c1.index);
+    }
+    
     public static void mudarPrecisao(double P){
-        if(P<1)
+        if(P<1 && P>0)
             CalculadoraIntegral.TOL = P;
     }
     

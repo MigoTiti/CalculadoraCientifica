@@ -2,9 +2,21 @@ package calculadoracientifica.Aritmetica;
 
 import java.util.ArrayList;
 
-public class Calculadora extends MetodosPrimitivos{
+public class CalculadoraAritmetica extends CalculadoraPrimitiva{
     
-    public Calculadora(){}
+    public CalculadoraAritmetica(){
+        CalculadoraAritmetica.radianos = true;
+        this.contParenteses = 0;
+    }
+    
+    public CalculadoraAritmetica(boolean radianos){
+        CalculadoraAritmetica.radianos = radianos;
+        this.contParenteses = 0;
+    }
+    
+    public CalculadoraAritmetica(CalculadoraAritmetica c1){
+        this.contParenteses = c1.contParenteses;
+    }
     
     public static void mudarStatus(String nome){
         if("radianos".equals(nome)&&radianos==false)
@@ -13,8 +25,8 @@ public class Calculadora extends MetodosPrimitivos{
             radianos = false;
     }
     
+    @Override
     public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais){
-        int contParenteses = 0;
         String sinal;
                 
         ArrayList<Integer> prioridades = new ArrayList<>();        
@@ -30,7 +42,7 @@ public class Calculadora extends MetodosPrimitivos{
                     break;
                 case ")":
                     prioridadesParenteses.add(i, --contParenteses);
-                     posicoesRemoverSinais.add(i);
+                    posicoesRemoverSinais.add(i);
                     break;
                 default:
                     prioridadesParenteses.add(i, contParenteses);
@@ -48,12 +60,12 @@ public class Calculadora extends MetodosPrimitivos{
             if(null!=sinal)switch (sinal) {
                 case "+":
                 case "-":
-                    prioridades.add(i, PRIORIDADE_SOMA+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.soma.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
                 case "%":
                 case "*":
                 case "/":
-                    prioridades.add(i, PRIORIDADE_MULTIPLICACAO+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.multiplicacao.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
                 case "^":
                 case "sqrt":
@@ -62,7 +74,7 @@ public class Calculadora extends MetodosPrimitivos{
                 case "sen":
                 case "cos":
                 case "tg":
-                    prioridades.add(i, PRIORIDADE_POTENCIA+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.potencia.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
             }  
         }
@@ -215,10 +227,7 @@ public class Calculadora extends MetodosPrimitivos{
        return maior;
     }
     
-    private static boolean radianos = true;
-    public static final int PRIORIDADE_PARENTESES = 3;
-    public static final int PRIORIDADE_POTENCIA = 3;
-    public static final int PRIORIDADE_MULTIPLICACAO = 2;
-    public static final int PRIORIDADE_SOMA = 1;
+    private int contParenteses;
+    private static boolean radianos;
     
 }

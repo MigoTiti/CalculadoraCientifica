@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 public class CalculadoraGraficosAjustados extends CalculadoraGraficos implements AjustesGraficos{
     
+    public CalculadoraGraficosAjustados(){
+        this.sinaisConstrutor = new ArrayList<>();
+        this.numerosConstrutor = new ArrayList<>();
+        this.posicoesX = new ArrayList<>();
+    }
+    
     public CalculadoraGraficosAjustados(String equacao){
         equacao+="!";
         
@@ -17,6 +23,13 @@ public class CalculadoraGraficosAjustados extends CalculadoraGraficos implements
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
+    }
+    
+    public CalculadoraGraficosAjustados(CalculadoraGraficosAjustados c1){
+        this.equacao = c1.equacao;
+        this.sinaisConstrutor = c1.sinaisConstrutor;
+        this.numerosConstrutor = c1.numerosConstrutor;
+        this.posicoesX = c1.posicoesX;
     }
     
     @Override

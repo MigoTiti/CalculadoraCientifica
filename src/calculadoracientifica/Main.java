@@ -20,7 +20,7 @@ public class Main
             painelInicio.add(decimaisTexto);
             painelInicio.setVisible(true);
             decimaisTexto.requestFocusInWindow();
-            result = JOptionPane.showConfirmDialog(null, painelInicio, "Inicio", JOptionPane.OK_CANCEL_OPTION);
+            result = JOptionPane.showConfirmDialog(null, painelInicio, "Inicio", JOptionPane.OK_CANCEL_OPTION); 
             
             if(result == JOptionPane.CANCEL_OPTION)
                 break;

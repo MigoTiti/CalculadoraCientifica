@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz{
    
+    public CalculadoraMinimosQuadrados(){}
+    
     @Override
     public double[] escalonarMatriz(double[][] incognitas, double[] resultados){
         int N  = resultados.length;

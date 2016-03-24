@@ -1,9 +1,9 @@
 package calculadoracientifica.Equacoes;
 
-import calculadoracientifica.Aritmetica.Calculadora;
+import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import java.util.ArrayList;
 
-public class CalculadoraEquacoes extends Calculadora{
+public class CalculadoraEquacoes extends CalculadoraAritmetica{
     
     public CalculadoraEquacoes(){}
     

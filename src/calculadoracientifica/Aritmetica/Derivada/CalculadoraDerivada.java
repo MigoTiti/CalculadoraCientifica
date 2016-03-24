@@ -7,6 +7,14 @@ public class CalculadoraDerivada extends CalculadoraGraficos{
     
     public CalculadoraDerivada(){}
     
+    public CalculadoraDerivada(int index){
+        super(index);
+    }
+    
+    public CalculadoraDerivada(CalculadoraDerivada c1){
+        super(c1.index);
+    }
+    
     public double derivada(double x, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
         ArrayList<Double> numeros1 = new ArrayList<>(numeros);
         ArrayList<String> sinais1 = new ArrayList<>(sinais);

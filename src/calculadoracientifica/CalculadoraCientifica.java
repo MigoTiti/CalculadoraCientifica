@@ -7,8 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Main 
-{
+public class CalculadoraCientifica{
     public static void main(String[] args){ 
         boolean sucessoEscolha = false;
         int casasD = 0, result;

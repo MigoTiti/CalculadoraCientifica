@@ -9,13 +9,9 @@
             <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/Calculadora.java</file>
         </group>
         <group name="Todos">
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/GUI/AjusteCurvas.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Main.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/GUI/Aritmetica.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Sistemas/CalculadoraSistemas.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/MetodosPrimitivos.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/CalculadoraPrimitiva.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/CalculadoraAritmetica.java</file>
+            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/CalculadoraCientifica.java</file>
+            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/test/testeGUI/testeConstantes.java</file>
+            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/test/testeGUI/testeEscolha.java</file>
         </group>
     </open-files>
 </project-private>

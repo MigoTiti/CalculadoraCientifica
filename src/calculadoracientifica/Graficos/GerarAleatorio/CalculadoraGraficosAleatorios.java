@@ -160,7 +160,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         }while(equacaoInteira.length()>0);
     }
     
-    public void gerarPontosAleatorios(String tipo){
+    public void gerarEquacaoAleatoria(String tipo){
         switch(tipo){
             case "linear":
                 gerarLinear();

@@ -138,6 +138,13 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                     JOptionPane.showMessageDialog(null, "Apenas números!");
                     sucesso = false;
                 }
+                
+                for (Double x1 : x) {
+                    if(xValor==x1){
+                        sucesso = false;
+                        JOptionPane.showMessageDialog(null, "Ponto inválido, valor de x já existente na tabela");
+                    }
+                }
 
                 if(sucesso){
                     x.add(xValor);
@@ -446,6 +453,13 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
             catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Apenas números!");
                 sucesso = false;
+            }
+            
+            for (Double x1 : x) {
+                if(xValor==x1){
+                    sucesso = false;
+                    JOptionPane.showMessageDialog(null, "Ponto inválido, valor de x já existente na tabela");
+                }
             }
             
             if(sucesso){

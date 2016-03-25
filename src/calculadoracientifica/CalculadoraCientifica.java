@@ -1,38 +1,28 @@
 package calculadoracientifica;
 
 import GUI.TelaInicial;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class CalculadoraCientifica{
+    
     public static void main(String[] args){ 
         boolean sucessoEscolha = false;
-        int casasD = 0, result;
+        int casasD = 0;
         
         do{
-            JPanel painelInicio = new JPanel(new GridLayout(0, 1));
-            painelInicio.add(new JLabel("Digite o número máximo de casas decimais a serem usadas: "));
-            JTextField decimaisTexto = new JTextField();
-            painelInicio.add(decimaisTexto);
-            painelInicio.setVisible(true);
-            decimaisTexto.requestFocusInWindow();
-            result = JOptionPane.showConfirmDialog(null, painelInicio, "Inicio", JOptionPane.OK_CANCEL_OPTION); 
+            String texto;
+            texto = JOptionPane.showInputDialog("Digite o número máximo de casas decimais a serem usadas: ");
             
-            if(result == JOptionPane.CANCEL_OPTION)
+            if(texto == null)
                 break;
             
             try{
-               casasD = Integer.parseInt(decimaisTexto.getText());
-               sucessoEscolha = true;
+                casasD = Integer.parseInt(texto);
+                sucessoEscolha = true;
             }
             catch(NumberFormatException e2){
                 JOptionPane.showMessageDialog(null, "Apenas números inteiros!");
             }
-            
-            
         }while(!sucessoEscolha);
         
         if(sucessoEscolha){

@@ -14,14 +14,15 @@ public class Equacoes extends javax.swing.JFrame {
 
     public Equacoes(int decimais) {
         initComponents();
-        this.x1STV.requestFocusInWindow();
+        
+        this.x1SDV.requestFocusInWindow();
         
         this.decimais = decimais;
         String aux = "#.";
         for(int i=1;i<=decimais;i++){
             aux+="#";
         }
-        
+
         this.formatador = new DecimalFormat(aux);
         this.formatador.setDecimalSeparatorAlwaysShown(false);
         this.equacoes = new CalculadoraEquacoes();

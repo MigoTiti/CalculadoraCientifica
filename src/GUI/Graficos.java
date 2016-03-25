@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
@@ -49,6 +52,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.limparTudo.setEnabled(false);
         this.plotar.setEnabled(false);
         
+        this.comecoIntervalo.requestFocusInWindow();
+        
         this.numero1 = comecoIntervalo.getDocument();
         this.numero1.addDocumentListener(new ControladorBotao(limparTudo));
         
@@ -60,7 +65,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.decimais = decimais;
     }
        
-    class ControladorBotao implements DocumentListener {
+    class ControladorBotao implements DocumentListener{
         JButton limparTudoBotao;
 
         ControladorBotao(JButton button) {
@@ -222,7 +227,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         }
         
         private void evento(){
-            aleatorios.gerarPontosAleatorios(tipoExemplo);
+            aleatorios.gerarEquacaoAleatoria(tipoExemplo);
             operadoresAuxiliar = aleatorios.getNumeros();
             xPosicoes = aleatorios.getPosicoes();
             sinais = aleatorios.getSinais();
@@ -573,6 +578,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     
     public boolean digitarEquacao(){
         JTextField equacaoDigitar2 = new JTextField(VAZIO);
+        equacaoDigitar2.addAncestorListener(new AuxiliarFoco());
         JTextField equacaoLer2 = new JTextField(VAZIO);
         
         Action action = new AbstractAction()

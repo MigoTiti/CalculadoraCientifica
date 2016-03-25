@@ -68,13 +68,15 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
                     prioridades.add(i, Prioridades.multiplicacao.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
                 case "^":
+                    prioridades.add(i, Prioridades.potencia.getPrioridade()+(prioridadesParenteses.get(i)*3));
+                    break;
                 case "sqrt":
                 case "log":
                 case "ln":
                 case "sen":
                 case "cos":
                 case "tg":
-                    prioridades.add(i, Prioridades.potencia.getPrioridade()+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.trigonometricaRaizLog.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
             }  
         }

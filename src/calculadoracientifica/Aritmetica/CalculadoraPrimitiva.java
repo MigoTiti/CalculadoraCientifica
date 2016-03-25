@@ -11,7 +11,8 @@ abstract class CalculadoraPrimitiva extends MetodosPrimitivos{
     protected enum Prioridades{
         soma(1),
         multiplicacao(2),
-        potencia(3);
+        potencia(3),
+        trigonometricaRaizLog(4);
 
         private final int valor;
         

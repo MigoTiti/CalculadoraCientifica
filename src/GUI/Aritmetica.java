@@ -3,13 +3,17 @@ package GUI;
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import calculadoracientifica.Aritmetica.Derivada.CalculadoraDerivada;
 import calculadoracientifica.Aritmetica.Integral.CalculadoraIntegral;
+import calculadoracientifica.Constantes;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -69,6 +73,137 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         this.vazio = "";
     }
 
+    class ConstantesEscolha extends JFrame{
+        
+        public ConstantesEscolha() {
+        iniciarFrame();
+        caixaEscolha.setSelectedItem(null);
+        caixaEscolha.addItemListener((ItemEvent e) -> {
+                constanteAtual = (Constantes) caixaEscolha.getSelectedItem();
+                nomeTexto.setText(constanteAtual.getNome());
+                valorTexto.setText(Double.toString(constanteAtual.getValor()));
+            });
+        }
+        
+        private void evento(){
+            equacao.append(constanteAtual.toString());
+            operadores.add(constanteAtual.getValor());
+            caixaResposta.setText(equacao.toString());
+            permitirSinal = true;
+            caixaResposta.requestFocusInWindow();
+            if(!limparEquacao.isEnabled())
+                limparEquacao.setEnabled(true);
+        }
+                           
+        private void iniciarFrame() {
+
+            caixaEscolha = new javax.swing.JComboBox();
+            jLabel1 = new javax.swing.JLabel();
+            jLabel2 = new javax.swing.JLabel();
+            jLabel3 = new javax.swing.JLabel();
+            nomeTexto = new javax.swing.JTextField();
+            valorTexto = new javax.swing.JTextField();
+            okBotao = new javax.swing.JButton();
+            cancelarBotao = new javax.swing.JButton();
+
+            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            setResizable(false);
+
+            caixaEscolha.setModel(new DefaultComboBoxModel(Constantes.values()));
+
+            jLabel1.setText("ESCOLHA A CONSTANTE");
+
+            jLabel2.setText("NOME");
+
+            jLabel3.setText("VALOR");
+
+            okBotao.setText("OK");
+
+            cancelarBotao.setText("CANCELAR");
+            cancelarBotao.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    cancelarBotaoMouseClicked(evt);
+                }
+            });
+            
+            okBotao.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    okBotaoMouseClicked(evt);
+                }
+            });
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(valorTexto)
+                        .addComponent(nomeTexto)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(caixaEscolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel3))
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap())
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(51, 51, 51)
+                    .addComponent(okBotao)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cancelarBotao)
+                    .addContainerGap(57, Short.MAX_VALUE))
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(6, 6, 6)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(caixaEscolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel2)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(nomeTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(valorTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(okBotao)
+                        .addComponent(cancelarBotao))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+
+            pack();
+            setLocationRelativeTo(null);
+        }                      
+
+        private void cancelarBotaoMouseClicked(java.awt.event.MouseEvent evt) {                                           
+            dispose();
+        }   
+        
+        private void okBotaoMouseClicked(java.awt.event.MouseEvent evt) { 
+            evento();
+            dispose();
+        } 
+            
+        Constantes constanteAtual;
+        private javax.swing.JComboBox caixaEscolha;
+        private javax.swing.JButton cancelarBotao;
+        private javax.swing.JLabel jLabel1;
+        private javax.swing.JLabel jLabel2;
+        private javax.swing.JLabel jLabel3;
+        private javax.swing.JTextField nomeTexto;
+        private javax.swing.JButton okBotao;
+        private javax.swing.JTextField valorTexto;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,6 +241,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         area = new javax.swing.JRadioButton();
         numerica = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
+        constantesBotao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aritmetica");
@@ -321,6 +457,13 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
         jLabel1.setText("TIPO DE INTEGRAL");
 
+        constantesBotao.setText("CONSTANTES");
+        constantesBotao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                constantesBotaoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -332,13 +475,23 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                     .addComponent(caixaEquacao)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(voltar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(77, 77, 77)
+                        .addComponent(constantesBotao)
+                        .addGap(77, 77, 77)
                         .addComponent(resposta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(igual))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(piBotao)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(seno)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cosseno)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tangente))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(eElevadoX)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,15 +501,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(abreParentese)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(fechaParenteses))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(piBotao)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(seno)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cosseno)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tangente)))
+                                    .addComponent(fechaParenteses)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(radianos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -379,7 +524,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                                 .addComponent(elevadoY)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(raiz)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(limparEquacao, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,7 +592,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(voltar)
                             .addComponent(resposta)
-                            .addComponent(igual)))
+                            .addComponent(igual)
+                            .addComponent(constantesBotao)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(area)
@@ -493,11 +639,6 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             permitirSinal = false;
             sucesso = true;
         }
-        
-        if(fimOperacao&&sucesso){
-            caixaResposta.setText(vazio);
-            fimOperacao = false;
-        }    
         
         if(sucesso){
             caixaResposta.setText(equacao.toString());
@@ -574,7 +715,10 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }//GEN-LAST:event_modMouseClicked
 
     private void piBotaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piBotaoMouseClicked
-        eventoConstante(Math.PI, "PI");
+        if(!permitirSinal)
+            eventoConstante(Math.PI, "PI");
+        else
+            JOptionPane.showMessageDialog(null, "Não é possível inserir um número nesse momento");
     }//GEN-LAST:event_piBotaoMouseClicked
 
     private void senoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senoMouseClicked
@@ -814,8 +958,10 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
     private void respostaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_respostaMouseClicked
-        if(resposta.isEnabled()&&resultado!=0)
+        if(resposta.isEnabled()&&resultado!=0&&!permitirSinal)
             eventoConstante(resultado, "Resultado");
+        else
+            JOptionPane.showMessageDialog(null, "Não é possível inserir um número nesse momento");
     }//GEN-LAST:event_respostaMouseClicked
 
     private void igualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_igualMouseClicked
@@ -859,9 +1005,19 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         if(area.isSelected())
             modoIntegral = "area";
     }//GEN-LAST:event_areaMouseClicked
+
+    private void constantesBotaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_constantesBotaoMouseClicked
+        ConstantesEscolha telaEscolha;
+        if(!permitirSinal){
+            telaEscolha = new ConstantesEscolha();
+            telaEscolha.setVisible(true);
+        }else
+            JOptionPane.showMessageDialog(null, "Não é possível inserir um número nesse momento");
+    }//GEN-LAST:event_constantesBotaoMouseClicked
                                                             
     public boolean digitarEquacaoIntegral(){
         JTextField limiteSuperiorTexto = new JTextField(vazio);
+        limiteSuperiorTexto.addAncestorListener(new AuxiliarFoco());
         JTextField limiteInferiorTexto = new JTextField(vazio);
         JTextField equacaoDigitar = new JTextField(vazio);
         JTextField equacaoLer = new JTextField(vazio);
@@ -1027,6 +1183,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                                                             
     public boolean digitarEquacaoDerivada(){
         JTextField x = new JTextField(vazio);
+        x.addAncestorListener(new AuxiliarFoco());
         JTextField equacaoDigitar = new JTextField(vazio);
         JTextField equacaoLer = new JTextField(vazio);
         
@@ -1126,16 +1283,16 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         
         double xValor;
                 
-        JPanel integralPainel = new JPanel(new GridLayout(0, 1));
-        integralPainel.add(new JLabel("Valor do x: "));
-        integralPainel.add(x);
-        integralPainel.add(new JLabel("Função: "));
-        integralPainel.add(equacaoDigitar);
+        JPanel DerivadaPainel = new JPanel(new GridLayout(0, 1));
+        DerivadaPainel.add(new JLabel("Valor do x: "));
+        DerivadaPainel.add(x);
+        DerivadaPainel.add(new JLabel("Função: "));
+        DerivadaPainel.add(equacaoDigitar);
         
-        integralPainel.add(equacaoLer);
+        DerivadaPainel.add(equacaoLer);
         equacaoLer.setEditable(false);
         
-        int result = JOptionPane.showConfirmDialog(null, integralPainel, "Integral", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, DerivadaPainel, "Integral", JOptionPane.OK_CANCEL_OPTION);
         
         if (result == JOptionPane.OK_OPTION){
             xValor = Double.parseDouble(x.getText());
@@ -1285,6 +1442,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTextField caixaEquacao;
     private javax.swing.JTextField caixaResposta;
+    private javax.swing.JButton constantesBotao;
     private javax.swing.JButton cosseno;
     private javax.swing.JButton derivada;
     private javax.swing.JButton divisao;

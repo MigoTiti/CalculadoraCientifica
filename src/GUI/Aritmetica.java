@@ -3,7 +3,7 @@ package GUI;
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import calculadoracientifica.Aritmetica.Derivada.CalculadoraDerivada;
 import calculadoracientifica.Aritmetica.Integral.CalculadoraIntegral;
-import calculadoracientifica.Constantes;
+import calculadoracientifica.Enums.Constantes;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -37,6 +37,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         for(int i=1;i<=decimais;i++){
             aux+="#";
         }
+        //aux+="E0";
         
         this.formatador = new DecimalFormat(aux);
         
@@ -78,6 +79,8 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
         public ConstantesEscolha() {
         iniciarFrame();
         caixaEscolha.setSelectedItem(null);
+        nomeTexto.setEditable(false);
+        valorTexto.setEditable(false);
         caixaEscolha.addItemListener((ItemEvent e) -> {
                 constanteAtual = (Constantes) caixaEscolha.getSelectedItem();
                 nomeTexto.setText(constanteAtual.getNome());
@@ -182,14 +185,18 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
             pack();
             setLocationRelativeTo(null);
+            setResizable(false);
+            setVisible(true);
         }                      
 
-        private void cancelarBotaoMouseClicked(java.awt.event.MouseEvent evt) {                                           
-            dispose();
+        private void cancelarBotaoMouseClicked(java.awt.event.MouseEvent evt) {   
+            Aritmetica.this.setVisible(true);
+            dispose(); 
         }   
         
         private void okBotaoMouseClicked(java.awt.event.MouseEvent evt) { 
             evento();
+            Aritmetica.this.setVisible(true);
             dispose();
         } 
             
@@ -1007,10 +1014,9 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     }//GEN-LAST:event_areaMouseClicked
 
     private void constantesBotaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_constantesBotaoMouseClicked
-        ConstantesEscolha telaEscolha;
         if(!permitirSinal){
-            telaEscolha = new ConstantesEscolha();
-            telaEscolha.setVisible(true);
+            new ConstantesEscolha();
+            Aritmetica.this.setVisible(false);
         }else
             JOptionPane.showMessageDialog(null, "Não é possível inserir um número nesse momento");
     }//GEN-LAST:event_constantesBotaoMouseClicked
@@ -1377,7 +1383,16 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
             caixaEquacao.setText(vazio); 
         
         resultado = calculadora.interpretador(operadores, sinais);
-        operadorFormatado = formatador.format(resultado);
+        if(resultado<1&&resultado>0){
+            String aux = formatador.toPattern();
+            aux = aux.replaceAll("0", "");
+            aux+="E0";
+            formatador = new DecimalFormat(aux);
+            operadorFormatado = formatador.format(resultado);
+            aux = aux.substring(0, aux.length()-3);
+            formatador = new DecimalFormat(aux);
+        }else
+            operadorFormatado = formatador.format(resultado);
         caixaResposta.setText(operadorFormatado);
         
         if(!resposta.isEnabled())
@@ -1415,7 +1430,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
     private String operadorFormatado;
     private final String vazio;
     
-    private final DecimalFormat formatador;
+    private DecimalFormat formatador;
     
     private boolean permitirSinal;
     private boolean parentesesInterno;

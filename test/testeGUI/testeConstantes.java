@@ -1,6 +1,6 @@
 package testeGUI;
 
-import calculadoracientifica.Constantes;
+import calculadoracientifica.Enums.Constantes;
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultComboBoxModel;
 

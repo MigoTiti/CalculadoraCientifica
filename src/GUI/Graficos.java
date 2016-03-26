@@ -11,14 +11,11 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
@@ -256,6 +253,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
                 exemploGrafico.setEnabled(false);
             if(plotar.isEnabled())
                 plotar.setEnabled(false);
+            Graficos.this.setVisible(true);
             dispose();
         }
         
@@ -522,8 +520,10 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
 
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
     private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
-        if(exemploGrafico.isEnabled())
+        if(exemploGrafico.isEnabled()){
             new FrameEscolha();
+            Graficos.this.setVisible(false);
+        }
     }//GEN-LAST:event_exemploGraficoMouseClicked
 
     public void criarGrafico(){

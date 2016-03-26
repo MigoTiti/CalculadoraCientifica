@@ -69,7 +69,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         this.numero1.addDocumentListener(new ControladorBotao(limparTudo));
         this.numero2.addDocumentListener(new ControladorBotao(limparTudo));
     }
-
+    
     class ControladorBotao implements DocumentListener {
         JButton limparTudo;
 
@@ -454,6 +454,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                 JOptionPane.showMessageDialog(null, "Apenas números!");
                 sucesso = false;
             }
+            
             
             for (Double x1 : x) {
                 if(xValor==x1){

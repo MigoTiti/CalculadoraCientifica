@@ -1,6 +1,6 @@
-package calculadoracientifica;
+package calculadoracientifica.Enums;
 
-public enum Constantes {
+public enum Constantes{
     
     nEuler("e","Número de Euler",2.7181828459045235360287),
     mProton("mp","Massa do próton",1.6726*1e-27),

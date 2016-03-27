@@ -40,13 +40,14 @@
                       <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="ajuste" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
-                          <Component id="Aritmetica" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
-                          <Component id="Equacoes" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="aritmetica" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="equacoes" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Estatistica" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
-                          <Component id="Graficos" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="estatistica" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="graficos" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="conversaoNumeros" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -64,16 +65,19 @@
               <Component id="titulo" min="-2" pref="52" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="Estatistica" max="32767" attributes="0"/>
-                  <Component id="Aritmetica" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="estatistica" max="32767" attributes="0"/>
+                  <Component id="aritmetica" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="Graficos" max="32767" attributes="0"/>
-                  <Component id="Equacoes" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="graficos" max="32767" attributes="0"/>
+                  <Component id="equacoes" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="ajuste" min="-2" pref="45" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="ajuste" pref="45" max="32767" attributes="0"/>
+                  <Component id="conversaoNumeros" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -88,37 +92,37 @@
         <Property name="text" type="java.lang.String" value="TITI CALCULATOR 2016"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Button" name="Aritmetica">
+    <Component class="java.awt.Button" name="aritmetica">
       <Properties>
         <Property name="label" type="java.lang.String" value="Aritm&#xe9;tica"/>
         <Property name="name" type="java.lang.String" value="Aritm&#xe9;tica" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AritmeticaMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="aritmeticaMouseClicked"/>
       </Events>
     </Component>
-    <Component class="java.awt.Button" name="Estatistica">
+    <Component class="java.awt.Button" name="estatistica">
       <Properties>
         <Property name="label" type="java.lang.String" value="Estat&#xed;stica"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EstatisticaMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="estatisticaMouseClicked"/>
       </Events>
     </Component>
-    <Component class="java.awt.Button" name="Equacoes">
+    <Component class="java.awt.Button" name="equacoes">
       <Properties>
         <Property name="label" type="java.lang.String" value="Equa&#xe7;&#xf5;es"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EquacoesMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="equacoesMouseClicked"/>
       </Events>
     </Component>
-    <Component class="java.awt.Button" name="Graficos">
+    <Component class="java.awt.Button" name="graficos">
       <Properties>
         <Property name="label" type="java.lang.String" value="Gr&#xe1;ficos"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="GraficosMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="graficosMouseClicked"/>
       </Events>
     </Component>
     <Component class="java.awt.Button" name="ajuste">
@@ -127,6 +131,14 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ajusteMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="java.awt.Button" name="conversaoNumeros">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Convers&#xe3;o de unidades"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conversaoNumerosMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

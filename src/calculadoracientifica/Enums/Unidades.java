@@ -8,11 +8,16 @@ public enum Unidades{
     metroQuadrado("Metro quadrado","m²","Área"),
     decimetroQuadrado("Decímetro quadrado","dm²","Área"),
     centimetroQuadrado("Centímetro quadrado","cm²","Área"),
+    milimetroQuadrado("Milímetro quadrado","mm²","Área"),
     milhaQuadrada("Milha quadrada","mi²","Área"),
-    leguaQuadrada("Légua quadrada","Légua quadrada","Área"),
+    leguaQuadrada("Légua quadrada","lea²","Área"),
+    megaJoule("Megajoule","MJ","Energia"),
+    quiloJoule("Quilojoule","KJ","Energia"),
+    joule("Joule","J","Energia"),
+    kCaloria("Quilocaloria","kcal","Energia"),
     caloria("Caloria","cal","Energia"),
-    wattHora("Watt-hora","Wh","Energia"),
     quiloWattHora("Quilowatt-hora","kWh","Energia"),
+    wattHora("Watt-hora","Wh","Energia"),
     Termia("Termia","th","Energia"),
     Frigoria("Frigoria","fg","Energia"),
     toneladaPetroleo("Tonelada equivalente de petróleo","tep","Energia"),
@@ -32,7 +37,6 @@ public enum Unidades{
     decimetro("Decímetro","dm","Medida"),
     centimetro("Centímetro","cm","Medida"),
     milimetro("Milimetro","mm","Medida"),
-    legua("Légua","Légua","Medida"),
     milha("Milha","mi","Medida"),
     anoLuz("Ano-luz","ly","Medida"),
     kelvin("Kelvin","K","Temperatura"),
@@ -63,10 +67,10 @@ public enum Unidades{
     deciLitro("Decilitro","dL","Volume"),
     centiLitro("Centilitro","cL","Volume"),
     miliLitro("Mililitro","mL","Volume"),
-    barrilEstadunidense("Barril estadunidense","bbl","Volume"),
-    barrilImperial("Barril britânico","bbl","Volume"),
-    galaoEstadunidense("Galão estadunidense","gal","Volume"),
-    galaoImperial("Galão britânico","gal","Volume");
+    barrilEstadunidense("Barril estadunidense","bbl(US)","Volume"),
+    barrilImperial("Barril britânico","bbl(UK)","Volume"),
+    galaoEstadunidense("Galão estadunidense","gal(US)","Volume"),
+    galaoImperial("Galão britânico","gal(UK)","Volume");
     
     private Unidades(String descricao, String simbolo, String tipo){
         this.descricao = descricao;

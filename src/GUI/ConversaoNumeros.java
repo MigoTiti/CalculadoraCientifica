@@ -13,6 +13,9 @@ import calculadoracientifica.ModeloNumero.Unidades.NumeroVolume;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 public class ConversaoNumeros extends javax.swing.JFrame {
 
@@ -21,24 +24,30 @@ public class ConversaoNumeros extends javax.swing.JFrame {
         this.numeroFinalTexto.setEditable(false);
         this.descricaoFinalTexto.setEditable(false);
         this.descricaoInicialTexto.setEditable(false);
-        
+        this.tipoInicial = "";
         caixaEscolha.setSelectedItem(null);
         
         caixaEscolha.addItemListener((ItemEvent e) -> {
-            String secaoSelecionada = (String)caixaEscolha.getSelectedItem();
-            ArrayList<Unidades> unidadesCorrespondentes = new ArrayList<>();
-            Unidades[] unidades = Unidades.values();
             
-            for (Unidades unidade : unidades) {
-                if((unidade.getTipo().equals(secaoSelecionada)))
-                    unidadesCorrespondentes.add(unidade);
+            if(!tipoInicial.equals(caixaEscolha.getSelectedItem())){
+                String secaoSelecionada = (String)caixaEscolha.getSelectedItem();
+                ArrayList<Unidades> unidadesCorrespondentes = new ArrayList<>();
+                Unidades[] unidades = Unidades.values();
+
+                for (Unidades unidade : unidades) {
+                    if((unidade.getTipo().equals(secaoSelecionada)))
+                        unidadesCorrespondentes.add(unidade);
+                }
+
+
+                caixaTiposInicial.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
+                caixaTiposInicial.setSelectedItem(null);
+                caixaTiposFinal.setSelectedItem(null);
+                descricaoInicialTexto.setText("");
+                descricaoFinalTexto.setText("");
+                numeroFinalTexto.setText("");
+                tipoInicial = (String)caixaEscolha.getSelectedItem();
             }
-            
-            caixaTiposInicial.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
-            caixaTiposInicial.setSelectedItem(null);
-            descricaoInicialTexto.setText("");
-            descricaoFinalTexto.setText("");
-            numeroFinalTexto.setText("");
         });
         
         caixaTiposInicial.setSelectedItem(null);
@@ -57,15 +66,13 @@ public class ConversaoNumeros extends javax.swing.JFrame {
 
                 if(caixaTiposFinal.getSelectedItem()!=null){
                     Unidades aux = (Unidades) caixaTiposFinal.getSelectedItem();
-                    if(!aux.getTipo().equals(constSelecionada.getTipo())){
-                        caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
-                        caixaTiposFinal.setSelectedItem(null);
-                    }else if(aux.getDescricao().equals(constSelecionada.getDescricao())){
+                    if(aux.getDescricao().equals(constSelecionada.getDescricao())){
                         caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
                         caixaTiposFinal.setSelectedItem(null);
                         descricaoFinalTexto.setText("");
                     }else{
                         caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
+                        caixaTiposFinal.setSelectedItem(aux);
                     }
                 }else{
                     caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
@@ -84,8 +91,58 @@ public class ConversaoNumeros extends javax.swing.JFrame {
         });
         
         this.decimais = decimais;
+        this.numero = numeroInicialTexto.getDocument();
+        this.numero.addDocumentListener(new ControladorBotao());
+        
+        this.descricao1 = descricaoInicialTexto.getDocument();
+        this.descricao1.addDocumentListener(new ControladorBotao());
+        
+        this.descricao2 = descricaoFinalTexto.getDocument();
+        this.descricao2.addDocumentListener(new ControladorBotao());
+        
+        this.resultadoBotao.setEnabled(false);
     }
 
+    class ControladorBotao implements DocumentListener{
+
+        ControladorBotao() {
+            this.estadoPassadoVazio = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            disableIfEmpty(e);
+        }
+
+        public void disableIfEmpty(DocumentEvent e) {
+            if(e.getDocument().getLength() == 0){
+                ConversaoNumeros.camposCheios--;
+                if(ConversaoNumeros.camposCheios<3 && resultadoBotao.isEnabled())
+                    resultadoBotao.setEnabled(false);
+                if(!estadoPassadoVazio)
+                    estadoPassadoVazio = true;
+            }else if(e.getDocument().getLength() > 0){
+                if(estadoPassadoVazio){
+                    ConversaoNumeros.camposCheios++;
+                    estadoPassadoVazio = false;
+                }
+                if(ConversaoNumeros.camposCheios==3 && !resultadoBotao.isEnabled() && !"".equals(numeroInicialTexto.getText()))
+                    resultadoBotao.setEnabled(true);
+            }   
+        }
+        private boolean estadoPassadoVazio;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -231,85 +288,91 @@ public class ConversaoNumeros extends javax.swing.JFrame {
 
     private void resultadoBotaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoBotaoMouseClicked
         boolean sucesso = false;
-        
-        try{
-            String valorInicialString;
-            valorInicialString = numeroInicialTexto.getText();
-            if(valorInicialString.contains(","))
-                valorInicialString = valorInicialString.replaceAll("\\,", ".");
-            Double.parseDouble(valorInicialString);
-            sucesso = true;
-        }
-        catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Apenas números!");
-        }
-        
-        if(sucesso){
-            ConversorNumeros conversor = new ConversorNumeros();
-            Unidades aux = (Unidades) caixaTiposInicial.getSelectedItem();
-            Unidades aux2 = (Unidades) caixaTiposFinal.getSelectedItem();
-            Object numeroInicial = new Object();
-            
-            switch(aux.getTipo()){
-                case "Área":
-                    numeroInicial = new NumeroArea(Double.parseDouble(numeroInicialTexto.getText()),aux.toString());
-                    break;
-                case "Energia":
-                    numeroInicial = new NumeroEnergia(Double.parseDouble(numeroInicialTexto.getText()),aux.toString());
-                    break;
-                case "Massa":
-                    numeroInicial = new NumeroMassa(Double.parseDouble(numeroInicialTexto.getText()),aux.toString());
-                    break;
-                case "Medida":
-                    numeroInicial = new NumeroMedida(Double.parseDouble(numeroInicialTexto.getText()),aux.toString());
-                    break;
-                case "Temperatura":
-                    numeroInicial = new NumeroTemperatura(Double.parseDouble(numeroInicialTexto.getText()),aux.toString());
-                    break;
-                case "Tempo":
-                    numeroInicial = new NumeroTempo(Double.parseDouble(numeroInicialTexto.getText()),aux.toString());
-                    break;
-                case "Volume":
-                    numeroInicial = new NumeroVolume(Double.parseDouble(numeroInicialTexto.getText()),aux.toString());
-                    break;
+        double valorInicial = 0;
+        if(resultadoBotao.isEnabled()){
+            try{
+                String valorInicialString;
+                valorInicialString = numeroInicialTexto.getText();
+                if(valorInicialString.contains(","))
+                    valorInicialString = valorInicialString.replaceAll("\\,", ".");
+                valorInicial = Double.parseDouble(valorInicialString);
+                sucesso = true;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Apenas números!");
             }
 
-            Object numeroFinal = conversor.converterNumero(new CalculadoraAritmetica(), numeroInicial, aux2.toString());
-            double numeroFinalValor;
-            
-            if(numeroFinal instanceof NumeroArea){
-                NumeroArea auxNumero = (NumeroArea)numeroFinal;
-                numeroFinalValor = auxNumero.getNumero();
-                numeroFinalTexto.setText(Double.toString(numeroFinalValor));
-            }else if(numeroFinal instanceof NumeroEnergia){
-                NumeroEnergia auxNumero = (NumeroEnergia)numeroFinal;
-                numeroFinalValor = auxNumero.getNumero();
-                numeroFinalTexto.setText(Double.toString(numeroFinalValor));
-            }else if(numeroFinal instanceof NumeroMassa){
-                NumeroMassa auxNumero = (NumeroMassa)numeroFinal;
-                numeroFinalValor = auxNumero.getNumero();
-                numeroFinalTexto.setText(Double.toString(numeroFinalValor));
-            }else if(numeroFinal instanceof NumeroMedida){
-                NumeroMedida auxNumero = (NumeroMedida)numeroFinal;
-                numeroFinalValor = auxNumero.getNumero();
-                numeroFinalTexto.setText(Double.toString(numeroFinalValor));
-            }else if(numeroFinal instanceof NumeroTemperatura){
-                NumeroTemperatura auxNumero = (NumeroTemperatura)numeroFinal;
-                numeroFinalValor = auxNumero.getNumero();
-                numeroFinalTexto.setText(Double.toString(numeroFinalValor));
-            }else if(numeroFinal instanceof NumeroTempo){
-                NumeroTempo auxNumero = (NumeroTempo)numeroFinal;
-                numeroFinalValor = auxNumero.getNumero();
-                numeroFinalTexto.setText(Double.toString(numeroFinalValor));
-            }else if(numeroFinal instanceof NumeroVolume){
-                NumeroVolume auxNumero = (NumeroVolume)numeroFinal;
-                numeroFinalValor = auxNumero.getNumero();
-                numeroFinalTexto.setText(Double.toString(numeroFinalValor));
-            }
+            if(sucesso){
+                ConversorNumeros conversor = new ConversorNumeros();
+                Unidades aux = (Unidades) caixaTiposInicial.getSelectedItem();
+                Unidades aux2 = (Unidades) caixaTiposFinal.getSelectedItem();
+                Object numeroInicial = new Object();
+
+                switch(aux.getTipo()){
+                    case "Área":
+                        numeroInicial = new NumeroArea(valorInicial,aux.toString());
+                        break;
+                    case "Energia":
+                        numeroInicial = new NumeroEnergia(valorInicial,aux.toString());
+                        break;
+                    case "Massa":
+                        numeroInicial = new NumeroMassa(valorInicial,aux.toString());
+                        break;
+                    case "Medida":
+                        numeroInicial = new NumeroMedida(valorInicial,aux.toString());
+                        break;
+                    case "Temperatura":
+                        numeroInicial = new NumeroTemperatura(valorInicial,aux.toString());
+                        break;
+                    case "Tempo":
+                        numeroInicial = new NumeroTempo(valorInicial,aux.toString());
+                        break;
+                    case "Volume":
+                        numeroInicial = new NumeroVolume(valorInicial,aux.toString());
+                        break;
+                }
+
+                Object numeroFinal = conversor.converterNumero(new CalculadoraAritmetica(), numeroInicial, aux2.toString());
+                double numeroFinalValor = 0.0;
+                String numeroFinalTextoLer;
                 
+                if(numeroFinal instanceof NumeroArea){
+                    NumeroArea auxNumero = (NumeroArea)numeroFinal;
+                    numeroFinalValor = auxNumero.getNumero();
+                }else if(numeroFinal instanceof NumeroEnergia){
+                    NumeroEnergia auxNumero = (NumeroEnergia)numeroFinal;
+                    numeroFinalValor = auxNumero.getNumero();
+                }else if(numeroFinal instanceof NumeroMassa){
+                    NumeroMassa auxNumero = (NumeroMassa)numeroFinal;
+                    numeroFinalValor = auxNumero.getNumero();
+                }else if(numeroFinal instanceof NumeroMedida){
+                    NumeroMedida auxNumero = (NumeroMedida)numeroFinal;
+                    numeroFinalValor = auxNumero.getNumero();
+                }else if(numeroFinal instanceof NumeroTemperatura){
+                    NumeroTemperatura auxNumero = (NumeroTemperatura)numeroFinal;
+                    numeroFinalValor = auxNumero.getNumero();
+                }else if(numeroFinal instanceof NumeroTempo){
+                    NumeroTempo auxNumero = (NumeroTempo)numeroFinal;
+                    numeroFinalValor = auxNumero.getNumero();
+                }else if(numeroFinal instanceof NumeroVolume){
+                    NumeroVolume auxNumero = (NumeroVolume)numeroFinal;
+                    numeroFinalValor = auxNumero.getNumero();
+                }
+                
+                numeroFinalTextoLer = Double.toString(numeroFinalValor);
+                if(numeroFinalTextoLer.contains("."))
+                    numeroFinalTextoLer = numeroFinalTextoLer.replaceAll("\\.", ",");
+                
+                numeroFinalTexto.setText(numeroFinalTextoLer);
+            }
         }
     }//GEN-LAST:event_resultadoBotaoMouseClicked
 
+    private String tipoInicial;
+    private final Document numero;
+    private final Document descricao1;
+    private final Document descricao2;
+    public static int camposCheios = 0;
     private final int decimais;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

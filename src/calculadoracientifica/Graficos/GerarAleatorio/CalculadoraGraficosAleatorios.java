@@ -301,6 +301,11 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
         }
     }
     
+    @Override
+    public String toString(){
+        return equacao;
+    }
+    
     private final int limSuperior;
     private final int limInferior;
     private final Random gerador;

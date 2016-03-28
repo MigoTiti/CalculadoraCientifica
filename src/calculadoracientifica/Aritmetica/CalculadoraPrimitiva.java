@@ -9,10 +9,10 @@ abstract class CalculadoraPrimitiva extends MetodosPrimitivos{
     abstract double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais);
     
     protected enum Prioridades{
-        soma(1),
-        multiplicacao(2),
-        potencia(3),
-        trigonometricaRaizLog(4);
+        SOMA(1),
+        MULTIPLICACAO(2),
+        POTENCIA(3),
+        TRIGONOMETRICARAIZLOG(4);
 
         private final int valor;
         

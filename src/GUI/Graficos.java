@@ -1,6 +1,6 @@
 package GUI;
 
-import calculadoracientifica.Graficos.CalculadoraGraficos;
+import calculadoracientifica.Graficos.CalculadoraPontos;
 import calculadoracientifica.Graficos.GerarAleatorio.CalculadoraGraficosAleatorios;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.Color;
@@ -46,7 +46,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.operadoresAuxiliar = new ArrayList<>();
         this.operadores = new ArrayList<>();
         this.sinais = new ArrayList<>(); 
-        this.graficos = new CalculadoraGraficos();
+        this.graficos = new CalculadoraPontos();
         this.limparEquacao.setEnabled(false);
         this.limparTudo.setEnabled(false);
         this.plotar.setEnabled(false);
@@ -839,7 +839,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private final Document numero3;
     
     private final int decimais;
-    private final CalculadoraGraficos graficos;
+    private final CalculadoraPontos graficos;
     
     public static final String VAZIO = "";  
     

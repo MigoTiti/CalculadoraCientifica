@@ -1,12 +1,13 @@
 package calculadoracientifica.Graficos.GerarAleatorio;
 
-import calculadoracientifica.Graficos.CalculadoraGraficos;
+import calculadoracientifica.Graficos.CalculadoraPontos;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
+public class CalculadoraGraficosAleatorios extends CalculadoraPontos{
     
     public CalculadoraGraficosAleatorios(){
+        super(true);
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
@@ -18,6 +19,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
     }
     
     public CalculadoraGraficosAleatorios(int delta){
+        super(true);
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
@@ -32,7 +34,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraGraficos{
     }
     
     public CalculadoraGraficosAleatorios(CalculadoraGraficosAleatorios c1){
-        super(c1.index);
+        super(c1.radianos);
         this.sinaisConstrutor = c1.sinaisConstrutor;
         this.numerosConstrutor = c1.numerosConstrutor;
         this.posicoesX = c1.posicoesX;

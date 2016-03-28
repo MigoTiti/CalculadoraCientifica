@@ -1,18 +1,20 @@
 package calculadoracientifica.Aritmetica.Derivada;
 
-import calculadoracientifica.Graficos.CalculadoraGraficos;
+import calculadoracientifica.Graficos.CalculadoraPontos;
 import java.util.ArrayList;
 
-public class CalculadoraDerivada extends CalculadoraGraficos{
+public class CalculadoraDerivada extends CalculadoraPontos{
     
-    public CalculadoraDerivada(){}
+    public CalculadoraDerivada(){
+        super(true);
+    }
     
-    public CalculadoraDerivada(int index){
-        super(index);
+    public CalculadoraDerivada(boolean radianos){
+        super(radianos);
     }
     
     public CalculadoraDerivada(CalculadoraDerivada c1){
-        super(c1.index);
+        super(c1.radianos);
     }
     
     public double derivada(double x, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){

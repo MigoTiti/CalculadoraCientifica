@@ -4,18 +4,34 @@ import java.util.ArrayList;
 
 public class CalculadoraAjusteLinear extends CalculadoraMinimosQuadrados{
     
-    public CalculadoraAjusteLinear(){}
+    public CalculadoraAjusteLinear(){
+        this.n = 0;
+        this.sX = 0;
+        this.sY = 0;
+        this.sX2 = 0;
+        this.sXY = 0;
+    }
+        
+    public CalculadoraAjusteLinear(ArrayList<Double> x, ArrayList<Double> y){
+        this.n = x.size();
+        for(int i = 0;i<n;i++){
+            this.sX+=x.get(i);
+            this.sY+=y.get(i);
+            this.sX2+=Math.pow(x.get(i), 2);
+            this.sXY+=x.get(i)*y.get(i);
+        }
+    }
+    
+    public CalculadoraAjusteLinear(CalculadoraAjusteLinear c1){
+        this.n = c1.n;
+        this.sX = c1.sX;
+        this.sY = c1.sY;
+        this.sX2 = c1.sX2;
+        this.sXY = c1.sXY;
+    }
     
     @Override
-    public double[] MinimosQuadradosAjuste(ArrayList<Double> x, ArrayList<Double> y){
-        int n = x.size();
-        double sX = 0, sY = 0, sX2 = 0, sXY = 0;
-        for(int i = 0;i<n;i++){
-            sX+=x.get(i);
-            sY+=y.get(i);
-            sX2+=Math.pow(x.get(i), 2);
-            sXY+=x.get(i)*y.get(i);
-        }
+    public double[] MinimosQuadradosAjuste(){
         
         double[][] incognitas;
         incognitas = new double[2][2];
@@ -33,4 +49,7 @@ public class CalculadoraAjusteLinear extends CalculadoraMinimosQuadrados{
         
         return resultados;
     }
+    
+    private int n;
+    private double sX, sY, sX2, sXY;
 }

@@ -3,22 +3,22 @@ package calculadoracientifica.Graficos;
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import java.util.ArrayList;
 
-public class CalculadoraGraficos extends CalculadoraAritmetica{
+public class CalculadoraPontos extends CalculadoraAritmetica{
     
-    public CalculadoraGraficos(){
-        this.index = 0;
+    public CalculadoraPontos(){
+        super(true);
     }
     
-    public CalculadoraGraficos(int index){
-        this.index = index;
+    public CalculadoraPontos(boolean radianos){
+        super(radianos);
     }
     
-    public CalculadoraGraficos(CalculadoraGraficos c1){
-        this.index = c1.index;
+    public CalculadoraPontos(CalculadoraPontos c1){
+        super(c1.radianos);
     }
     
     public double interpretadorIntermediario(double x, ArrayList<Integer> posicoes, ArrayList<Double> numeros, ArrayList<String> sinais){
-        index = numeros.size()+posicoes.size();
+        int index = numeros.size()+posicoes.size();
         if(posicoes.size()>0){
             do{
                 for(int i=0;i<index;i++){
@@ -37,5 +37,4 @@ public class CalculadoraGraficos extends CalculadoraAritmetica{
         return y;
     }
     
-    protected int index;
 }

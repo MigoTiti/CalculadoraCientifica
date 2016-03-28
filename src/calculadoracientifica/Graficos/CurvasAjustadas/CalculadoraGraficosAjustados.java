@@ -1,11 +1,11 @@
 package calculadoracientifica.Graficos.CurvasAjustadas;
 
 import GUI.GraficosAjustados;
-import calculadoracientifica.Graficos.CalculadoraGraficos;
+import calculadoracientifica.Graficos.CalculadoraPontos;
 import calculadoracientifica.Interfaces.AjustesGraficos;
 import java.util.ArrayList;
 
-public class CalculadoraGraficosAjustados extends CalculadoraGraficos implements AjustesGraficos{
+public class CalculadoraGraficosAjustados extends CalculadoraPontos implements AjustesGraficos{
     
     public CalculadoraGraficosAjustados(){
         this.sinaisConstrutor = new ArrayList<>();

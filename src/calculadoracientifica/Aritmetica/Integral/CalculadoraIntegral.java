@@ -1,18 +1,20 @@
 package calculadoracientifica.Aritmetica.Integral;
 
-import calculadoracientifica.Graficos.CalculadoraGraficos;
+import calculadoracientifica.Graficos.CalculadoraPontos;
 import java.util.ArrayList;
 
-public class CalculadoraIntegral extends CalculadoraGraficos{
+public class CalculadoraIntegral extends CalculadoraPontos{
     
-    public CalculadoraIntegral(){}
+    public CalculadoraIntegral(){
+        super(true);
+    }
     
-    public CalculadoraIntegral(int index){
-        super(index);
+    public CalculadoraIntegral(boolean radianos){
+        super(radianos);
     }
     
     public CalculadoraIntegral(CalculadoraIntegral c1){
-        super(c1.index);
+        super(c1.radianos);
     }
     
     public static void mudarPrecisao(double P){

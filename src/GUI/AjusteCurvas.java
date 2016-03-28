@@ -53,11 +53,6 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         this.contadorPontos = 0;
         this.xPonto.requestFocusInWindow();
         
-        this.exponencial = new CalculadoraAjusteExponencial();
-        this.linear = new CalculadoraAjusteLinear();
-        this.quadratico = new CalculadoraAjusteQuadratico();
-        this.potencial = new CalculadoraAjustePotencial();
-        
         this.equacaoLinear = new StringBuilder();
         this.equacaoExp = new StringBuilder();
         this.equacaoQuadratica = new StringBuilder();
@@ -593,7 +588,8 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     public void obterResposta() {
         if(x.size()>1 && ajustar.isEnabled()){
         double[] coeficientesLineares;
-        coeficientesLineares = linear.MinimosQuadradosAjuste(x, y);
+        CalculadoraAjusteLinear linear = new CalculadoraAjusteLinear(x,y); 
+        coeficientesLineares = linear.MinimosQuadradosAjuste();
         String aLinearFormatado = formatador.format(coeficientesLineares[0]);
         String bLinearFormatado = formatador.format(coeficientesLineares[1]);
         
@@ -626,7 +622,8 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         equacaoLinearString = equacaoLinear.toString();
         
         double[] coeficientesQuadraticos;
-        coeficientesQuadraticos = quadratico.MinimosQuadradosAjuste(x, y);
+        CalculadoraAjusteQuadratico quadratico = new CalculadoraAjusteQuadratico(x,y);
+        coeficientesQuadraticos = quadratico.MinimosQuadradosAjuste();
         boolean aQuadraticoNegativo = false;
         boolean bQuadraticoNegativo = false;
         boolean cQuadraticoNegativo = false;
@@ -736,7 +733,8 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         equacaoQuadraticaString = equacaoQuadratica.toString();
         
         double[] coeficientesExp;
-        coeficientesExp = exponencial.MinimosQuadradosAjuste(x, y);
+        CalculadoraAjusteExponencial exponencial = new CalculadoraAjusteExponencial(x,y);
+        coeficientesExp = exponencial.MinimosQuadradosAjuste();
         String aExpFormatado = formatador.format(coeficientesExp[0]);
         String bExpFormatado = formatador.format(coeficientesExp[1]);
         equacaoExp.append(aExpFormatado).append("e^").append(bExpFormatado).append("x");
@@ -745,7 +743,8 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         plotarExp.setEnabled(true);
         
         double[] coeficientesPotencial;
-        coeficientesPotencial = potencial.MinimosQuadradosAjuste(x, y);
+        CalculadoraAjustePotencial potencial = new CalculadoraAjustePotencial(x,y);
+        coeficientesPotencial = potencial.MinimosQuadradosAjuste();
         String aPotencialFormatado = formatador.format(coeficientesPotencial[0]);
         String bPotencialFormatado = formatador.format(coeficientesPotencial[1]);
         equacaoPotencial.append(aPotencialFormatado).append("x^").append(bPotencialFormatado);
@@ -785,10 +784,6 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     private final int decimais;
     private final String vazio;
     private final DecimalFormat formatador;
-    private final CalculadoraAjusteQuadratico quadratico;
-    private final CalculadoraAjusteExponencial exponencial;
-    private final CalculadoraAjusteLinear linear;
-    private final CalculadoraAjustePotencial potencial;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarPonto;

@@ -1,7 +1,6 @@
 package calculadoracientifica.AjusteCurvas;
 
 import calculadoracientifica.Interfaces.EscalonarMatriz;
-import java.util.ArrayList;
 
 abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz{
    
@@ -48,5 +47,5 @@ abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz{
         return resultado;
     }
     
-    abstract double[] MinimosQuadradosAjuste(ArrayList<Double> x, ArrayList<Double> y);
+    abstract double[] MinimosQuadradosAjuste();
 }

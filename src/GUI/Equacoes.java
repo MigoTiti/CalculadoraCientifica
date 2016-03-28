@@ -1,7 +1,7 @@
 package GUI;
 
+import calculadoracientifica.AjusteCurvas.CalculadoraAjusteLinear;
 import calculadoracientifica.Equacoes.CalculadoraEquacoes;
-import calculadoracientifica.Sistemas.CalculadoraSistemas;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -25,8 +25,6 @@ public class Equacoes extends javax.swing.JFrame {
 
         this.formatador = new DecimalFormat(aux);
         this.formatador.setDecimalSeparatorAlwaysShown(false);
-        this.equacoes = new CalculadoraEquacoes();
-        this.sistemas = new CalculadoraSistemas();
         
         this.resultadoESG.setEnabled(false);
         this.resultadoSDV.setEnabled(false);
@@ -909,6 +907,7 @@ public class Equacoes extends javax.swing.JFrame {
             }
  
             if(sucesso){
+                CalculadoraAjusteLinear sistemas = new CalculadoraAjusteLinear();
                 double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
 
                 String xFormatado = formatador.format(resultados[0]);
@@ -989,6 +988,7 @@ public class Equacoes extends javax.swing.JFrame {
             }
             
             if(sucesso){
+                CalculadoraEquacoes equacoes = new CalculadoraEquacoes(aValor, bValor, cValor);
                 String aFormatado = formatador.format(aValor);
                 String bFormatado = formatador.format(bValor);
                 String cFormatado = formatador.format(cValor);
@@ -999,7 +999,7 @@ public class Equacoes extends javax.swing.JFrame {
                 c.setText(cFormatado);
                 delta.setText(deltaFormatado);
 
-                ArrayList<String> solucoes = equacoes.equacaoSegundoGrau(aValor, bValor, cValor);
+                ArrayList<String> solucoes = equacoes.equacaoSegundoGrau();
 
                 double raiz1Valor, raiz2Valor;
                 String raiz1Formatada, raiz2Formatada;
@@ -1077,6 +1077,7 @@ public class Equacoes extends javax.swing.JFrame {
             }
             
             if(sucesso){
+                CalculadoraAjusteLinear sistemas = new CalculadoraAjusteLinear();
                 double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
 
                 String xFormatado = formatador.format(resultados[0]);
@@ -1131,8 +1132,6 @@ public class Equacoes extends javax.swing.JFrame {
     private String auxiliarNumero;
     
     private final int decimais;
-    private final CalculadoraEquacoes equacoes;
-    private final CalculadoraSistemas sistemas;
     private final DecimalFormat formatador;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField a;

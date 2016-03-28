@@ -982,12 +982,12 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
 
     private void grausMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grausMouseClicked
         if(graus.isSelected())
-            CalculadoraAritmetica.mudarStatus("graus");
+            calculadora.mudarStatus("graus");
     }//GEN-LAST:event_grausMouseClicked
 
     private void radianosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radianosMouseClicked
         if(radianos.isSelected())
-            CalculadoraAritmetica.mudarStatus("radianos");
+            calculadora.mudarStatus("radianos");
     }//GEN-LAST:event_radianosMouseClicked
 
     private void derivadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_derivadaMouseClicked

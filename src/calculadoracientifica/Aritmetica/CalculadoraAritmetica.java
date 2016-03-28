@@ -5,16 +5,18 @@ import java.util.ArrayList;
 public class CalculadoraAritmetica extends CalculadoraPrimitiva{
     
     public CalculadoraAritmetica(){
-        CalculadoraAritmetica.radianos = true;
-        this.contParenteses = 0;
+        this.radianos = true;
     }
     
     public CalculadoraAritmetica(boolean radianos){
-        CalculadoraAritmetica.radianos = radianos;
-        this.contParenteses = 0;
+        this.radianos = radianos;
     }
     
-    public static void mudarStatus(String nome){
+    public CalculadoraAritmetica(CalculadoraAritmetica c1){
+        this.radianos = c1.radianos;
+    }
+    
+    public void mudarStatus(String nome){
         if("radianos".equals(nome)&&radianos==false)
             radianos = true;
         else if("graus".equals(nome)&&radianos)
@@ -24,7 +26,7 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
     @Override
     public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais){
         String sinal;
-                
+        int contParenteses = 0;        
         ArrayList<Integer> prioridades = new ArrayList<>();        
         ArrayList<Integer> prioridadesParenteses = new ArrayList<>();
         ArrayList<Integer> posicoesRemoverSinais = new ArrayList<>();
@@ -56,15 +58,15 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
             if(null!=sinal)switch (sinal) {
                 case "+":
                 case "-":
-                    prioridades.add(i, Prioridades.soma.getPrioridade()+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.SOMA.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
                 case "%":
                 case "*":
                 case "/":
-                    prioridades.add(i, Prioridades.multiplicacao.getPrioridade()+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.MULTIPLICACAO.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
                 case "^":
-                    prioridades.add(i, Prioridades.potencia.getPrioridade()+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.POTENCIA.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
                 case "sqrt":
                 case "log":
@@ -72,7 +74,7 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
                 case "sen":
                 case "cos":
                 case "tg":
-                    prioridades.add(i, Prioridades.trigonometricaRaizLog.getPrioridade()+(prioridadesParenteses.get(i)*3));
+                    prioridades.add(i, Prioridades.TRIGONOMETRICARAIZLOG.getPrioridade()+(prioridadesParenteses.get(i)*3));
                     break;
             }  
         }
@@ -233,7 +235,6 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
             return "Usando graus";
     }
     
-    private int contParenteses;
-    private static boolean radianos;
+    protected boolean radianos;
     
 }

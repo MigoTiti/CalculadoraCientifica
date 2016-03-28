@@ -6,6 +6,8 @@ import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
@@ -521,7 +523,28 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
     private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
         if(exemploGrafico.isEnabled()){
-            new FrameEscolha();
+            FrameEscolha titi = new FrameEscolha();
+            titi.addWindowListener(new WindowListener() {
+
+                @Override
+                public void windowOpened(WindowEvent e) {}
+                
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    Graficos.this.setVisible(true);
+                }
+                
+                @Override
+                public void windowClosed(WindowEvent e) {}
+                @Override
+                public void windowIconified(WindowEvent e) {}
+                @Override
+                public void windowDeiconified(WindowEvent e) {}
+                @Override
+                public void windowActivated(WindowEvent e) {}
+                @Override
+                public void windowDeactivated(WindowEvent e) {}
+        });
             Graficos.this.setVisible(false);
         }
     }//GEN-LAST:event_exemploGraficoMouseClicked
@@ -837,5 +860,4 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private javax.swing.JButton voltar;
     private javax.swing.JTextField xVariando;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -148,6 +148,11 @@ public class CalculadoraGraficosAjustados extends CalculadoraGraficos implements
         plotarGraficoAjustado.setVisible(true);
     }
     
+    @Override
+    public String toString(){
+        return equacao;
+    }
+    
     private GraficosAjustados plotarGraficoAjustado;
     private ArrayList<String> sinaisConstrutor;
     private ArrayList<Double> numerosConstrutor;

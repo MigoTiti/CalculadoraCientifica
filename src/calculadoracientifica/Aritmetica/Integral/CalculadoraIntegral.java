@@ -83,5 +83,10 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
         return metodoSimpson(limI,c,sEsquerda,ya,yc,yd,numeros,sinais,posicoes,TOL/2)+metodoSimpson(c,limS,sDireita,yc,yb,ye,numeros,sinais,posicoes,TOL/2);
     }
     
+    @Override
+    public String toString(){
+        return "A precisão é: "+Double.toString(TOL);
+    }
+    
     private static double TOL = 1e-5;
 }

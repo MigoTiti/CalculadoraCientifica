@@ -14,10 +14,6 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
         this.contParenteses = 0;
     }
     
-    public CalculadoraAritmetica(CalculadoraAritmetica c1){
-        this.contParenteses = c1.contParenteses;
-    }
-    
     public static void mudarStatus(String nome){
         if("radianos".equals(nome)&&radianos==false)
             radianos = true;

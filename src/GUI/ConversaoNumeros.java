@@ -60,25 +60,19 @@ public class ConversaoNumeros extends javax.swing.JFrame {
                 Unidades[] unidades = Unidades.values();
 
                 for (Unidades unidade : unidades) {
-                    if((unidade.getTipo().equals(constSelecionada.getTipo()))&&!(unidade.getDescricao().equals(constSelecionada.getDescricao()))&&!(unidade.toString().equals(constSelecionada.toString())))
+                    if(unidade.getTipo().equals(constSelecionada.getTipo()))
                         unidadesCorrespondentes.add(unidade);
                 }
-
-                if(caixaTiposFinal.getSelectedItem()!=null){
-                    Unidades aux = (Unidades) caixaTiposFinal.getSelectedItem();
-                    if(aux.getDescricao().equals(constSelecionada.getDescricao())){
-                        caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
-                        caixaTiposFinal.setSelectedItem(null);
-                        descricaoFinalTexto.setText("");
-                    }else{
-                        caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
-                        caixaTiposFinal.setSelectedItem(aux);
-                    }
-                }else{
-                    caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
+                
+                Unidades aux = (Unidades) caixaTiposFinal.getSelectedItem();
+                caixaTiposFinal.setModel(new javax.swing.DefaultComboBoxModel(unidadesCorrespondentes.toArray()));
+                
+                if(caixaTiposFinal.getSelectedItem()!=null)
+                    caixaTiposFinal.setSelectedItem(aux);
+                else
                     caixaTiposFinal.setSelectedItem(null);
-                }
-        }
+                
+            }
         });
         
         caixaTiposFinal.addItemListener((ItemEvent e) -> {
@@ -176,7 +170,7 @@ public class ConversaoNumeros extends javax.swing.JFrame {
 
         jLabel1.setText("ESCOLHA O TIPO INICIAL");
 
-        caixaTiposInicial.setModel(new javax.swing.DefaultComboBoxModel(Unidades.values()));
+        caixaTiposInicial.setModel(new javax.swing.DefaultComboBoxModel());
 
         jLabel2.setText("DESCRIÇÃO");
 
@@ -206,31 +200,31 @@ public class ConversaoNumeros extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(voltar)
                             .addComponent(jLabel1)
-                            .addComponent(caixaTiposInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(descricaoInicialTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(numeroInicialTexto))
+                            .addComponent(numeroInicialTexto)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(caixaTiposInicial, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel4)
-                            .addComponent(caixaTiposFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(numeroFinalTexto)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(resultadoBotao))
-                            .addComponent(descricaoFinalTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(caixaEscolha, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(descricaoFinalTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(caixaTiposFinal, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(caixaEscolha, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(153, 153, 153)

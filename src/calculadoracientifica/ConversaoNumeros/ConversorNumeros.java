@@ -20,28 +20,70 @@ public class ConversorNumeros implements ConversaoNumeros{
         
         Object numeroFinal;
         
-        if(numero instanceof NumeroArea)
-            numeroFinal = converterArea(calculadora,(NumeroArea)numero,simboloFinal);
-        else if(numero instanceof NumeroEnergia)
-            numeroFinal = converterEnergia(calculadora,(NumeroEnergia)numero,simboloFinal);
-        else if(numero instanceof NumeroMassa)
-            numeroFinal = converterMassa(calculadora,(NumeroMassa)numero,simboloFinal);
-        else if(numero instanceof NumeroMedida)
-            numeroFinal = converterMedida(calculadora,(NumeroMedida)numero,simboloFinal);
-        else if(numero instanceof NumeroTemperatura)
-            numeroFinal = converterTemperatura(calculadora,(NumeroTemperatura)numero,simboloFinal);
-        else if(numero instanceof NumeroTempo)
-            numeroFinal = converterTempo(calculadora,(NumeroTempo)numero,simboloFinal);
-        else if(numero instanceof NumeroVolume)
-            numeroFinal = converterMedida(calculadora,(NumeroVolume)numero,simboloFinal);
-        else 
+        if(numero instanceof NumeroArea){
+            NumeroArea aux = new NumeroArea(simboloFinal);
+            NumeroArea aux2 = (NumeroArea)numero;
+            
+            if(aux2.compareTo(aux)==1)
+                numeroFinal = new NumeroArea((NumeroArea)numero);
+            else
+                numeroFinal = converterArea(calculadora,(NumeroArea)numero,simboloFinal);
+        }else if(numero instanceof NumeroEnergia){
+            NumeroEnergia aux = new NumeroEnergia(simboloFinal);
+            NumeroEnergia aux2 = (NumeroEnergia)numero;
+            
+            if(aux2.compareTo(aux)==1)
+                numeroFinal = new NumeroEnergia((NumeroEnergia)numero);
+            else
+                numeroFinal = converterEnergia(calculadora,(NumeroEnergia)numero,simboloFinal);
+        }else if(numero instanceof NumeroMassa){
+            NumeroMassa aux = new NumeroMassa(simboloFinal);
+            NumeroMassa aux2 = (NumeroMassa)numero;
+            
+            if(aux2.compareTo(aux)==1)
+                numeroFinal = new NumeroMassa((NumeroMassa)numero);
+            else
+                numeroFinal = converterMassa(calculadora,(NumeroMassa)numero,simboloFinal);
+        }else if(numero instanceof NumeroMedida){
+            NumeroMedida aux = new NumeroMedida(simboloFinal);
+            NumeroMedida aux2 = (NumeroMedida)numero;
+            
+            if(aux2.compareTo(aux)==1)
+                numeroFinal = new NumeroMedida((NumeroMedida)numero);
+            else
+                numeroFinal = converterMedida(calculadora,(NumeroMedida)numero,simboloFinal);
+        }else if(numero instanceof NumeroTemperatura){
+            NumeroTemperatura aux = new NumeroTemperatura(simboloFinal);
+            NumeroTemperatura aux2 = (NumeroTemperatura)numero;
+            
+            if(aux2.compareTo(aux)==1)
+                numeroFinal = new NumeroTemperatura((NumeroTemperatura)numero);
+            else
+                numeroFinal = converterTemperatura(calculadora,(NumeroTemperatura)numero,simboloFinal);
+        }else if(numero instanceof NumeroTempo){
+            NumeroTempo aux = new NumeroTempo(simboloFinal);
+            NumeroTempo aux2 = (NumeroTempo)numero;
+            
+            if(aux2.compareTo(aux)==1)
+                numeroFinal = new NumeroTempo((NumeroTempo)numero);
+            else
+                numeroFinal = converterTempo(calculadora,(NumeroTempo)numero,simboloFinal);
+        }else if(numero instanceof NumeroVolume){
+            NumeroVolume aux = new NumeroVolume(simboloFinal);
+            NumeroVolume aux2 = (NumeroVolume)numero;
+            
+            if(aux2.compareTo(aux)==1)
+                numeroFinal = new NumeroVolume((NumeroVolume)numero);
+            else
+                numeroFinal = converterVolume(calculadora,(NumeroVolume)numero,simboloFinal);
+        }else 
             return null;
             
         return numeroFinal;
     }
     
     //CONVERSÃO DE VOLUME
-    private NumeroVolume converterMedida(CalculadoraAritmetica calculadora, NumeroVolume numeroInicial, String simboloFinal){
+    private NumeroVolume converterVolume(CalculadoraAritmetica calculadora, NumeroVolume numeroInicial, String simboloFinal){
         double numeroFinal = calcularVolume(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
         return new NumeroVolume(numeroFinal,simboloFinal);
     }

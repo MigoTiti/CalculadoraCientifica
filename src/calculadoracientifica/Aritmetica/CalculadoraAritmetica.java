@@ -229,6 +229,14 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
        return maior;
     }
     
+    @Override
+    public String toString(){
+        if(radianos)
+            return "Usando radianos";
+        else
+            return "Usando graus";
+    }
+    
     private int contParenteses;
     private static boolean radianos;
     

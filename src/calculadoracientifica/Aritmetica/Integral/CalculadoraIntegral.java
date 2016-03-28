@@ -17,7 +17,7 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
     
     public static void mudarPrecisao(double P){
         if(P<1 && P>0)
-            CalculadoraIntegral.TOL = P;
+            CalculadoraIntegral.tol = P;
     }
     
     public double integralAdaptativaNumerica(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
@@ -29,12 +29,12 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
          yb = interpretadorIntermediario(limS,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
          s = (h/6)*(ya + 4*yc + yb);
          
-         return metodoSimpson(limS,limI,s,ya,yb,yc,numeros,sinais,posicoes,TOL);  
+         return metodoSimpson(limS,limI,s,ya,yb,yc,numeros,sinais,posicoes,tol);  
     }
     
     public double integralAdaptativaArea(double limS, double limI, ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> posicoes){
 
-        double ya, yb, yc, yAtual, yAnterior, s, integral = 0, delta = TOL, xInferior = limI+delta, xSuperior, c, h;
+        double ya, yb, yc, yAtual, yAnterior, s, integral = 0, delta = tol, xInferior = limI+delta, xSuperior, c, h;
         ArrayList<Double> limites = new ArrayList<>(), integraisParciais = new ArrayList<>();
         limites.add(limI);
         
@@ -55,7 +55,7 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
             yc = interpretadorIntermediario(c,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
             yb = interpretadorIntermediario(xSuperior,new ArrayList<>(posicoes),new ArrayList<>(numeros),new ArrayList<>(sinais));
             s = (h/6)*(ya + 4*yc + yb);
-            integraisParciais.add((metodoSimpson(xSuperior,xInferior,s,ya,yb,yc,numeros,sinais,posicoes,TOL)));
+            integraisParciais.add((metodoSimpson(xSuperior,xInferior,s,ya,yb,yc,numeros,sinais,posicoes,tol)));
             limites.remove(limites.size()-1);
         }
         
@@ -80,13 +80,13 @@ public class CalculadoraIntegral extends CalculadoraGraficos{
         
         if(Math.abs((s2-s))<=15*epsilon)
             return Math.abs(s2 + (s2-s)/15);
-        return metodoSimpson(limI,c,sEsquerda,ya,yc,yd,numeros,sinais,posicoes,TOL/2)+metodoSimpson(c,limS,sDireita,yc,yb,ye,numeros,sinais,posicoes,TOL/2);
+        return metodoSimpson(limI,c,sEsquerda,ya,yc,yd,numeros,sinais,posicoes,tol/2)+metodoSimpson(c,limS,sDireita,yc,yb,ye,numeros,sinais,posicoes,tol/2);
     }
     
     @Override
     public String toString(){
-        return "A precisão é: "+Double.toString(TOL);
+        return "A precisão é: "+Double.toString(tol);
     }
     
-    private static double TOL = 1e-5;
+    private static double tol = 1e-5;
 }

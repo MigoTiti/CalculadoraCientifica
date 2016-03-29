@@ -93,5 +93,5 @@ public class CalculadoraIntegral extends CalculadoraPontosAjustados{
             return "Usando graus, precisão : "+tol;
     }
     
-    private static double tol = 1e-5;
+    private static double tol = 1e-4;
 }

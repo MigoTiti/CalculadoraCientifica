@@ -31,6 +31,8 @@ public class CalculadoraCientifica{
         }
     }
     
+    
+    
     private static TelaInicial calculadoraInicio;
     
 }

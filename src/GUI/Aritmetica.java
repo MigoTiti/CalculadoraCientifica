@@ -1218,6 +1218,7 @@ public class Aritmetica extends javax.swing.JFrame implements OperacoesPrimitiva
                 }else if("ln".equals(atual)||"sqrt".equals(atual)||"sen".equals(atual)||"cos".equals(atual)||"tg".equals(atual)||"log".equals(atual)){
                     sinaisIntDer.add(atual);
                     sinaisIntDer.add("(");
+                    sinalIntDer = true;
                     posicaoIntDer--;
                     atual = atual.concat("(");
                     if(parentesesIntDer == false)

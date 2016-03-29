@@ -5,7 +5,7 @@ import calculadoracientifica.AjusteCurvas.CalculadoraAjusteExponencial;
 import calculadoracientifica.AjusteCurvas.CalculadoraAjusteLinear;
 import calculadoracientifica.AjusteCurvas.CalculadoraAjustePotencial;
 import calculadoracientifica.AjusteCurvas.CalculadoraAjusteQuadratico;
-import calculadoracientifica.Graficos.CurvasAjustadas.CalculadoraGraficosAjustados;
+import calculadoracientifica.Graficos.CalculadoraPontosAjustados;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -516,7 +516,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
 
     private void plotarLinearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarLinearMouseClicked
         if(plotarLinear.isEnabled()){
-            CalculadoraGraficosAjustados graficoLinear = new CalculadoraGraficosAjustados(equacaoLinearString);
+            CalculadoraPontosAjustados graficoLinear = new CalculadoraPontosAjustados(equacaoLinearString);
             graficoLinear.interpretadorStrings();
             graficoLinear.criarPontosAjustados(x,y);
         }
@@ -524,7 +524,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
 
     private void plotarExpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarExpMouseClicked
         if(plotarExp.isEnabled()){
-            CalculadoraGraficosAjustados graficoExp = new CalculadoraGraficosAjustados(equacaoExpStringExibir);
+            CalculadoraPontosAjustados graficoExp = new CalculadoraPontosAjustados(equacaoExpStringExibir);
             graficoExp.interpretadorStrings();
             graficoExp.criarPontosAjustados(x,y);
         }
@@ -532,7 +532,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
 
     private void plotarQuadraticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarQuadraticaMouseClicked
         if(plotarQuadratica.isEnabled()){
-            CalculadoraGraficosAjustados graficoQuadratico = new CalculadoraGraficosAjustados(equacaoQuadraticaString);
+            CalculadoraPontosAjustados graficoQuadratico = new CalculadoraPontosAjustados(equacaoQuadraticaString);
             graficoQuadratico.interpretadorStrings();
             graficoQuadratico.criarPontosAjustados(x,y);
         }
@@ -540,7 +540,7 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
 
     private void plotarPotencialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarPotencialMouseClicked
         if(plotarPotencial.isEnabled()){
-            CalculadoraGraficosAjustados graficoPotencial = new CalculadoraGraficosAjustados(equacaoPotencialStringExibir);
+            CalculadoraPontosAjustados graficoPotencial = new CalculadoraPontosAjustados(equacaoPotencialStringExibir);
             graficoPotencial.interpretadorStrings();
             graficoPotencial.criarPontosAjustados(x,y);
         }

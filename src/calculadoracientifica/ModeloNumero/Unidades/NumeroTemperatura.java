@@ -26,11 +26,21 @@ public class NumeroTemperatura extends NumeroPrimitivo implements Comparable{
     }    
     
     public NumeroTemperatura(double valor, final String unidadeTemperatura){
-        super(valor);
         if(unidadesAceitas.contains(unidadeTemperatura))
             this.unidadeTemperatura = unidadeTemperatura;
         else
             this.unidadeTemperatura = UNIDADE_TEMPERATURA_SI;
+        
+        if(unidadeTemperatura.equals("K")&&valor<0)
+            this.valor = 0;
+        else if(unidadeTemperatura.equals("°C")&&valor<-273.15)
+            this.valor = -273.15;
+        else if(unidadeTemperatura.equals("°F")&&valor<-459.67)
+            this.valor = -459.67;
+        else if(unidadeTemperatura.equals("°N")&&valor<-90.1395)
+            this.valor = -90.1395;
+        else
+            this.valor = valor;
         
     }
     

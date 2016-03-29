@@ -26,6 +26,11 @@ public class NumeroVolume extends NumeroPrimitivo implements Comparable{
     }    
     
     public NumeroVolume(double valor, final String unidadeVolume){
+        if(valor<0)
+            this.valor = 0.0;
+        else
+            this.valor = valor;
+        
         if(unidadesAceitas.contains(unidadeVolume))
             this.unidadeVolume = unidadeVolume;
         else

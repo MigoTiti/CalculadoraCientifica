@@ -51,6 +51,11 @@ public class CalculadoraAjusteExponencial extends CalculadoraMinimosQuadrados{
         return resultados;
     }
     
+    @Override
+    public String toString(){
+        return "Número de elementos: "+n;
+    }
+    
     private int n;
     private double sX, sY, sX2, sXY;
 }

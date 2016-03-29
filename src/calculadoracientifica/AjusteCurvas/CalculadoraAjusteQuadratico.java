@@ -68,6 +68,11 @@ public class CalculadoraAjusteQuadratico extends CalculadoraMinimosQuadrados{
         return resultados;
     }
     
+    @Override
+    public String toString(){
+        return "Número de elementos: "+n;
+    }
+    
     private int n;
     private double sX, sY, sX2, sX3, sX4, sX2Y, sXY;
 }

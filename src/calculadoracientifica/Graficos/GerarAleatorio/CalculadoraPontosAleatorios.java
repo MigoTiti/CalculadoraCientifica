@@ -1,13 +1,13 @@
 package calculadoracientifica.Graficos.GerarAleatorio;
 
-import calculadoracientifica.Graficos.CalculadoraPontos;
+import calculadoracientifica.Graficos.CalculadoraPontosAjustados;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CalculadoraGraficosAleatorios extends CalculadoraPontos{
+public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados{
     
-    public CalculadoraGraficosAleatorios(){
-        super(true);
+    public CalculadoraPontosAleatorios(){
+        super(false);
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
@@ -18,8 +18,8 @@ public class CalculadoraGraficosAleatorios extends CalculadoraPontos{
         this.delta = 1;
     }
     
-    public CalculadoraGraficosAleatorios(int delta){
-        super(true);
+    public CalculadoraPontosAleatorios(int delta){
+        super(false);
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
@@ -33,7 +33,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraPontos{
             this.delta = 1;
     }
     
-    public CalculadoraGraficosAleatorios(CalculadoraGraficosAleatorios c1){
+    public CalculadoraPontosAleatorios(CalculadoraPontosAleatorios c1){
         super(c1.radianos);
         this.sinaisConstrutor = c1.sinaisConstrutor;
         this.numerosConstrutor = c1.numerosConstrutor;
@@ -45,6 +45,7 @@ public class CalculadoraGraficosAleatorios extends CalculadoraPontos{
         this.delta = c1.delta;
     }
     
+    @Override
     public void interpretadorStrings(){
         @SuppressWarnings("ReplaceStringBufferByString")
                 

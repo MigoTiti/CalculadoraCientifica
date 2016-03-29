@@ -26,7 +26,11 @@ public class NumeroMassa extends NumeroPrimitivo implements Comparable{
     }    
     
     public NumeroMassa(double valor, final String unidadeMassa){
-        super(valor);
+        if(valor<0)
+            this.valor = 0.0;
+        else
+            this.valor = valor;
+        
         if(unidadesAceitas.contains(unidadeMassa))
             this.unidadeMassa = unidadeMassa;
         else

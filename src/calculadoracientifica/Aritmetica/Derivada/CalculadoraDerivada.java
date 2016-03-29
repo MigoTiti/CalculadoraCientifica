@@ -1,9 +1,9 @@
 package calculadoracientifica.Aritmetica.Derivada;
 
-import calculadoracientifica.Graficos.CalculadoraPontos;
+import calculadoracientifica.Graficos.CalculadoraPontosAjustados;
 import java.util.ArrayList;
 
-public class CalculadoraDerivada extends CalculadoraPontos{
+public class CalculadoraDerivada extends CalculadoraPontosAjustados{
     
     public CalculadoraDerivada(){
         super(true);
@@ -22,13 +22,21 @@ public class CalculadoraDerivada extends CalculadoraPontos{
         ArrayList<String> sinais1 = new ArrayList<>(sinais);
         ArrayList<Integer> posicoes1 = new ArrayList<>(posicoes);
         
-        double fxh = interpretadorIntermediario(x+h,posicoes1,numeros1,sinais1);
+        double fxh = interpretadorIntermediario(x+TOL,posicoes1,numeros1,sinais1);
         double fx = interpretadorIntermediario(x,posicoes,numeros,sinais);
         
-        double derivada = (fxh-fx)/h;
+        double derivada = (fxh-fx)/TOL;
         
         return derivada;
     }
     
-    private static final double h = 1e-10;
+    @Override
+    public String toString(){
+        if(radianos)
+            return "Usando radianos, precisão : "+TOL;
+        else
+            return "Usando graus, precisão : "+TOL;
+    }
+    
+    private static final double TOL = 1e-10;
 }

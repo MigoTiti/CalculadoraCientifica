@@ -1,6 +1,7 @@
 package calculadoracientifica.ConversaoNumeros;
 
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
+import calculadoracientifica.Enums.Unidades;
 import calculadoracientifica.Interfaces.ConversaoNumeros;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroArea;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroEnergia;
@@ -13,10 +14,28 @@ import java.util.ArrayList;
 
 public class ConversorNumeros implements ConversaoNumeros{
     
-    public ConversorNumeros(){}
+    public ConversorNumeros(){
+        this.simboloFinal = "";
+    }
+    
+    public ConversorNumeros(String simboloFinal){
+        boolean sucesso = false;
+        for (Unidades unidade : Unidades.values()) {
+            if(unidade.toString().equals(simboloFinal)){
+                this.simboloFinal = simboloFinal;
+                sucesso = true;
+            }
+        }
+        if(!sucesso)
+            this.simboloFinal = "";
+    }
+    
+    public ConversorNumeros(ConversorNumeros c1){
+        this.simboloFinal = c1.simboloFinal;
+    }
     
     @Override
-    public Object converterNumero(CalculadoraAritmetica calculadora, Object numero, String simboloFinal){
+    public Object converterNumero(CalculadoraAritmetica calculadora, Object numero){
         
         Object numeroFinal;
         
@@ -27,7 +46,7 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(aux2.compareTo(aux)==1)
                 numeroFinal = new NumeroArea((NumeroArea)numero);
             else
-                numeroFinal = converterArea(calculadora,(NumeroArea)numero,simboloFinal);
+                numeroFinal = converterArea(calculadora,(NumeroArea)numero);
         }else if(numero instanceof NumeroEnergia){
             NumeroEnergia aux = new NumeroEnergia(simboloFinal);
             NumeroEnergia aux2 = (NumeroEnergia)numero;
@@ -35,7 +54,7 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(aux2.compareTo(aux)==1)
                 numeroFinal = new NumeroEnergia((NumeroEnergia)numero);
             else
-                numeroFinal = converterEnergia(calculadora,(NumeroEnergia)numero,simboloFinal);
+                numeroFinal = converterEnergia(calculadora,(NumeroEnergia)numero);
         }else if(numero instanceof NumeroMassa){
             NumeroMassa aux = new NumeroMassa(simboloFinal);
             NumeroMassa aux2 = (NumeroMassa)numero;
@@ -43,7 +62,7 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(aux2.compareTo(aux)==1)
                 numeroFinal = new NumeroMassa((NumeroMassa)numero);
             else
-                numeroFinal = converterMassa(calculadora,(NumeroMassa)numero,simboloFinal);
+                numeroFinal = converterMassa(calculadora,(NumeroMassa)numero);
         }else if(numero instanceof NumeroMedida){
             NumeroMedida aux = new NumeroMedida(simboloFinal);
             NumeroMedida aux2 = (NumeroMedida)numero;
@@ -51,7 +70,7 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(aux2.compareTo(aux)==1)
                 numeroFinal = new NumeroMedida((NumeroMedida)numero);
             else
-                numeroFinal = converterMedida(calculadora,(NumeroMedida)numero,simboloFinal);
+                numeroFinal = converterMedida(calculadora,(NumeroMedida)numero);
         }else if(numero instanceof NumeroTemperatura){
             NumeroTemperatura aux = new NumeroTemperatura(simboloFinal);
             NumeroTemperatura aux2 = (NumeroTemperatura)numero;
@@ -59,7 +78,7 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(aux2.compareTo(aux)==1)
                 numeroFinal = new NumeroTemperatura((NumeroTemperatura)numero);
             else
-                numeroFinal = converterTemperatura(calculadora,(NumeroTemperatura)numero,simboloFinal);
+                numeroFinal = converterTemperatura(calculadora,(NumeroTemperatura)numero);
         }else if(numero instanceof NumeroTempo){
             NumeroTempo aux = new NumeroTempo(simboloFinal);
             NumeroTempo aux2 = (NumeroTempo)numero;
@@ -67,7 +86,7 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(aux2.compareTo(aux)==1)
                 numeroFinal = new NumeroTempo((NumeroTempo)numero);
             else
-                numeroFinal = converterTempo(calculadora,(NumeroTempo)numero,simboloFinal);
+                numeroFinal = converterTempo(calculadora,(NumeroTempo)numero);
         }else if(numero instanceof NumeroVolume){
             NumeroVolume aux = new NumeroVolume(simboloFinal);
             NumeroVolume aux2 = (NumeroVolume)numero;
@@ -75,7 +94,7 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(aux2.compareTo(aux)==1)
                 numeroFinal = new NumeroVolume((NumeroVolume)numero);
             else
-                numeroFinal = converterVolume(calculadora,(NumeroVolume)numero,simboloFinal);
+                numeroFinal = converterVolume(calculadora,(NumeroVolume)numero);
         }else 
             return null;
             
@@ -83,12 +102,12 @@ public class ConversorNumeros implements ConversaoNumeros{
     }
     
     //CONVERSÃO DE VOLUME
-    private NumeroVolume converterVolume(CalculadoraAritmetica calculadora, NumeroVolume numeroInicial, String simboloFinal){
-        double numeroFinal = calcularVolume(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
+    private NumeroVolume converterVolume(CalculadoraAritmetica calculadora, NumeroVolume numeroInicial){
+        double numeroFinal = calcularVolume(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade());
         return new NumeroVolume(numeroFinal,simboloFinal);
     }
     
-    private double calcularVolume(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial, String simboloFinal){
+    private double calcularVolume(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial){
         double numeroFinal;
         if(!simboloInicial.equals("m³")){
             numeroFinal = xParaMetroC(calculadora,numeroInicial,simboloInicial);
@@ -96,11 +115,11 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(simboloFinal.equals("m³"))
                 return numeroFinal;
             else{
-                numeroFinal = MetroCParaY(calculadora,numeroFinal,simboloFinal);
+                numeroFinal = MetroCParaY(calculadora,numeroFinal);
                 return numeroFinal;
             }
         }else{
-            numeroFinal = MetroCParaY(calculadora,numeroInicial,simboloFinal);
+            numeroFinal = MetroCParaY(calculadora,numeroInicial);
             return numeroFinal;
         }
     }
@@ -184,7 +203,7 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     
-    private double MetroCParaY(CalculadoraAritmetica calculadora, double numeroInicial, String simboloFinal){
+    private double MetroCParaY(CalculadoraAritmetica calculadora, double numeroInicial){
         double numeroFinal = 0;
         ArrayList<Double> numeros = new ArrayList<>();
         ArrayList<String> sinais = new ArrayList<>();
@@ -265,12 +284,12 @@ public class ConversorNumeros implements ConversaoNumeros{
     //FIM DA CONVERSÃO DE VOLUME
     
     //CONVERSÃO DE TEMPO
-    private NumeroTempo converterTempo(CalculadoraAritmetica calculadora, NumeroTempo numeroInicial, String simboloFinal){
-        double numeroFinal = calcularTempo(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
+    private NumeroTempo converterTempo(CalculadoraAritmetica calculadora, NumeroTempo numeroInicial){
+        double numeroFinal = calcularTempo(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade());
         return new NumeroTempo(numeroFinal,simboloFinal);
     }
     
-    private double calcularTempo(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial, String simboloFinal){
+    private double calcularTempo(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial){
         double numeroFinal;
         if(!simboloInicial.equals("s")){
             numeroFinal = xParaSegundo(calculadora,numeroInicial,simboloInicial);
@@ -278,11 +297,11 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(simboloFinal.equals("s"))
                 return numeroFinal;
             else{
-                numeroFinal = segundoParaY(calculadora,numeroFinal,simboloFinal);
+                numeroFinal = segundoParaY(calculadora,numeroFinal);
                 return numeroFinal;
             }
         }else{
-            numeroFinal = segundoParaY(calculadora,numeroInicial,simboloFinal);
+            numeroFinal = segundoParaY(calculadora,numeroInicial);
             return numeroFinal;
         }
     }
@@ -334,7 +353,7 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     
-    private double segundoParaY(CalculadoraAritmetica calculadora, double numeroInicial, String simboloFinal){
+    private double segundoParaY(CalculadoraAritmetica calculadora, double numeroInicial){
         double numeroFinal = 0;
         ArrayList<Double> numeros = new ArrayList<>();
         ArrayList<String> sinais = new ArrayList<>();
@@ -383,12 +402,12 @@ public class ConversorNumeros implements ConversaoNumeros{
     //FIM DA CONVERSÃO DE TEMPO
     
     //CONVERSÃO DE TEMPERATURA
-    private NumeroTemperatura converterTemperatura(CalculadoraAritmetica calculadora, NumeroTemperatura numeroInicial, String simboloFinal){
-        double numeroFinal = calcularTemperatura(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
+    private NumeroTemperatura converterTemperatura(CalculadoraAritmetica calculadora, NumeroTemperatura numeroInicial){
+        double numeroFinal = calcularTemperatura(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade());
         return new NumeroTemperatura(numeroFinal,simboloFinal);
     }
     
-    private double calcularTemperatura(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial, String simboloFinal){
+    private double calcularTemperatura(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial){
         double numeroFinal;
         if(!simboloInicial.equals("K")){
             numeroFinal = xParaKelvin(calculadora,numeroInicial,simboloInicial);
@@ -396,11 +415,11 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(simboloFinal.equals("K"))
                 return numeroFinal;
             else{
-                numeroFinal = kelvinParaY(calculadora,numeroFinal,simboloFinal);
+                numeroFinal = kelvinParaY(calculadora,numeroFinal);
                 return numeroFinal;
             }
         }else{
-            numeroFinal = kelvinParaY(calculadora,numeroInicial,simboloFinal);
+            numeroFinal = kelvinParaY(calculadora,numeroInicial);
             return numeroFinal;
         }
     }
@@ -438,7 +457,7 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     
-    private double kelvinParaY(CalculadoraAritmetica calculadora, double numeroInicial, String simboloFinal){
+    private double kelvinParaY(CalculadoraAritmetica calculadora, double numeroInicial){
         double numeroFinal = 0;
         ArrayList<Double> numeros = new ArrayList<>();
         ArrayList<String> sinais = new ArrayList<>();
@@ -477,12 +496,12 @@ public class ConversorNumeros implements ConversaoNumeros{
     //FIM DA CONVERSÃO DE TEMPERATURA
     
     //CONVERSÃO DE MEDIDA
-    private NumeroMedida converterMedida(CalculadoraAritmetica calculadora, NumeroMedida numeroInicial, String simboloFinal){
-        double numeroFinal = calcularMedida(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
+    private NumeroMedida converterMedida(CalculadoraAritmetica calculadora, NumeroMedida numeroInicial){
+        double numeroFinal = calcularMedida(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade());
         return new NumeroMedida(numeroFinal,simboloFinal);
     }
     
-    private double calcularMedida(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial, String simboloFinal){
+    private double calcularMedida(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial){
         double numeroFinal;
         if(!simboloInicial.equals("m")){
             numeroFinal = xParaMetro(calculadora,numeroInicial,simboloInicial);
@@ -490,11 +509,11 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(simboloFinal.equals("m"))
                 return numeroFinal;
             else{
-                numeroFinal = metroParaY(calculadora,numeroFinal,simboloFinal);
+                numeroFinal = metroParaY(calculadora,numeroFinal);
                 return numeroFinal;
             }
         }else{
-            numeroFinal = metroParaY(calculadora,numeroInicial,simboloFinal);
+            numeroFinal = metroParaY(calculadora,numeroInicial);
             return numeroFinal;
         }
     }
@@ -542,7 +561,7 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     
-    private double metroParaY(CalculadoraAritmetica calculadora, double numeroInicial, String simboloFinal){
+    private double metroParaY(CalculadoraAritmetica calculadora, double numeroInicial){
         double numeroFinal = 0;
         ArrayList<Double> numeros = new ArrayList<>();
         ArrayList<String> sinais = new ArrayList<>();
@@ -587,12 +606,12 @@ public class ConversorNumeros implements ConversaoNumeros{
     //FIM CONVERSÃO DE MEDIDA
     
     //CONVERSÃO DE MASSA
-    private NumeroMassa converterMassa(CalculadoraAritmetica calculadora, NumeroMassa numeroInicial, String simboloFinal){
-        double numeroFinal = calcularMassa(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
+    private NumeroMassa converterMassa(CalculadoraAritmetica calculadora, NumeroMassa numeroInicial){
+        double numeroFinal = calcularMassa(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade());
         return new NumeroMassa(numeroFinal,simboloFinal);
     }
     
-    private double calcularMassa(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial, String simboloFinal){
+    private double calcularMassa(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial){
         double numeroFinal;
         if(!simboloInicial.equals("g")){
             numeroFinal = xParaGrama(calculadora,numeroInicial,simboloInicial);
@@ -600,11 +619,11 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(simboloFinal.equals("g"))
                 return numeroFinal;
             else{
-                numeroFinal = gramaParaY(calculadora,numeroFinal,simboloFinal);
+                numeroFinal = gramaParaY(calculadora,numeroFinal);
                 return numeroFinal;
             }
         }else{
-            numeroFinal = gramaParaY(calculadora,numeroInicial,simboloFinal);
+            numeroFinal = gramaParaY(calculadora,numeroInicial);
             return numeroFinal;
         }
     }
@@ -640,7 +659,7 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     
-    private double gramaParaY(CalculadoraAritmetica calculadora, double numeroInicial, String simboloFinal){
+    private double gramaParaY(CalculadoraAritmetica calculadora, double numeroInicial){
         double numeroFinal = 0;
         ArrayList<Double> numeros = new ArrayList<>();
         ArrayList<String> sinais = new ArrayList<>();
@@ -673,12 +692,12 @@ public class ConversorNumeros implements ConversaoNumeros{
     //FIM CONVERSÃO DE MASSA
     
     //CONVERSÃO DE ENERGIA
-    private NumeroEnergia converterEnergia(CalculadoraAritmetica calculadora, NumeroEnergia numeroInicial, String simboloFinal){
-        double numeroFinal = calcularEnergia(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
+    private NumeroEnergia converterEnergia(CalculadoraAritmetica calculadora, NumeroEnergia numeroInicial){
+        double numeroFinal = calcularEnergia(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade());
         return new NumeroEnergia(numeroFinal,simboloFinal);
     }
     
-    private double calcularEnergia(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial, String simboloFinal){
+    private double calcularEnergia(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial){
         double numeroFinal;
         if(!simboloInicial.equals("J")){
             numeroFinal = xParaJoule(calculadora,numeroInicial,simboloInicial);
@@ -686,11 +705,11 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(simboloFinal.equals("J"))
                 return numeroFinal;
             else{
-                numeroFinal = jouleParaY(calculadora,numeroFinal,simboloFinal);
+                numeroFinal = jouleParaY(calculadora,numeroFinal);
                 return numeroFinal;
             }
         }else{
-            numeroFinal = jouleParaY(calculadora,numeroInicial,simboloFinal);
+            numeroFinal = jouleParaY(calculadora,numeroInicial);
             return numeroFinal;
         }
     }
@@ -754,7 +773,7 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     
-    private double jouleParaY(CalculadoraAritmetica calculadora, double numeroInicial, String simboloFinal){
+    private double jouleParaY(CalculadoraAritmetica calculadora, double numeroInicial){
         double numeroFinal = 0;
         ArrayList<Double> numeros = new ArrayList<>();
         ArrayList<String> sinais = new ArrayList<>();
@@ -815,12 +834,12 @@ public class ConversorNumeros implements ConversaoNumeros{
     //FIM CONVERSÃO DE ENERGIA
     
     //CONVERSÃO DE ÁREA
-    private NumeroArea converterArea(CalculadoraAritmetica calculadora, NumeroArea numeroInicial, String simboloFinal){
-        double numeroFinal = calcularArea(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade(),simboloFinal);
+    private NumeroArea converterArea(CalculadoraAritmetica calculadora, NumeroArea numeroInicial){
+        double numeroFinal = calcularArea(calculadora,numeroInicial.getNumero(),numeroInicial.getUnidade());
         return new NumeroArea(numeroFinal,simboloFinal);
     }
     
-    private double calcularArea(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial, String simboloFinal){
+    private double calcularArea(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial){
         double numeroFinal;
         if(!simboloInicial.equals("m²")){
             numeroFinal = xParaMetroQ(calculadora,numeroInicial,simboloInicial);
@@ -828,11 +847,11 @@ public class ConversorNumeros implements ConversaoNumeros{
             if(simboloFinal.equals("m²"))
                 return numeroFinal;
             else{
-                numeroFinal = metroQParaY(calculadora,numeroFinal,simboloFinal);
+                numeroFinal = metroQParaY(calculadora,numeroFinal);
                 return numeroFinal;
             }
         }else{
-            numeroFinal = metroQParaY(calculadora,numeroInicial,simboloFinal);
+            numeroFinal = metroQParaY(calculadora,numeroInicial);
             return numeroFinal;
         }
     }
@@ -880,7 +899,7 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     
-    private double metroQParaY(CalculadoraAritmetica calculadora, double numeroInicial, String simboloFinal){
+    private double metroQParaY(CalculadoraAritmetica calculadora, double numeroInicial){
         double numeroFinal = 0;
         ArrayList<Double> numeros = new ArrayList<>();
         ArrayList<String> sinais = new ArrayList<>();
@@ -923,4 +942,16 @@ public class ConversorNumeros implements ConversaoNumeros{
         return numeroFinal;
     }
     //FIM CONVERSÃO DE ÁREA
+    
+    @Override
+    public String toString(){
+        for (Unidades unidade : Unidades.values()) {
+            if(unidade.toString().equals(simboloFinal)){
+                return "Convertendo um número do tipo: "+unidade.getTipo();
+            }
+        }
+        return "";
+    }
+    
+    private String simboloFinal;
 }

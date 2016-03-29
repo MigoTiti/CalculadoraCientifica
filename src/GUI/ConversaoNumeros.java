@@ -297,9 +297,9 @@ public class ConversaoNumeros extends javax.swing.JFrame {
             }
 
             if(sucesso){
-                ConversorNumeros conversor = new ConversorNumeros();
                 Unidades aux = (Unidades) caixaTiposInicial.getSelectedItem();
                 Unidades aux2 = (Unidades) caixaTiposFinal.getSelectedItem();
+                ConversorNumeros conversor = new ConversorNumeros(aux2.toString());
                 Object numeroInicial = new Object();
 
                 switch(aux.getTipo()){
@@ -326,7 +326,7 @@ public class ConversaoNumeros extends javax.swing.JFrame {
                         break;
                 }
 
-                Object numeroFinal = conversor.converterNumero(new CalculadoraAritmetica(), numeroInicial, aux2.toString());
+                Object numeroFinal = conversor.converterNumero(new CalculadoraAritmetica(), numeroInicial);
                 double numeroFinalValor = 0.0;
                 String numeroFinalTextoLer;
                 

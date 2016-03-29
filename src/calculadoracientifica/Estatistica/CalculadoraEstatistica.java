@@ -6,9 +6,22 @@ import java.util.Collections;
 
 public class CalculadoraEstatistica extends CalculadoraAritmetica{
     
-    public CalculadoraEstatistica(){}
+    public CalculadoraEstatistica(){
+        super(true);
+        this.elementos = new ArrayList<>();
+    }
     
-    public double media(ArrayList<Double> elementos){
+    public CalculadoraEstatistica(ArrayList<Double> elementos){
+        super(true);
+        this.elementos = elementos;
+    }
+    
+    public CalculadoraEstatistica(CalculadoraEstatistica c1){
+        super(c1.radianos);
+        this.elementos = c1.elementos;
+    }
+    
+    public double media(){
         double somatorio = 0, media;
         int n = elementos.size();
         for(int i = 0;i<n;i++){
@@ -18,7 +31,7 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica{
         return media;
     }
     
-    public double mediana(ArrayList<Double> elementos){
+    public double mediana(){
         double mediana;
         int n = elementos.size(), n1 = (n-1)/2, n2 = n1+1;        
         Collections.sort(elementos);
@@ -29,10 +42,10 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica{
         return mediana;
     }
  
-    public String moda(ArrayList<Double> elementos){
+    public String moda(){
       
         ArrayList<Double> elementosUnicos;
-        elementosUnicos = eliminarRepeticao(elementos);
+        elementosUnicos = eliminarRepeticao();
         
         ArrayList<Double> ocorrencias;
         ocorrencias = new ArrayList<>(elementosUnicos);
@@ -82,9 +95,9 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica{
             return (Double.toString(moda));
     }
     
-    public double variancia(ArrayList<Double> elementos){
+    public double variancia(){
 
-        double media = media(elementos);
+        double media = media();
         double somatoria = 0;
         for (Double elemento : elementos) {
             double expressao = subtracao(elemento,media);
@@ -96,13 +109,13 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica{
         return variancia;
     }
     
-    public double desvioPadrao(ArrayList<Double> elementos){
-        return raizQuadrada(variancia(elementos));
+    public double desvioPadrao(){
+        return raizQuadrada(variancia());
     }
     
-    public ArrayList<Double> desvios(ArrayList<Double> elementos){
+    public ArrayList<Double> desvios(){
         ArrayList<Double> desvios = new ArrayList<>();
-        double media = media(elementos);
+        double media = media();
         for (Double elemento : elementos) {
             double desvio = subtracao(elemento,media);
             desvios.add(desvio);
@@ -110,11 +123,11 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica{
         return desvios;
     }
     
-    public double coeficienteVariacao(ArrayList<Double> elementos){
-        return multiplicacao(100,(divisao(desvioPadrao(elementos),media(elementos))));
+    public double coeficienteVariacao(){
+        return multiplicacao(100,(divisao(desvioPadrao(),media())));
     }
     
-    private static ArrayList<Double> eliminarRepeticao(ArrayList<Double> elementos){
+    private ArrayList<Double> eliminarRepeticao(){
         ArrayList<Double> elementosUnicos = new ArrayList<>();
         elementosUnicos.add(elementos.get(0));
         for (Double auxiliar : elementos) {
@@ -123,4 +136,20 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica{
         }
         return elementosUnicos;
     }
+    
+    @Override
+    public String toString(){
+        if(elementos.size()>0){
+            String aux = "Elementos: "+Double.toString(elementos.get(0));
+            if(elementos.size()>1){
+                for (Double elemento : elementos) {
+                    aux += ", " + Double.toString(elemento);
+                }
+            }
+            return aux;
+        }else
+            return "Sem elementos.";
+    }
+    
+    private ArrayList<Double> elementos;
 }

@@ -21,7 +21,11 @@ public class NumeroArea extends NumeroPrimitivo implements Comparable{
     }
     
     public NumeroArea(double valor, final String unidadeArea){
-        super(valor);
+        if(valor<0)
+            this.valor = 0.0;
+        else
+            this.valor = valor;
+        
         if(unidadesAceitas.contains(unidadeArea))
             this.unidadeArea = unidadeArea;
         else

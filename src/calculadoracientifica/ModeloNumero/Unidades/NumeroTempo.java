@@ -26,7 +26,11 @@ public class NumeroTempo extends NumeroPrimitivo implements Comparable{
     }    
     
     public NumeroTempo(double valor, final String unidadeTempo){
-        super(valor);
+        if(valor<0)
+            this.valor = 0.0;
+        else
+            this.valor = valor;
+        
         if(unidadesAceitas.contains(unidadeTempo))
             this.unidadeTempo = unidadeTempo;
         else

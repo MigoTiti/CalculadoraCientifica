@@ -25,5 +25,5 @@ public abstract class NumeroPrimitivo {
     }
     
     protected boolean negativo;
-    protected final double valor;
+    protected double valor;
 }

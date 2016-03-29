@@ -32,8 +32,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         this.elementos = new DefaultTableModel();
         this.elementos.addColumn("Elemento");
         this.tabelaElementos.setModel(elementos);
-        
-        this.estatistica = new CalculadoraEstatistica();
+
         this.operadores = new ArrayList<>();
         this.desvioCriado = false;
         
@@ -443,7 +442,7 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     @Override
     public void voltar() {
         dispose();
-        TelaInicial escolha = new TelaInicial(3);
+        TelaInicial escolha = new TelaInicial(decimais);
         escolha.setVisible(true); 
     }
 
@@ -454,15 +453,17 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
         desvioCriado = true;
         }
         
-        double mediaValor = estatistica.media(operadores);
+        CalculadoraEstatistica estatistica = new CalculadoraEstatistica(operadores);
+        
+        double mediaValor = estatistica.media();
         String mediaFormatada = formatador.format(mediaValor);
         media.setText(mediaFormatada);
         
-        double medianaValor = estatistica.mediana(operadores);
+        double medianaValor = estatistica.mediana();
         String medianaFormatada = formatador.format(medianaValor);
         mediana.setText(medianaFormatada);
         
-        String modaValor = estatistica.moda(operadores);
+        String modaValor = estatistica.moda();
         if("Não existe moda.".equals(modaValor))
             moda.setText(modaValor);
         else{
@@ -470,20 +471,20 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
             moda.setText(formatador.format(modaValorNumero));
         }
         
-        double varianciaValor = estatistica.variancia(operadores);
+        double varianciaValor = estatistica.variancia();
         String varianciaFormatada = formatador.format(varianciaValor);
         variancia.setText(varianciaFormatada);
         
-        double desvioPadraoValor = estatistica.desvioPadrao(operadores);
+        double desvioPadraoValor = estatistica.desvioPadrao();
         String desvioPadraoFormatado = formatador.format(desvioPadraoValor);
         desvioPadrao.setText(desvioPadraoFormatado);
         
-        double coeficienteVariacaoValor = estatistica.coeficienteVariacao(operadores);
+        double coeficienteVariacaoValor = estatistica.coeficienteVariacao();
         String coeficienteVariacaoFormatado = formatador.format(coeficienteVariacaoValor);
         coeficienteVariacaoFormatado+="%";
         coeficienteVariacao.setText(coeficienteVariacaoFormatado);
         
-        ArrayList<Double> desvios = estatistica.desvios(operadores);
+        ArrayList<Double> desvios = estatistica.desvios();
         int colunas = elementos.getRowCount();
         for(int i=colunas-1;i>=0;i--)
             elementos.removeRow(i);
@@ -508,7 +509,6 @@ public class Estatistica extends javax.swing.JFrame implements OperacoesPrimitiv
     
     private String auxiliarNumero;
     
-    private final CalculadoraEstatistica estatistica;
     private final DecimalFormat formatador;
     public static final String VAZIO = "";
     // Variables declaration - do not modify//GEN-BEGIN:variables

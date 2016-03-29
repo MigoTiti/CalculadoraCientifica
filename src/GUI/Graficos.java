@@ -1,7 +1,7 @@
 package GUI;
 
-import calculadoracientifica.Graficos.CalculadoraPontos;
-import calculadoracientifica.Graficos.GerarAleatorio.CalculadoraGraficosAleatorios;
+import calculadoracientifica.Graficos.CalculadoraPontosAjustados;
+import calculadoracientifica.Graficos.GerarAleatorio.CalculadoraPontosAleatorios;
 import calculadoracientifica.Interfaces.OperacoesPrimitivas;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -46,7 +46,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.operadoresAuxiliar = new ArrayList<>();
         this.operadores = new ArrayList<>();
         this.sinais = new ArrayList<>(); 
-        this.graficos = new CalculadoraPontos();
+        this.graficos = new CalculadoraPontosAjustados(false);
         this.limparEquacao.setEnabled(false);
         this.limparTudo.setEnabled(false);
         this.plotar.setEnabled(false);
@@ -116,7 +116,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             this.formatador = new DecimalFormat();
             this.formatador.setDecimalSeparatorAlwaysShown(false);
             iniciarFrame();
-            this.aleatorios = new CalculadoraGraficosAleatorios();
+            this.aleatorios = new CalculadoraPontosAleatorios();
         }
         
         private void iniciarFrame(){
@@ -309,7 +309,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         
         private final DecimalFormat formatador;
         
-        private final CalculadoraGraficosAleatorios aleatorios;
+        private final CalculadoraPontosAleatorios aleatorios;
     }
 
     @SuppressWarnings("unchecked")
@@ -839,7 +839,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private final Document numero3;
     
     private final int decimais;
-    private final CalculadoraPontos graficos;
+    private final CalculadoraPontosAjustados graficos;
     
     public static final String VAZIO = "";  
     

@@ -26,7 +26,11 @@ public class NumeroMedida extends NumeroPrimitivo implements Comparable{
     }    
     
     public NumeroMedida(double valor, final String unidadeMedida){
-        super(valor);
+        if(valor<0)
+            this.valor = 0.0;
+        else
+            this.valor = valor;
+        
         if(unidadesAceitas.contains(unidadeMedida))
             this.unidadeMedida = unidadeMedida;
         else

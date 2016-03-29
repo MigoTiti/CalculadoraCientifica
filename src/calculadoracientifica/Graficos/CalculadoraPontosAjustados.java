@@ -1,19 +1,21 @@
-package calculadoracientifica.Graficos.CurvasAjustadas;
+package calculadoracientifica.Graficos;
 
 import GUI.GraficosAjustados;
-import calculadoracientifica.Graficos.CalculadoraPontos;
+import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import calculadoracientifica.Interfaces.AjustesGraficos;
 import java.util.ArrayList;
 
-public class CalculadoraGraficosAjustados extends CalculadoraPontos implements AjustesGraficos{
+public class CalculadoraPontosAjustados extends CalculadoraAritmetica implements AjustesGraficos{
     
-    public CalculadoraGraficosAjustados(){
+    public CalculadoraPontosAjustados(boolean radianos){
+        super(radianos);
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
     }
     
-    public CalculadoraGraficosAjustados(String equacao){
+    public CalculadoraPontosAjustados(String equacao){
+        super(false);
         equacao+="!";
         
         if(equacao.contains(","))
@@ -25,11 +27,32 @@ public class CalculadoraGraficosAjustados extends CalculadoraPontos implements A
         this.posicoesX = new ArrayList<>();
     }
     
-    public CalculadoraGraficosAjustados(CalculadoraGraficosAjustados c1){
+    public CalculadoraPontosAjustados(CalculadoraPontosAjustados c1){
+        super(c1.radianos);
         this.equacao = c1.equacao;
         this.sinaisConstrutor = c1.sinaisConstrutor;
         this.numerosConstrutor = c1.numerosConstrutor;
         this.posicoesX = c1.posicoesX;
+    }
+    
+    public double interpretadorIntermediario(double x, ArrayList<Integer> posicoes, ArrayList<Double> numeros, ArrayList<String> sinais){
+        int index = numeros.size()+posicoes.size();
+        if(posicoes.size()>0){
+            do{
+                for(int i=0;i<index;i++){
+                    if(Math.abs(posicoes.get(0))==i){
+                        if(posicoes.get(0)<0)
+                            numeros.add(i, -x);
+                        else
+                            numeros.add(i, x);
+                        posicoes.remove(0);
+                        break;
+                    }
+                }
+            }while(posicoes.size()>0);
+        }
+        double y = interpretador(numeros,sinais);
+        return y;
     }
     
     @Override

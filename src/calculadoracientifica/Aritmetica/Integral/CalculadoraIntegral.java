@@ -1,9 +1,9 @@
 package calculadoracientifica.Aritmetica.Integral;
 
-import calculadoracientifica.Graficos.CalculadoraPontos;
+import calculadoracientifica.Graficos.CalculadoraPontosAjustados;
 import java.util.ArrayList;
 
-public class CalculadoraIntegral extends CalculadoraPontos{
+public class CalculadoraIntegral extends CalculadoraPontosAjustados{
     
     public CalculadoraIntegral(){
         super(true);
@@ -87,7 +87,10 @@ public class CalculadoraIntegral extends CalculadoraPontos{
     
     @Override
     public String toString(){
-        return "A precisão é: "+Double.toString(tol);
+        if(radianos)
+            return "Usando radianos, precisão : "+tol;
+        else
+            return "Usando graus, precisão : "+tol;
     }
     
     private static double tol = 1e-5;

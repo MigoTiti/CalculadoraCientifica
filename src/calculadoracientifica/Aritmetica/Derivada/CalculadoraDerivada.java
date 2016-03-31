@@ -23,9 +23,9 @@ public class CalculadoraDerivada extends CalculadoraPontosAjustados{
         ArrayList<Integer> posicoes1 = new ArrayList<>(posicoes);
         
         double fxh = interpretadorIntermediario(x+TOL,posicoes1,numeros1,sinais1);
-        double fx = interpretadorIntermediario(x,posicoes,numeros,sinais);
+        double fxmh = interpretadorIntermediario(x-TOL,posicoes,numeros,sinais);
         
-        double derivada = (fxh-fx)/TOL;
+        double derivada = (fxh-fxmh)/(2*TOL);
         
         return derivada;
     }

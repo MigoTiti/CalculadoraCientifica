@@ -228,6 +228,11 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva{
     }
     
     @Override
+    public double soma(double a, double b){
+        return a+b;
+    }
+    
+    @Override
     public String toString(){
         if(radianos)
             return "Usando radianos";

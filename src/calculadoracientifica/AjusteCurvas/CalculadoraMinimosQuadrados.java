@@ -2,33 +2,34 @@ package calculadoracientifica.AjusteCurvas;
 
 import calculadoracientifica.Interfaces.EscalonarMatriz;
 
-abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz{
-   
-    public CalculadoraMinimosQuadrados(){}
-    
-    @Override
-    public double[] escalonarMatriz(double[][] incognitas, double[] resultados){
-        if(resultados.length<CalculadoraMinimosQuadrados.NUMERO_MAX_LINHAS_COLUNAS){
-            int N  = resultados.length;
+abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz {
 
-            for (int p = 0; p < N; p++){
+    public CalculadoraMinimosQuadrados() {
+    }
+
+    @Override
+    public double[] escalonarMatriz(double[][] incognitas, double[] resultados) {
+        if (resultados.length < CalculadoraMinimosQuadrados.NUMERO_MAX_LINHAS_COLUNAS) {
+            int N = resultados.length;
+
+            for (int p = 0; p < N; p++) {
 
                 int max = p;
                 for (int i = p + 1; i < N; i++) {
-                    if (Math.abs(incognitas[i][p]) > Math.abs(incognitas[max][p])){
+                    if (Math.abs(incognitas[i][p]) > Math.abs(incognitas[max][p])) {
                         max = i;
                     }
                 }
 
-                double[] temp = incognitas[p]; 
-                incognitas[p] = incognitas[max]; 
+                double[] temp = incognitas[p];
+                incognitas[p] = incognitas[max];
                 incognitas[max] = temp;
 
-                double t = resultados[p]; 
-                resultados[p] = resultados[max]; 
+                double t = resultados[p];
+                resultados[p] = resultados[max];
                 resultados[max] = t;
 
-                for (int i = p + 1; i < N; i++){
+                for (int i = p + 1; i < N; i++) {
                     double alfa = incognitas[i][p] / incognitas[p][p];
                     resultados[i] -= alfa * resultados[p];
                     for (int j = p; j < N; j++) {
@@ -46,16 +47,17 @@ abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz{
                 resultado[i] = (resultados[i] - soma) / incognitas[i][i];
             }
             return resultado;
-        }else
+        } else {
             return null;
+        }
     }
-    
-    public static void incrementarNumeroAjustes(){
-        CalculadoraMinimosQuadrados.numeroAjustes+=1;
+
+    public static void incrementarNumeroAjustes() {
+        CalculadoraMinimosQuadrados.numeroAjustes += 1;
     }
-    
+
     abstract double[] MinimosQuadradosAjuste();
-    
+
     public static final int NUMERO_MAX_LINHAS_COLUNAS = 99;
     protected static int numeroAjustes = 4;
 }

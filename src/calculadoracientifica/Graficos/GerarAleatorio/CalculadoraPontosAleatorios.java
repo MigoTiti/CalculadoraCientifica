@@ -4,36 +4,37 @@ import calculadoracientifica.Graficos.CalculadoraPontosAjustados;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados{
-    
-    public CalculadoraPontosAleatorios(){
+public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados {
+
+    public CalculadoraPontosAleatorios() {
         super(false);
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
         this.gerador = new Random();
         this.equacao = "";
-        this.limInferior = gerador.nextInt(4)+1;
-        this.limSuperior = gerador.nextInt(100)+10;
+        this.limInferior = gerador.nextInt(4) + 1;
+        this.limSuperior = gerador.nextInt(100) + 10;
         this.delta = 1;
     }
-    
-    public CalculadoraPontosAleatorios(int delta){
+
+    public CalculadoraPontosAleatorios(int delta) {
         super(false);
         this.sinaisConstrutor = new ArrayList<>();
         this.numerosConstrutor = new ArrayList<>();
         this.posicoesX = new ArrayList<>();
         this.gerador = new Random();
         this.equacao = "";
-        this.limInferior = gerador.nextInt(4)+1;
-        this.limSuperior = gerador.nextInt(100)+10;
-        if(delta!=0)
+        this.limInferior = gerador.nextInt(4) + 1;
+        this.limSuperior = gerador.nextInt(100) + 10;
+        if (delta != 0) {
             this.delta = delta;
-        else
+        } else {
             this.delta = 1;
+        }
     }
-    
-    public CalculadoraPontosAleatorios(CalculadoraPontosAleatorios c1){
+
+    public CalculadoraPontosAleatorios(CalculadoraPontosAleatorios c1) {
         super(c1.radianos);
         this.sinaisConstrutor = c1.sinaisConstrutor;
         this.numerosConstrutor = c1.numerosConstrutor;
@@ -44,46 +45,46 @@ public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados{
         this.limSuperior = c1.limSuperior;
         this.delta = c1.delta;
     }
-    
+
     @Override
-    public void interpretadorStrings(){
+    public void interpretadorStrings() {
         @SuppressWarnings("ReplaceStringBufferByString")
-                
+
         StringBuilder equacaoInteira = new StringBuilder(equacao);
         boolean anteriorNumero = false;
         boolean anteriorSinal = true;
         int contadorNumero = 0;
-        
-        do{
+
+        do {
             OUTER:
-            for (int i = 0; i<equacaoInteira.length(); i++) {
+            for (int i = 0; i < equacaoInteira.length(); i++) {
                 String atual = String.valueOf(equacaoInteira.charAt(i));
-                
+
                 switch (atual) {
                     case "-":
-                        if(!(equacaoInteira.charAt(i)=='x')){
-                            if(i>0){
-                            numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
-                            equacaoInteira.delete(0, i);
-                            contadorNumero++;
-                            anteriorNumero = true;
-                            break OUTER;
+                        if (!(equacaoInteira.charAt(i) == 'x')) {
+                            if (i > 0) {
+                                numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
+                                equacaoInteira.delete(0, i);
+                                contadorNumero++;
+                                anteriorNumero = true;
+                                break OUTER;
                             }
-                        }else{
+                        } else {
                             sinaisConstrutor.add(atual);
                             equacaoInteira.deleteCharAt(i);
                             anteriorNumero = false;
                             break OUTER;
                         }
-                        break;    
+                        break;
                     case "+":
                     case "*":
                     case "/":
                     case "^":
-                        if (i>0) {
+                        if (i > 0) {
                             numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
                             sinaisConstrutor.add(atual);
-                            equacaoInteira.delete(0, i+1);
+                            equacaoInteira.delete(0, i + 1);
                             contadorNumero++;
                             anteriorNumero = false;
                             break OUTER;
@@ -98,23 +99,23 @@ public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados{
                             numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
                             sinaisConstrutor.add("*");
                             posicoesX.add(++contadorNumero);
-                            equacaoInteira.delete(0, i+1);
+                            equacaoInteira.delete(0, i + 1);
                             anteriorNumero = false;
                             break OUTER;
-                        }else if(anteriorSinal){
+                        } else if (anteriorSinal) {
                             posicoesX.add(contadorNumero++);
                             anteriorNumero = false;
                             equacaoInteira.deleteCharAt(i);
                             break OUTER;
-                        }   
+                        }
                         break;
                     case "!":
-                        if(equacaoInteira.length()==1){
+                        if (equacaoInteira.length() == 1) {
                             equacaoInteira.deleteCharAt(i);
                             break;
-                        }else{
+                        } else {
                             numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
-                            equacaoInteira.delete(0, i+1);
+                            equacaoInteira.delete(0, i + 1);
                             break;
                         }
                     case "e":
@@ -122,36 +123,36 @@ public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados{
                             numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
                             sinaisConstrutor.add("*");
                             numerosConstrutor.add(Math.E);
-                            equacaoInteira.delete(0, i+1);
+                            equacaoInteira.delete(0, i + 1);
                             contadorNumero++;
                             break OUTER;
                         }
                         break;
                     case "s":
-                        if(equacaoInteira.charAt(i+1)=='e'&&equacaoInteira.charAt(i+2)=='n'){
+                        if (equacaoInteira.charAt(i + 1) == 'e' && equacaoInteira.charAt(i + 2) == 'n') {
                             sinaisConstrutor.add("sen");
-                            equacaoInteira.delete(i, i+3);
+                            equacaoInteira.delete(i, i + 3);
                             anteriorNumero = false;
                             break OUTER;
                         }
                     case "c":
-                        if(equacaoInteira.charAt(i+1)=='o'&&equacaoInteira.charAt(i+2)=='s'){
+                        if (equacaoInteira.charAt(i + 1) == 'o' && equacaoInteira.charAt(i + 2) == 's') {
                             sinaisConstrutor.add("cos");
-                            equacaoInteira.delete(i, i+3);
+                            equacaoInteira.delete(i, i + 3);
                             anteriorNumero = false;
                             break OUTER;
                         }
                     case "t":
-                        if(equacaoInteira.charAt(i+1)=='g'){
+                        if (equacaoInteira.charAt(i + 1) == 'g') {
                             sinaisConstrutor.add("tg");
-                            equacaoInteira.delete(i, i+2);
+                            equacaoInteira.delete(i, i + 2);
                             anteriorNumero = false;
                             break OUTER;
                         }
                     case "l":
-                        if(equacaoInteira.charAt(i+1)=='o'&&equacaoInteira.charAt(i+2)=='g'){
+                        if (equacaoInteira.charAt(i + 1) == 'o' && equacaoInteira.charAt(i + 2) == 'g') {
                             sinaisConstrutor.add("log");
-                            equacaoInteira.delete(i, i+3);
+                            equacaoInteira.delete(i, i + 3);
                             anteriorNumero = false;
                             break OUTER;
                         }
@@ -160,11 +161,11 @@ public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados{
                         break;
                 }
             }
-        }while(equacaoInteira.length()>0);
+        } while (equacaoInteira.length() > 0);
     }
-    
-    public void gerarEquacaoAleatoria(String tipo){
-        switch(tipo){
+
+    public void gerarEquacaoAleatoria(String tipo) {
+        switch (tipo) {
             case "linear":
                 gerarLinear();
                 break;
@@ -181,134 +182,138 @@ public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados{
                 gerarTrigonometrica();
                 break;
         }
-        equacao+="!";
+        equacao += "!";
         interpretadorStrings();
     }
-    
-    public String getEquacao(){
+
+    public String getEquacao() {
         return equacao;
     }
-    
-    public ArrayList<String> getSinais(){
+
+    public ArrayList<String> getSinais() {
         return sinaisConstrutor;
     }
-    
-    public ArrayList<Double> getNumeros(){
+
+    public ArrayList<Double> getNumeros() {
         return numerosConstrutor;
     }
-    
-    public ArrayList<Integer> getPosicoes(){
+
+    public ArrayList<Integer> getPosicoes() {
         return posicoesX;
     }
-    
-    public int getLimiteI(){
+
+    public int getLimiteI() {
         return limInferior;
     }
-    
-    public int getLimiteS(){
+
+    public int getLimiteS() {
         return limSuperior;
     }
-    
-    public int getDelta(){
+
+    public int getDelta() {
         return delta;
     }
-    
-    private void gerarLinear(){
+
+    private void gerarLinear() {
         int a = gerador.nextInt(20);
-        if(a==0)
+        if (a == 0) {
             a++;
-        equacao+= a+"x";
-        
+        }
+        equacao += a + "x";
+
         int b = gerador.nextInt(20);
         boolean sinalB;
-        if(b!=0){
+        if (b != 0) {
             sinalB = gerador.nextBoolean();
-            if(sinalB){
-                equacao+="+"+b;
-            }else{
+            if (sinalB) {
+                equacao += "+" + b;
+            } else {
                 b = Math.negateExact(b);
-                equacao+=b;
+                equacao += b;
             }
         }
     }
-    
-    private void gerarQuadratica(){
+
+    private void gerarQuadratica() {
         int a = gerador.nextInt(20);
-        if(a==0)
+        if (a == 0) {
             a++;
-        equacao+=a+"x^2";
-        
+        }
+        equacao += a + "x^2";
+
         int b = gerador.nextInt(20);
         boolean sinalB;
-        if(b!=0){
+        if (b != 0) {
             sinalB = gerador.nextBoolean();
-            if(sinalB){
-                equacao+="+"+b+"x";
-            }else{
+            if (sinalB) {
+                equacao += "+" + b + "x";
+            } else {
                 b = Math.negateExact(b);
-                equacao+=b+"x";
+                equacao += b + "x";
             }
         }
-        
+
         int c = gerador.nextInt(20);
         boolean sinalC;
-        if(c!=0){
+        if (c != 0) {
             sinalC = gerador.nextBoolean();
-            if(sinalC){
-                equacao+="+"+c;
-            }else{
+            if (sinalC) {
+                equacao += "+" + c;
+            } else {
                 c = Math.negateExact(c);
-                equacao+=c;
+                equacao += c;
             }
         }
     }
-    
-    private void gerarExponencial(){
+
+    private void gerarExponencial() {
         int a = gerador.nextInt(20);
-        if(a==0)
-            a+=2;
-        equacao+=a+"^x";
-        
+        if (a == 0) {
+            a += 2;
+        }
+        equacao += a + "^x";
+
         int b = gerador.nextInt(20);
         boolean sinalB;
-        if(b!=0){
+        if (b != 0) {
             sinalB = gerador.nextBoolean();
-            if(sinalB){
-                equacao+="+"+b;
-            }else{
+            if (sinalB) {
+                equacao += "+" + b;
+            } else {
                 b = Math.negateExact(b);
-                equacao+=b+"";
+                equacao += b + "";
             }
         }
     }
-    
-    private void gerarLogaritmica(){
+
+    private void gerarLogaritmica() {
         int a = gerador.nextInt(20);
-        if(a==0)
-            a+=2;
-        equacao+=a+"+logx";
+        if (a == 0) {
+            a += 2;
+        }
+        equacao += a + "+logx";
     }
-    
-    private void gerarTrigonometrica(){
-        int escolha = gerador.nextInt(2)+1;
-        switch(escolha){
+
+    private void gerarTrigonometrica() {
+        int escolha = gerador.nextInt(2) + 1;
+        switch (escolha) {
             case 1:
-                equacao+="senx";
+                equacao += "senx";
                 break;
             case 2:
-                equacao+="cosx";
+                equacao += "cosx";
                 break;
             case 3:
-                equacao+="tgx";
+                equacao += "tgx";
                 break;
         }
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return equacao;
     }
-    
+
     private final int limSuperior;
     private final int limInferior;
     private final Random gerador;

@@ -1,29 +1,31 @@
 package calculadoracientifica.ModeloNumero;
 
 public abstract class NumeroPrimitivo {
-    
-    public NumeroPrimitivo(){
+
+    public NumeroPrimitivo() {
         this.valor = 0;
         this.negativo = false;
     }
-    
-    public NumeroPrimitivo(double valor){
+
+    public NumeroPrimitivo(double valor) {
         this.valor = valor;
-        if(valor < 0)
+        if (valor < 0) {
             this.negativo = true;
+        }
     }
-    
-    public double getNumero(){
+
+    public double getNumero() {
         return valor;
     }
-    
-    public char getSinal(){
-        if(negativo)
+
+    public char getSinal() {
+        if (negativo) {
             return '-';
-        else
+        } else {
             return '+';
+        }
     }
-    
+
     protected boolean negativo;
     protected double valor;
 }

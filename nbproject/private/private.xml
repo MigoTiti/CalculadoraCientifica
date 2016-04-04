@@ -12,14 +12,31 @@
             <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Enums/Constantes.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/ConversaoNumeros/ConversorNumeros.java</file>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/Graficos/CalculadoraPontosAjustados.java</file>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjusteExponencial.java</file>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjustePotencial.java</file>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjusteLinear.java</file>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/Graficos/GerarAleatorio/CalculadoraPontosAleatorios.java</file>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjusteQuadratico.java</file>
-            <file>file:/C:/Users/FACOMP/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraMinimosQuadrados.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/CalculadoraAritmetica.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjusteQuadratico.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/CalculadoraCientifica.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Equacoes/CalculadoraEquacoes.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjustePotencial.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Enums/Unidades.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/Integral/CalculadoraIntegral.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Interfaces/EscalonarMatriz.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/NumeroPrimitivo.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Graficos/CalculadoraPontosAjustados.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Graficos/GerarAleatorio/CalculadoraPontosAleatorios.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/Unidades/NumeroMassa.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/ConversaoNumeros/ConversorNumeros.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Interfaces/MetodosPrimitivos.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Interfaces/OperacoesPrimitivas.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Enums/Constantes.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Interfaces/AjustesGraficos.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraMinimosQuadrados.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjusteLinear.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Estatistica/CalculadoraEstatistica.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/Derivada/CalculadoraDerivada.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/AjusteCurvas/CalculadoraAjusteExponencial.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/CalculadoraPrimitiva.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Interfaces/ConversaoNumeros.java</file>
+            <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/Unidades/NumeroArea.java</file>
         </group>
     </open-files>
 </project-private>

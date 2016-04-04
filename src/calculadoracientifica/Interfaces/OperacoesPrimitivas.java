@@ -1,7 +1,10 @@
 package calculadoracientifica.Interfaces;
 
-public interface OperacoesPrimitivas{
+public interface OperacoesPrimitivas {
+
     void limpar();
+
     void voltar();
+
     void obterResposta();
 }

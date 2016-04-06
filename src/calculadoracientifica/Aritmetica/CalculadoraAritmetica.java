@@ -55,6 +55,17 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
             sinais.remove(remover);
             prioridadesParenteses.remove(remover);
         }
+        
+        ArrayList<String> aux = new ArrayList<>();
+        for (int i=0;i<sinais.size();i++){
+            aux.add(i,sinais.get(i));
+        }
+        
+        sinais.clear();
+        
+        for (int i=0;i<aux.size();i++){
+            sinais.add(i,aux.get(i));
+        }
 
         for (int i = 0; i < sinais.size(); i++) {
             sinal = sinais.get(i);
@@ -185,17 +196,17 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
         int indexUsado = 0;
         String sinal;
         boolean sucesso = false, operacaoUnica = false, op2 = false;
-
+        int nUnicos = 0;
         for (int i = 0; i < numeros.size(); i++) {
             if (prioridades.get(i) == maior && sucesso == false) {
                 sinal = sinais.get(i);
                 if ("+".equals(sinal) || "%".equals(sinal) || "-".equals(sinal) || "*".equals(sinal) || "/".equals(sinal) || "^".equals(sinal)) {
-                    if (sinais.size() > 1 && i > 0 && ("sqrt".equals(sinais.get(i - 1)) || "sen".equals(sinais.get(i - 1)) || "cos".equals(sinais.get(i - 1)) || "tg".equals(sinais.get(i - 1)) || "log".equals(sinais.get(i - 1)) || "ln".equals(sinais.get(i - 1)))) {
-                        operacaoDupla(numeros, sinal, i - 1);
-                        op2 = true;
-                    } else {
-                        operacaoDupla(numeros, sinal, i);
+                    
+                    for(int j=0;j<i;j++){
+                        if(("sqrt".equals(sinais.get(j)) || "sen".equals(sinais.get(j)) || "cos".equals(sinais.get(j)) || "tg".equals(sinais.get(j)) || "log".equals(sinais.get(j)) || "ln".equals(sinais.get(j))))
+                            nUnicos++;
                     }
+                    operacaoDupla(numeros, sinal, i - nUnicos);
                     operacaoUnica = false;
                     sucesso = true;
                     indexUsado = i;
@@ -213,11 +224,7 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
 
         if (sucesso) {
             if (numeros.size() > 1 && operacaoUnica == false) {
-                if (op2) {
-                    numeros.remove(indexUsado);
-                } else {
-                    numeros.remove(indexUsado + 1);
-                }
+                numeros.remove(indexUsado - (nUnicos-1));
             }
             sinais.remove(indexUsado);
             prioridades.remove(indexUsado);

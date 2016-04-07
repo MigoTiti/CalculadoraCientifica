@@ -18,23 +18,23 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Document;
 
-public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimitivas{
+public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimitivas {
 
     public AjusteCurvas(int decimais) {
         initComponents();
         this.decimais = decimais;
         String aux = "#.";
-        for(int i=1;i<=decimais;i++){
-            aux+="#";
+        for (int i = 1; i <= decimais; i++) {
+            aux += "#";
         }
-        
+
         this.formatador = new DecimalFormat(aux);
         this.formatador.setDecimalSeparatorAlwaysShown(false);
-        
+
         this.pontos = new DefaultTableModel();
         this.pontos.addColumn("x");
         this.pontos.addColumn("y");
-        
+
         this.tabelaPontos.setModel(pontos);
         this.plotarLinear.setEnabled(false);
         this.plotarQuadratica.setEnabled(false);
@@ -48,24 +48,25 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         this.yPonto.addActionListener(action);
         this.x = new ArrayList<>();
         this.y = new ArrayList<>();
-        
+
         this.vazio = "";
         this.contadorPontos = 0;
         this.xPonto.requestFocusInWindow();
-        
+
         this.equacaoLinear = new StringBuilder();
         this.equacaoExp = new StringBuilder();
         this.equacaoQuadratica = new StringBuilder();
         this.equacaoPotencial = new StringBuilder();
-        
+
         this.numero1 = xPonto.getDocument();
         this.numero2 = yPonto.getDocument();
-        
+
         this.numero1.addDocumentListener(new ControladorBotao(limparTudo));
         this.numero2.addDocumentListener(new ControladorBotao(limparTudo));
     }
-    
+
     class ControladorBotao implements DocumentListener {
+
         JButton limparTudo;
 
         ControladorBotao(JButton button) {
@@ -89,59 +90,65 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         }
 
         public void disableIfEmpty(DocumentEvent e) {
-            if(e.getDocument().getLength() == 0){
+            if (e.getDocument().getLength() == 0) {
                 AjusteCurvas.camposCheios--;
-                if(AjusteCurvas.camposCheios==0 && limparTudo.isEnabled())
+                if (AjusteCurvas.camposCheios == 0 && limparTudo.isEnabled()) {
                     limparTudo.setEnabled(false);
-                if(AjusteCurvas.camposCheios<2 && adicionarPonto.isEnabled())
+                }
+                if (AjusteCurvas.camposCheios < 2 && adicionarPonto.isEnabled()) {
                     adicionarPonto.setEnabled(false);
-                if(!estadoPassadoVazio)
+                }
+                if (!estadoPassadoVazio) {
                     estadoPassadoVazio = true;
-            }else if(e.getDocument().getLength() > 0){
-                if(estadoPassadoVazio){
+                }
+            } else if (e.getDocument().getLength() > 0) {
+                if (estadoPassadoVazio) {
                     AjusteCurvas.camposCheios++;
                     estadoPassadoVazio = false;
                 }
-                if(AjusteCurvas.camposCheios>0 && !limparTudo.isEnabled())
+                if (AjusteCurvas.camposCheios > 0 && !limparTudo.isEnabled()) {
                     limparTudo.setEnabled(true);
-                if(AjusteCurvas.camposCheios==2 && !adicionarPonto.isEnabled())
+                }
+                if (AjusteCurvas.camposCheios == 2 && !adicionarPonto.isEnabled()) {
                     adicionarPonto.setEnabled(true);
-            }   
+                }
+            }
         }
         private boolean estadoPassadoVazio;
     }
-    
-    Action action = new AbstractAction(){
+
+    Action action = new AbstractAction() {
         @Override
-        public void actionPerformed(ActionEvent e){
-            if(!"".equals(xPonto.getText())&&!"".equals(yPonto.getText())){
+        public void actionPerformed(ActionEvent e) {
+            if (!"".equals(xPonto.getText()) && !"".equals(yPonto.getText())) {
                 boolean sucesso;
 
-                try{
+                try {
                     auxiliarNumero = xPonto.getText();
-                    if(auxiliarNumero.contains(","))
+                    if (auxiliarNumero.contains(",")) {
                         auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    }
                     xValor = Double.parseDouble(auxiliarNumero);
 
                     auxiliarNumero = yPonto.getText();
-                    if(auxiliarNumero.contains(","))
+                    if (auxiliarNumero.contains(",")) {
                         auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                    }
                     yValor = Double.parseDouble(auxiliarNumero);
                     sucesso = true;
-                }
-                catch(NumberFormatException e2){
+                } catch (NumberFormatException e2) {
                     JOptionPane.showMessageDialog(null, "Apenas números!");
                     sucesso = false;
                 }
-                
+
                 for (Double x1 : x) {
-                    if(xValor==x1){
+                    if (xValor == x1) {
                         sucesso = false;
                         JOptionPane.showMessageDialog(null, "Ponto inválido, valor de x já existente na tabela");
                     }
                 }
 
-                if(sucesso){
+                if (sucesso) {
                     x.add(xValor);
                     y.add(yValor);
 
@@ -149,27 +156,31 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                     xFormatado = formatador.format(xValor);
                     yFormatado = formatador.format(yValor);
 
-                    pontos.addRow(new Object[]{xFormatado,yFormatado});
+                    pontos.addRow(new Object[]{xFormatado, yFormatado});
 
                     xPonto.setText(vazio);
                     yPonto.setText(vazio);
 
-                    if(ajustar.isEnabled()==false && x.size()>1)
+                    if (ajustar.isEnabled() == false && x.size() > 1) {
                         ajustar.setEnabled(true);
-                    if(removerPonto.isEnabled()==false)
+                    }
+                    if (removerPonto.isEnabled() == false) {
                         removerPonto.setEnabled(true);
-                    if(limparTudo.isEnabled()==false)
+                    }
+                    if (limparTudo.isEnabled() == false) {
                         limparTudo.setEnabled(true);
+                    }
 
                     xPonto.requestFocusInWindow();
                     contadorPontos++;
                 }
 
-            }else
+            } else {
                 xPonto.requestFocusInWindow();
+            }
         }
     };
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -430,35 +441,35 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     }//GEN-LAST:event_voltarMouseClicked
 
     private void adicionarPontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarPontoMouseClicked
-        if(!"".equals(xPonto.getText())&&!"".equals(yPonto.getText())){
+        if (!"".equals(xPonto.getText()) && !"".equals(yPonto.getText())) {
             boolean sucesso;
-        
-            try{
+
+            try {
                 auxiliarNumero = xPonto.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 xValor = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = yPonto.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 yValor = Double.parseDouble(auxiliarNumero);
                 sucesso = true;
-            }
-            catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Apenas números!");
                 sucesso = false;
             }
-            
-            
+
             for (Double x1 : x) {
-                if(xValor==x1){
+                if (xValor == x1) {
                     sucesso = false;
                     JOptionPane.showMessageDialog(null, "Ponto inválido, valor de x já existente na tabela");
                 }
             }
-            
-            if(sucesso){
+
+            if (sucesso) {
                 x.add(xValor);
                 y.add(yValor);
 
@@ -466,24 +477,28 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
                 xFormatado = formatador.format(xValor);
                 yFormatado = formatador.format(yValor);
 
-                pontos.addRow(new Object[]{xFormatado,yFormatado});
+                pontos.addRow(new Object[]{xFormatado, yFormatado});
 
                 xPonto.setText(vazio);
                 yPonto.setText(vazio);
 
-                if(ajustar.isEnabled()==false && x.size()>1)
+                if (ajustar.isEnabled() == false && x.size() > 1) {
                     ajustar.setEnabled(true);
-                if(removerPonto.isEnabled()==false)
+                }
+                if (removerPonto.isEnabled() == false) {
                     removerPonto.setEnabled(true);
-                if(limparTudo.isEnabled()==false)
+                }
+                if (limparTudo.isEnabled() == false) {
                     limparTudo.setEnabled(true);
+                }
 
                 xPonto.requestFocusInWindow();
                 contadorPontos++;
             }
-            
-        }else
+
+        } else {
             xPonto.requestFocusInWindow();
+        }
     }//GEN-LAST:event_adicionarPontoMouseClicked
 
     private void removerPontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removerPontoMouseClicked
@@ -492,11 +507,12 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         y.remove(index);
         pontos.removeRow(index);
         contadorPontos--;
-        
-        if(contadorPontos==0)
+
+        if (contadorPontos == 0) {
             removerPonto.setEnabled(false);
-        
-        if(contadorPontos<2){
+        }
+
+        if (contadorPontos < 2) {
             ajustar.setEnabled(false);
             plotarLinear.setEnabled(false);
             plotarQuadratica.setEnabled(false);
@@ -510,39 +526,40 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     }//GEN-LAST:event_ajustarMouseClicked
 
     private void limparTudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparTudoMouseClicked
-        if(limparTudo.isEnabled())
+        if (limparTudo.isEnabled()) {
             limpar();
+        }
     }//GEN-LAST:event_limparTudoMouseClicked
 
     private void plotarLinearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarLinearMouseClicked
-        if(plotarLinear.isEnabled()){
+        if (plotarLinear.isEnabled()) {
             CalculadoraPontosAjustados graficoLinear = new CalculadoraPontosAjustados(equacaoLinearString);
             graficoLinear.interpretadorStrings();
-            graficoLinear.criarPontosAjustados(x,y);
+            graficoLinear.criarPontosAjustados(x, y);
         }
     }//GEN-LAST:event_plotarLinearMouseClicked
 
     private void plotarExpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarExpMouseClicked
-        if(plotarExp.isEnabled()){
+        if (plotarExp.isEnabled()) {
             CalculadoraPontosAjustados graficoExp = new CalculadoraPontosAjustados(equacaoExpStringExibir);
             graficoExp.interpretadorStrings();
-            graficoExp.criarPontosAjustados(x,y);
+            graficoExp.criarPontosAjustados(x, y);
         }
     }//GEN-LAST:event_plotarExpMouseClicked
 
     private void plotarQuadraticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarQuadraticaMouseClicked
-        if(plotarQuadratica.isEnabled()){
+        if (plotarQuadratica.isEnabled()) {
             CalculadoraPontosAjustados graficoQuadratico = new CalculadoraPontosAjustados(equacaoQuadraticaString);
             graficoQuadratico.interpretadorStrings();
-            graficoQuadratico.criarPontosAjustados(x,y);
+            graficoQuadratico.criarPontosAjustados(x, y);
         }
     }//GEN-LAST:event_plotarQuadraticaMouseClicked
 
     private void plotarPotencialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarPotencialMouseClicked
-        if(plotarPotencial.isEnabled()){
+        if (plotarPotencial.isEnabled()) {
             CalculadoraPontosAjustados graficoPotencial = new CalculadoraPontosAjustados(equacaoPotencialStringExibir);
             graficoPotencial.interpretadorStrings();
-            graficoPotencial.criarPontosAjustados(x,y);
+            graficoPotencial.criarPontosAjustados(x, y);
         }
     }//GEN-LAST:event_plotarPotencialMouseClicked
 
@@ -555,20 +572,21 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
         equacaoExp.setLength(0);
         equacaoPotencial.setLength(0);
         contadorPontos = 0;
-        
+
         int colunas = pontos.getRowCount();
-        for(int i=colunas-1;i>=0;i--)
+        for (int i = colunas - 1; i >= 0; i--) {
             pontos.removeRow(i);
-        
+        }
+
         removerPonto.setEnabled(false);
         ajustar.setEnabled(false);
         limparTudo.setEnabled(false);
-        
+
         plotarLinear.setEnabled(false);
         plotarExp.setEnabled(false);
         plotarQuadratica.setEnabled(false);
         plotarPotencial.setEnabled(false);
-        
+
         xPonto.setText(vazio);
         yPonto.setText(vazio);
         equacaoLinearExpressao.setText(vazio);
@@ -586,174 +604,192 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
 
     @Override
     public void obterResposta() {
-        if(x.size()>1 && ajustar.isEnabled()){
-        double[] coeficientesLineares;
-        CalculadoraAjusteLinear linear = new CalculadoraAjusteLinear(x,y); 
-        coeficientesLineares = linear.MinimosQuadradosAjuste();
-        String aLinearFormatado = formatador.format(coeficientesLineares[0]);
-        String bLinearFormatado = formatador.format(coeficientesLineares[1]);
-        
-        switch (aLinearFormatado) {
-            case "1":
-                equacaoLinear.append("x");
-                if(!"0".equals(bLinearFormatado))
-                    equacaoLinear.append(" + ").append(bLinearFormatado);
-                break;
-            case "0":
-                equacaoLinear.append(bLinearFormatado);
-                break;
-            default:
-                equacaoLinear.append(aLinearFormatado).append("x");
-                if(!"0".equals(bLinearFormatado))
-                    equacaoLinear.append(" + ").append(bLinearFormatado);
-                break;
-        }
-        
-        equacaoLinearStringExibir = equacaoLinear.toString();
-        equacaoLinearExpressao.setText(equacaoLinearStringExibir);
-        
-        plotarLinear.setEnabled(true);
-        
-        for(int i=equacaoLinear.length()-1;i>0;i--){
-            if(equacaoLinear.charAt(i)==' ')
-                equacaoLinear.deleteCharAt(i);
-        }
-        
-        equacaoLinearString = equacaoLinear.toString();
-        
-        double[] coeficientesQuadraticos;
-        CalculadoraAjusteQuadratico quadratico = new CalculadoraAjusteQuadratico(x,y);
-        coeficientesQuadraticos = quadratico.MinimosQuadradosAjuste();
-        boolean aQuadraticoNegativo = false;
-        boolean bQuadraticoNegativo = false;
-        boolean cQuadraticoNegativo = false;
-        
-        if(coeficientesQuadraticos[2]<0)
-            aQuadraticoNegativo = true;
-        if(coeficientesQuadraticos[1]<0)
-            bQuadraticoNegativo = true;
-        if(coeficientesQuadraticos[0]<0)
-            cQuadraticoNegativo = true;
-        
-        String aQuadraticoFormatado = formatador.format(coeficientesQuadraticos[2]);
-        String bQuadraticoFormatado = formatador.format(coeficientesQuadraticos[1]);
-        String cQuadraticoFormatado = formatador.format(coeficientesQuadraticos[0]);
-        
-        switch (aQuadraticoFormatado) {
-            case "1":
-                if(aQuadraticoNegativo)
-                    equacaoQuadratica.append("-x^2");
-                else
-                    equacaoQuadratica.append("x^2");
-                
-                if(!"0".equals(bQuadraticoFormatado)){
-                    if(bQuadraticoNegativo){  
-                        if("1".equals(bQuadraticoFormatado))
-                            equacaoQuadratica.append(" - x");
-                        else
-                            equacaoQuadratica.append(" ").append(bQuadraticoFormatado).append("x");
-                    }else{
-                        if("1".equals(bQuadraticoFormatado))
-                            equacaoQuadratica.append(" + x");
-                        else
-                            equacaoQuadratica.append(" + ").append(bQuadraticoFormatado).append("x");
+        if (x.size() > 1 && ajustar.isEnabled()) {
+            double[] coeficientesLineares;
+            CalculadoraAjusteLinear linear = new CalculadoraAjusteLinear(x, y);
+            coeficientesLineares = linear.MinimosQuadradosAjuste();
+            String aLinearFormatado = formatador.format(coeficientesLineares[0]);
+            String bLinearFormatado = formatador.format(coeficientesLineares[1]);
+
+            switch (aLinearFormatado) {
+                case "1":
+                    equacaoLinear.append("x");
+                    if (!"0".equals(bLinearFormatado)) {
+                        equacaoLinear.append(" + ").append(bLinearFormatado);
                     }
-                }
-                
-                if(!"0".equals(cQuadraticoFormatado)){
-                    if(cQuadraticoNegativo)
-                        equacaoQuadratica.append(" - ").append(cQuadraticoFormatado);
-                    else
-                        equacaoQuadratica.append(" + ").append(cQuadraticoFormatado);
-                }
-                
-                break;
-            case "0":
-            case "-0":
-                if(!"0".equals(bQuadraticoFormatado)){
-                    if(bQuadraticoNegativo){  
-                        if("1".equals(bQuadraticoFormatado))
-                            equacaoQuadratica.append("-x");
-                        else
-                            equacaoQuadratica.append(bQuadraticoFormatado).append("x");
-                    }else{
-                        if("1".equals(bQuadraticoFormatado))
-                            equacaoQuadratica.append("x");
-                        else
-                            equacaoQuadratica.append(bQuadraticoFormatado).append("x");
+                    break;
+                case "0":
+                    equacaoLinear.append(bLinearFormatado);
+                    break;
+                default:
+                    equacaoLinear.append(aLinearFormatado).append("x");
+                    if (!"0".equals(bLinearFormatado)) {
+                        equacaoLinear.append(" + ").append(bLinearFormatado);
                     }
+                    break;
+            }
+
+            equacaoLinearStringExibir = equacaoLinear.toString();
+            equacaoLinearExpressao.setText(equacaoLinearStringExibir);
+
+            plotarLinear.setEnabled(true);
+
+            for (int i = equacaoLinear.length() - 1; i > 0; i--) {
+                if (equacaoLinear.charAt(i) == ' ') {
+                    equacaoLinear.deleteCharAt(i);
                 }
-                
-                if(!"0".equals(cQuadraticoFormatado)){
-                    if(cQuadraticoNegativo)
-                        equacaoQuadratica.append(" ").append(cQuadraticoFormatado);
-                    else
-                        equacaoQuadratica.append(" + ").append(cQuadraticoFormatado);
-                }
-                
-                break;
-            default:
-                if(aQuadraticoNegativo)
-                    equacaoQuadratica.append(aQuadraticoFormatado).append("x^2");
-                else
-                    equacaoQuadratica.append(aQuadraticoFormatado).append("x^2");
-                
-                if(!"0".equals(bQuadraticoFormatado)){
-                    if(bQuadraticoNegativo){  
-                        if("1".equals(bQuadraticoFormatado))
-                            equacaoQuadratica.append(" - x");
-                        else
-                            equacaoQuadratica.append(" ").append(bQuadraticoFormatado).append("x");
-                    }else{
-                        if("1".equals(bQuadraticoFormatado))
-                            equacaoQuadratica.append(" + x");
-                        else
-                            equacaoQuadratica.append(" + ").append(bQuadraticoFormatado).append("x");
+            }
+
+            equacaoLinearString = equacaoLinear.toString();
+
+            double[] coeficientesQuadraticos;
+            CalculadoraAjusteQuadratico quadratico = new CalculadoraAjusteQuadratico(x, y);
+            coeficientesQuadraticos = quadratico.MinimosQuadradosAjuste();
+            boolean aQuadraticoNegativo = false;
+            boolean bQuadraticoNegativo = false;
+            boolean cQuadraticoNegativo = false;
+
+            if (coeficientesQuadraticos[2] < 0) {
+                aQuadraticoNegativo = true;
+            }
+            if (coeficientesQuadraticos[1] < 0) {
+                bQuadraticoNegativo = true;
+            }
+            if (coeficientesQuadraticos[0] < 0) {
+                cQuadraticoNegativo = true;
+            }
+
+            String aQuadraticoFormatado = formatador.format(coeficientesQuadraticos[2]);
+            String bQuadraticoFormatado = formatador.format(coeficientesQuadraticos[1]);
+            String cQuadraticoFormatado = formatador.format(coeficientesQuadraticos[0]);
+
+            switch (aQuadraticoFormatado) {
+                case "1":
+                    if (aQuadraticoNegativo) {
+                        equacaoQuadratica.append("-x^2");
+                    } else {
+                        equacaoQuadratica.append("x^2");
                     }
+
+                    if (!"0".equals(bQuadraticoFormatado)) {
+                        if (bQuadraticoNegativo) {
+                            if ("1".equals(bQuadraticoFormatado)) {
+                                equacaoQuadratica.append(" - x");
+                            } else {
+                                equacaoQuadratica.append(" ").append(bQuadraticoFormatado).append("x");
+                            }
+                        } else {
+                            if ("1".equals(bQuadraticoFormatado)) {
+                                equacaoQuadratica.append(" + x");
+                            } else {
+                                equacaoQuadratica.append(" + ").append(bQuadraticoFormatado).append("x");
+                            }
+                        }
+                    }
+
+                    if (!"0".equals(cQuadraticoFormatado)) {
+                        if (cQuadraticoNegativo) {
+                            equacaoQuadratica.append(" - ").append(cQuadraticoFormatado);
+                        } else {
+                            equacaoQuadratica.append(" + ").append(cQuadraticoFormatado);
+                        }
+                    }
+
+                    break;
+                case "0":
+                case "-0":
+                    if (!"0".equals(bQuadraticoFormatado)) {
+                        if (bQuadraticoNegativo) {
+                            if ("1".equals(bQuadraticoFormatado)) {
+                                equacaoQuadratica.append("-x");
+                            } else {
+                                equacaoQuadratica.append(bQuadraticoFormatado).append("x");
+                            }
+                        } else {
+                            if ("1".equals(bQuadraticoFormatado)) {
+                                equacaoQuadratica.append("x");
+                            } else {
+                                equacaoQuadratica.append(bQuadraticoFormatado).append("x");
+                            }
+                        }
+                    }
+
+                    if (!"0".equals(cQuadraticoFormatado)) {
+                        if (cQuadraticoNegativo) {
+                            equacaoQuadratica.append(" ").append(cQuadraticoFormatado);
+                        } else {
+                            equacaoQuadratica.append(" + ").append(cQuadraticoFormatado);
+                        }
+                    }
+
+                    break;
+                default:
+                    if (aQuadraticoNegativo) {
+                        equacaoQuadratica.append(aQuadraticoFormatado).append("x^2");
+                    } else {
+                        equacaoQuadratica.append(aQuadraticoFormatado).append("x^2");
+                    }
+
+                    if (!"0".equals(bQuadraticoFormatado)) {
+                        if (bQuadraticoNegativo) {
+                            if ("1".equals(bQuadraticoFormatado)) {
+                                equacaoQuadratica.append(" - x");
+                            } else {
+                                equacaoQuadratica.append(" ").append(bQuadraticoFormatado).append("x");
+                            }
+                        } else {
+                            if ("1".equals(bQuadraticoFormatado)) {
+                                equacaoQuadratica.append(" + x");
+                            } else {
+                                equacaoQuadratica.append(" + ").append(bQuadraticoFormatado).append("x");
+                            }
+                        }
+                    }
+
+                    if (!"0".equals(cQuadraticoFormatado)) {
+                        if (cQuadraticoNegativo) {
+                            equacaoQuadratica.append(" ").append(cQuadraticoFormatado);
+                        } else {
+                            equacaoQuadratica.append(" + ").append(cQuadraticoFormatado);
+                        }
+                    }
+                    break;
+            }
+
+            equacaoQuadraticaStringExibir = equacaoQuadratica.toString();
+            equacaoQuadraticaExpressao.setText(equacaoQuadraticaStringExibir);
+            plotarQuadratica.setEnabled(true);
+
+            for (int i = equacaoQuadratica.length() - 1; i > 0; i--) {
+                if (equacaoQuadratica.charAt(i) == ' ') {
+                    equacaoQuadratica.deleteCharAt(i);
                 }
-                
-                if(!"0".equals(cQuadraticoFormatado)){
-                    if(cQuadraticoNegativo)
-                        equacaoQuadratica.append(" ").append(cQuadraticoFormatado);
-                    else
-                        equacaoQuadratica.append(" + ").append(cQuadraticoFormatado);
-                }
-                break;
-        }
-        
-        equacaoQuadraticaStringExibir = equacaoQuadratica.toString();
-        equacaoQuadraticaExpressao.setText(equacaoQuadraticaStringExibir);
-        plotarQuadratica.setEnabled(true);
-        
-        for(int i=equacaoQuadratica.length()-1;i>0;i--){
-            if(equacaoQuadratica.charAt(i)==' ')
-                equacaoQuadratica.deleteCharAt(i);
-        }
-        
-        equacaoQuadraticaString = equacaoQuadratica.toString();
-        
-        double[] coeficientesExp;
-        CalculadoraAjusteExponencial exponencial = new CalculadoraAjusteExponencial(x,y);
-        coeficientesExp = exponencial.MinimosQuadradosAjuste();
-        String aExpFormatado = formatador.format(coeficientesExp[0]);
-        String bExpFormatado = formatador.format(coeficientesExp[1]);
-        equacaoExp.append(aExpFormatado).append("e^").append(bExpFormatado).append("x");
-        equacaoExpStringExibir = equacaoExp.toString();
-        equacaoExpExpressao.setText(equacaoExpStringExibir);
-        plotarExp.setEnabled(true);
-        
-        double[] coeficientesPotencial;
-        CalculadoraAjustePotencial potencial = new CalculadoraAjustePotencial(x,y);
-        coeficientesPotencial = potencial.MinimosQuadradosAjuste();
-        String aPotencialFormatado = formatador.format(coeficientesPotencial[0]);
-        String bPotencialFormatado = formatador.format(coeficientesPotencial[1]);
-        equacaoPotencial.append(aPotencialFormatado).append("x^").append(bPotencialFormatado);
-        equacaoPotencialStringExibir = equacaoPotencial.toString();
-        equacaoPotencialExpressao.setText(equacaoPotencialStringExibir);
-        plotarPotencial.setEnabled(true);
+            }
+
+            equacaoQuadraticaString = equacaoQuadratica.toString();
+
+            double[] coeficientesExp;
+            CalculadoraAjusteExponencial exponencial = new CalculadoraAjusteExponencial(x, y);
+            coeficientesExp = exponencial.MinimosQuadradosAjuste();
+            String aExpFormatado = formatador.format(coeficientesExp[0]);
+            String bExpFormatado = formatador.format(coeficientesExp[1]);
+            equacaoExp.append(aExpFormatado).append("e^").append(bExpFormatado).append("x");
+            equacaoExpStringExibir = equacaoExp.toString();
+            equacaoExpExpressao.setText(equacaoExpStringExibir);
+            plotarExp.setEnabled(true);
+
+            double[] coeficientesPotencial;
+            CalculadoraAjustePotencial potencial = new CalculadoraAjustePotencial(x, y);
+            coeficientesPotencial = potencial.MinimosQuadradosAjuste();
+            String aPotencialFormatado = formatador.format(coeficientesPotencial[0]);
+            String bPotencialFormatado = formatador.format(coeficientesPotencial[1]);
+            equacaoPotencial.append(aPotencialFormatado).append("x^").append(bPotencialFormatado);
+            equacaoPotencialStringExibir = equacaoPotencial.toString();
+            equacaoPotencialExpressao.setText(equacaoPotencialStringExibir);
+            plotarPotencial.setEnabled(true);
         }
     }
-    
+
     private int contadorPontos;
     private ArrayList<Double> x;
     private ArrayList<Double> y;
@@ -762,29 +798,29 @@ public class AjusteCurvas extends javax.swing.JFrame implements OperacoesPrimiti
     private StringBuilder equacaoExp;
     private StringBuilder equacaoQuadratica;
     private StringBuilder equacaoPotencial;
-    
+
     private double xValor;
     private double yValor;
-    
+
     private String equacaoLinearString;
     private String equacaoQuadraticaString;
-    
+
     private String auxiliarNumero;
-    
+
     private String equacaoLinearStringExibir;
     private String equacaoExpStringExibir;
     private String equacaoPotencialStringExibir;
     private String equacaoQuadraticaStringExibir;
-    
+
     private final Document numero1;
     private final Document numero2;
-    
+
     public static int camposCheios = 0;
-    
+
     private final int decimais;
     private final String vazio;
     private final DecimalFormat formatador;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarPonto;
     private javax.swing.JButton ajustar;

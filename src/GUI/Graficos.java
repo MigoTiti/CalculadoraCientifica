@@ -30,7 +30,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
+public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas {
 
     public Graficos(int decimais) {
         initComponents();
@@ -45,26 +45,27 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         this.xPosicoes = new ArrayList<>();
         this.operadoresAuxiliar = new ArrayList<>();
         this.operadores = new ArrayList<>();
-        this.sinais = new ArrayList<>(); 
+        this.sinais = new ArrayList<>();
         this.graficos = new CalculadoraPontosAjustados(false);
         this.limparEquacao.setEnabled(false);
         this.limparTudo.setEnabled(false);
         this.plotar.setEnabled(false);
-        
+
         this.comecoIntervalo.requestFocusInWindow();
-        
+
         this.numero1 = comecoIntervalo.getDocument();
         this.numero1.addDocumentListener(new ControladorBotao(limparTudo));
-        
+
         this.numero2 = fimIntervalo.getDocument();
         this.numero2.addDocumentListener(new ControladorBotao(limparTudo));
-        
+
         this.numero3 = xVariando.getDocument();
         this.numero3.addDocumentListener(new ControladorBotao(limparTudo));
         this.decimais = decimais;
     }
-       
-    class ControladorBotao implements DocumentListener{
+
+    class ControladorBotao implements DocumentListener {
+
         JButton limparTudoBotao;
 
         ControladorBotao(JButton button) {
@@ -88,38 +89,43 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         }
 
         public void disableIfEmpty(DocumentEvent e) {
-            if(e.getDocument().getLength() == 0){
+            if (e.getDocument().getLength() == 0) {
                 Graficos.camposCheios--;
-                if(Graficos.camposCheios==0 && limparTudoBotao.isEnabled())
+                if (Graficos.camposCheios == 0 && limparTudoBotao.isEnabled()) {
                     limparTudoBotao.setEnabled(false);
-                if(Graficos.camposCheios<3 && plotar.isEnabled())
+                }
+                if (Graficos.camposCheios < 3 && plotar.isEnabled()) {
                     plotar.setEnabled(false);
-                if(!estadoPassadoVazio)
+                }
+                if (!estadoPassadoVazio) {
                     estadoPassadoVazio = true;
-            }else if(e.getDocument().getLength() > 0){
-                if(estadoPassadoVazio){
+                }
+            } else if (e.getDocument().getLength() > 0) {
+                if (estadoPassadoVazio) {
                     Graficos.camposCheios++;
                     estadoPassadoVazio = false;
                 }
-                if(Graficos.camposCheios>0 && !limparTudoBotao.isEnabled())
+                if (Graficos.camposCheios > 0 && !limparTudoBotao.isEnabled()) {
                     limparTudoBotao.setEnabled(true);
-                if(Graficos.camposCheios==3 && !plotar.isEnabled() && !"".equals(equacaoLer.getText()))
+                }
+                if (Graficos.camposCheios == 3 && !plotar.isEnabled() && !"".equals(equacaoLer.getText())) {
                     plotar.setEnabled(true);
-            }   
+                }
+            }
         }
         private boolean estadoPassadoVazio;
     }
-    
-    class FrameEscolha extends JFrame{
-        
-        FrameEscolha(){
+
+    class FrameEscolha extends JFrame {
+
+        FrameEscolha() {
             this.formatador = new DecimalFormat();
             this.formatador.setDecimalSeparatorAlwaysShown(false);
             iniciarFrame();
             this.aleatorios = new CalculadoraPontosAleatorios();
         }
-        
-        private void iniciarFrame(){
+
+        private void iniciarFrame() {
             jLabel1 = new javax.swing.JLabel();
             linear = new javax.swing.JButton();
             quadratica = new javax.swing.JButton();
@@ -144,74 +150,74 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(98, 98, 98)
-                            .addComponent(jLabel1)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(exponencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(trigonometrica, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(quadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(logaritmica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addContainerGap())
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(117, 117, 117)
-                    .addComponent(linear, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(116, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                            .addGap(98, 98, 98)
+                                            .addComponent(jLabel1)
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                            .addContainerGap()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(exponencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(trigonometrica, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(quadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(logaritmica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                            .addGap(117, 117, 117)
+                            .addComponent(linear, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(116, Short.MAX_VALUE))
             );
             layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel1)
-                    .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(trigonometrica, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                        .addComponent(quadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(exponencial, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                        .addComponent(logaritmica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(linear, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(trigonometrica, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                                    .addComponent(quadratica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(exponencial, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                    .addComponent(logaritmica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(linear, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
-            
+
             linear.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     linearMouseClicked(evt);
                 }
             });
-            
+
             quadratica.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     quadraticaMouseClicked(evt);
                 }
             });
-            
+
             logaritmica.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     logaritmicaMouseClicked(evt);
                 }
             });
-            
+
             trigonometrica.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     trigonometricaMouseClicked(evt);
                 }
             });
-            
+
             exponencial.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -224,8 +230,8 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             setVisible(true);
             setLocationRelativeTo(null);
         }
-        
-        private void evento(){
+
+        private void evento() {
             aleatorios.gerarEquacaoAleatoria(tipoExemplo);
             operadoresAuxiliar = aleatorios.getNumeros();
             xPosicoes = aleatorios.getPosicoes();
@@ -233,10 +239,11 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             limiteInferior = aleatorios.getLimiteI();
             limiteSuperior = aleatorios.getLimiteS();
             delta = aleatorios.getDelta();
-            if(equacao.length()!=0)
+            if (equacao.length() != 0) {
                 equacao.setLength(0);
+            }
             equacao.append(aleatorios.getEquacao());
-            equacao.deleteCharAt(equacao.length()-1);
+            equacao.deleteCharAt(equacao.length() - 1);
             equacaoLer.setText(equacao.toString());
             xVariando.setText(formatador.format(delta));
             xVariando.setEditable(false);
@@ -245,50 +252,55 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             fimIntervalo.setText(formatador.format(limiteSuperior));
             fimIntervalo.setEditable(false);
             criarExemplo();
-            if(!limparTudo.isEnabled())
+            if (!limparTudo.isEnabled()) {
                 limparTudo.setEnabled(true);
-            if(!limparEquacao.isEnabled())
+            }
+            if (!limparEquacao.isEnabled()) {
                 limparEquacao.setEnabled(true);
-            if(equacaoDigitar.isEnabled())
+            }
+            if (equacaoDigitar.isEnabled()) {
                 equacaoDigitar.setEnabled(false);
-            if(exemploGrafico.isEnabled())
+            }
+            if (exemploGrafico.isEnabled()) {
                 exemploGrafico.setEnabled(false);
-            if(plotar.isEnabled())
+            }
+            if (plotar.isEnabled()) {
                 plotar.setEnabled(false);
+            }
             Graficos.this.setVisible(true);
             dispose();
         }
-        
-        private void exponencialMouseClicked(java.awt.event.MouseEvent evt){
+
+        private void exponencialMouseClicked(java.awt.event.MouseEvent evt) {
             tipoExemplo = "exponencial";
             evento();
         }
-        
-        private void linearMouseClicked(java.awt.event.MouseEvent evt){
+
+        private void linearMouseClicked(java.awt.event.MouseEvent evt) {
             tipoExemplo = "linear";
             evento();
         }
-        
-        private void quadraticaMouseClicked(java.awt.event.MouseEvent evt){
+
+        private void quadraticaMouseClicked(java.awt.event.MouseEvent evt) {
             tipoExemplo = "quadratica";
             evento();
         }
-        
-        private void logaritmicaMouseClicked(java.awt.event.MouseEvent evt){
+
+        private void logaritmicaMouseClicked(java.awt.event.MouseEvent evt) {
             tipoExemplo = "logaritmica";
             evento();
         }
-        
-        private void trigonometricaMouseClicked(java.awt.event.MouseEvent evt){
+
+        private void trigonometricaMouseClicked(java.awt.event.MouseEvent evt) {
             tipoExemplo = "trigonometrica";
             evento();
         }
-        
-        private void criarExemplo(){
+
+        private void criarExemplo() {
             ArrayList<Integer> xPosicoes2;
             ArrayList<Double> operadoresAuxiliar2;
             ArrayList<String> sinais2;
-            for(double i = limiteInferior;i<=limiteSuperior;i+=delta){
+            for (double i = limiteInferior; i <= limiteSuperior; i += delta) {
                 xPosicoes2 = new ArrayList<>(xPosicoes);
                 operadoresAuxiliar2 = new ArrayList<>(operadoresAuxiliar);
                 sinais2 = new ArrayList<>(sinais);
@@ -300,15 +312,15 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             y.clear();
             x.clear();
         }
-        
+
         private JButton linear;
         private JButton quadratica;
         private JButton exponencial;
         private JButton logaritmica;
         private JButton trigonometrica;
-        
+
         private final DecimalFormat formatador;
-        
+
         private final CalculadoraPontosAleatorios aleatorios;
     }
 
@@ -478,9 +490,9 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     }// </editor-fold>//GEN-END:initComponents
 
     private void equacaoDigitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equacaoDigitarMouseClicked
-        if(equacaoDigitar.isEnabled()){ 
+        if (equacaoDigitar.isEnabled()) {
             boolean sucesso = digitarEquacao();
-            if(sucesso){
+            if (sucesso) {
                 equacaoDigitar.setEnabled(false);
                 equacaoLer.setText(equacao.toString());
             }
@@ -488,7 +500,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     }//GEN-LAST:event_equacaoDigitarMouseClicked
 
     private void limparEquacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparEquacaoMouseClicked
-        if(limparEquacao.isEnabled()){
+        if (limparEquacao.isEnabled()) {
             operadoresAuxiliar.clear();
             operadores.clear();
             sinais.clear();
@@ -500,15 +512,17 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             posicao = 0;
             contadorParenteses = 0;
             equacaoDigitar.setEnabled(true);
-            if(plotar.isEnabled())
+            if (plotar.isEnabled()) {
                 plotar.setEnabled(false);
+            }
             limparEquacao.setEnabled(false);
         }
     }//GEN-LAST:event_limparEquacaoMouseClicked
 
     private void limparTudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparTudoMouseClicked
-        if(limparTudo.isEnabled())
+        if (limparTudo.isEnabled()) {
             limpar();
+        }
     }//GEN-LAST:event_limparTudoMouseClicked
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
@@ -516,62 +530,73 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     }//GEN-LAST:event_voltarMouseClicked
 
     private void plotarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plotarMouseClicked
-        if(plotar.isEnabled()&&camposCheios==3)
+        if (plotar.isEnabled() && camposCheios == 3) {
             obterResposta();
+        }
     }//GEN-LAST:event_plotarMouseClicked
 
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
     private void exemploGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exemploGraficoMouseClicked
-        if(exemploGrafico.isEnabled()){
+        if (exemploGrafico.isEnabled()) {
             FrameEscolha titi = new FrameEscolha();
             titi.addWindowListener(new WindowListener() {
 
                 @Override
-                public void windowOpened(WindowEvent e) {}
-                
+                public void windowOpened(WindowEvent e) {
+                }
+
                 @Override
                 public void windowClosing(WindowEvent e) {
                     Graficos.this.setVisible(true);
                 }
-                
+
                 @Override
-                public void windowClosed(WindowEvent e) {}
+                public void windowClosed(WindowEvent e) {
+                }
+
                 @Override
-                public void windowIconified(WindowEvent e) {}
+                public void windowIconified(WindowEvent e) {
+                }
+
                 @Override
-                public void windowDeiconified(WindowEvent e) {}
+                public void windowDeiconified(WindowEvent e) {
+                }
+
                 @Override
-                public void windowActivated(WindowEvent e) {}
+                public void windowActivated(WindowEvent e) {
+                }
+
                 @Override
-                public void windowDeactivated(WindowEvent e) {}
-        });
+                public void windowDeactivated(WindowEvent e) {
+                }
+            });
             Graficos.this.setVisible(false);
         }
     }//GEN-LAST:event_exemploGraficoMouseClicked
 
-    public void criarGrafico(){
+    public void criarGrafico() {
         XYDataset dados;
         dados = criarPontos();
-        
+
         JFreeChart grafico = criarChart(dados);
         ChartPanel telaGrafico = new ChartPanel(grafico, true);
-         
-        telaGrafico.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
+
+        telaGrafico.setSize(areaGrafico.getWidth(), areaGrafico.getHeight());
         telaGrafico.setVisible(true);
-        
+
         telaGrafico.setMouseZoomable(true);
         telaGrafico.setMouseWheelEnabled(true);
-        
+
         telaGrafico.getChart().removeLegend();
-        
+
         areaGrafico.removeAll();
         areaGrafico.add(telaGrafico);
         areaGrafico.revalidate();
         areaGrafico.repaint();
         grafico.setBackgroundPaint(Color.WHITE);
     }
-    
-    private JFreeChart criarChart(final XYDataset dados){
+
+    private JFreeChart criarChart(final XYDataset dados) {
         JFreeChart chart = ChartFactory.createXYLineChart(VAZIO, "x", "y", dados);
         chart.setBackgroundPaint(Color.white);
         final XYPlot plot1 = chart.getXYPlot();
@@ -584,127 +609,134 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         renderer.setBaseShapesVisible(true);
         return chart;
     }
-    
+
     private XYDataset criarPontos() {
 
         int tamanho = x.size();
         XYSeries s1 = new XYSeries(VAZIO);
-        for (int i=0;i<tamanho;i++){
+        for (int i = 0; i < tamanho; i++) {
             s1.add(x.get(i), y.get(i));
         }
-       
+
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(s1);
-        
+
         return dataset;
     }
-    
-    public boolean digitarEquacao(){
+
+    public boolean digitarEquacao() {
         JTextField equacaoDigitar2 = new JTextField(VAZIO);
         equacaoDigitar2.addAncestorListener(new AuxiliarFoco());
         JTextField equacaoLer2 = new JTextField(VAZIO);
-        
-        Action action = new AbstractAction()
-        {
+
+        Action action = new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 boolean sucessoParse;
                 boolean sucesso = false;
                 String atual = equacaoDigitar2.getText();
-                if(("+".equals(atual)||"-".equals(atual)||"*".equals(atual)||"/".equals(atual)||"^".equals(atual))&&(sinal==false||xAnterior)){
+                if (("+".equals(atual) || "-".equals(atual) || "*".equals(atual) || "/".equals(atual) || "^".equals(atual)) && (sinal == false || xAnterior)) {
                     sinais.add(atual);
                     sinal = true;
                     sucesso = true;
                     posicao--;
-                    if(xAnterior)
+                    if (xAnterior) {
                         xAnterior = false;
-                }else if("(".equals(atual)&&sinal){
+                    }
+                } else if ("(".equals(atual) && sinal) {
                     sinais.add(atual);
-                    if(parenteses == false)
+                    if (parenteses == false) {
                         parenteses = true;
+                    }
                     contadorParenteses++;
                     posicao--;
                     sucesso = true;
-                }else if("ln".equals(atual)||"sqrt".equals(atual)||"sen".equals(atual)||"cos".equals(atual)||"tg".equals(atual)||"log".equals(atual)){
+                } else if ("ln".equals(atual) || "sqrt".equals(atual) || "sen".equals(atual) || "cos".equals(atual) || "tg".equals(atual) || "log".equals(atual)) {
                     sinais.add(atual);
                     sinais.add("(");
                     sinal = true;
                     posicao--;
                     atual = atual.concat("(");
-                    if(parenteses == false)
+                    if (parenteses == false) {
                         parenteses = true;
+                    }
                     contadorParenteses++;
                     sucesso = true;
-                }else if(parenteses && ")".equals(atual)){
+                } else if (parenteses && ")".equals(atual)) {
                     sinais.add(atual);
                     contadorParenteses--;
-                    if(contadorParenteses <= 0)
+                    if (contadorParenteses <= 0) {
                         parenteses = false;
-                    if(sinal)
-                        sinal = false;
-                    sucesso = true;
-                }else if((!")".equals(atual))&&(!"+".equals(atual))&&(!"-".equals(atual))&&(!"/".equals(atual))&&(!"*".equals(atual))&&(!"^".equals(atual))&&(!"(".equals(atual))&&(!"x".equals(atual))&&(!"-x".equals(atual))){
-                    if(null!=atual)switch (atual) {
-                        case "PI":
-                        case "Pi":
-                        case "pi":
-                        case "pI":
-                            operadores.add(Double.toString(Math.PI));
-                            break;
-                        case "E":
-                        case "e":
-                            operadores.add(Double.toString(Math.E));
-                            break;
-                        default:
-                            try{
-                                if(atual.contains(","))
-                                    atual = atual.replaceAll("\\,", ".");
-                                sucessoParse = true;
-                            }
-                            catch(NumberFormatException e2){
-                                JOptionPane.showMessageDialog(null, "Apenas números!");
-                                sucessoParse = false;
-                            }
-                            if(sucessoParse)
-                                operadores.add(atual);
-                            break;
                     }
-                    if(sinal)
+                    if (sinal) {
                         sinal = false;
+                    }
                     sucesso = true;
-                }else if(("x".equals(atual)&&sinal&&xAnterior==false) || ("x".equals(atual)&&"".equals(equacaoLer2.getText()))){
+                } else if ((!")".equals(atual)) && (!"+".equals(atual)) && (!"-".equals(atual)) && (!"/".equals(atual)) && (!"*".equals(atual)) && (!"^".equals(atual)) && (!"(".equals(atual)) && (!"x".equals(atual)) && (!"-x".equals(atual))) {
+                    if (null != atual) {
+                        switch (atual) {
+                            case "PI":
+                            case "Pi":
+                            case "pi":
+                            case "pI":
+                                operadores.add(Double.toString(Math.PI));
+                                break;
+                            case "E":
+                            case "e":
+                                operadores.add(Double.toString(Math.E));
+                                break;
+                            default:
+                                try {
+                                    if (atual.contains(",")) {
+                                        atual = atual.replaceAll("\\,", ".");
+                                    }
+                                    sucessoParse = true;
+                                } catch (NumberFormatException e2) {
+                                    JOptionPane.showMessageDialog(null, "Apenas números!");
+                                    sucessoParse = false;
+                                }
+                                if (sucessoParse) {
+                                    operadores.add(atual);
+                                }
+                                break;
+                        }
+                    }
+                    if (sinal) {
+                        sinal = false;
+                    }
+                    sucesso = true;
+                } else if (("x".equals(atual) && sinal && xAnterior == false) || ("x".equals(atual) && "".equals(equacaoLer2.getText()))) {
                     xAnterior = true;
                     xPosicoes.add(posicao);
                     sucesso = true;
-                }else if(("-x".equals(atual)&&sinal&&xAnterior==false) || ("-x".equals(atual)&&"".equals(equacaoLer2.getText()))){
+                } else if (("-x".equals(atual) && sinal && xAnterior == false) || ("-x".equals(atual) && "".equals(equacaoLer2.getText()))) {
                     xAnterior = true;
                     xPosicoes.add(-posicao);
                     sucesso = true;
                 }
-   
-                if(sucesso){
+
+                if (sucesso) {
                     equacao.append(atual);
                     posicao++;
                 }
-                
+
                 equacaoDigitar2.setText(VAZIO);
                 equacaoLer2.setText(equacao.toString());
             }
         };
-        
+
         equacaoDigitar2.addActionListener(action);
-                
+
         JPanel equacaoPainel = new JPanel(new GridLayout(0, 1));
-        
+
         equacaoPainel.add(new JLabel("Função: "));
         equacaoPainel.add(equacaoDigitar2);
         equacaoPainel.add(equacaoLer2);
-        
+
         equacaoLer2.setEditable(false);
 
         int result = JOptionPane.showConfirmDialog(null, equacaoPainel, "Equação", JOptionPane.OK_CANCEL_OPTION);
-        
+
         if (result == JOptionPane.OK_OPTION) {
             for (String operador : operadores) {
                 operadoresAuxiliar.add(Double.parseDouble(operador));
@@ -714,11 +746,13 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             sinal = false;
             contadorParenteses = 0;
             xAnterior = false;
-            if(camposCheios==3)
+            if (camposCheios == 3) {
                 plotar.setEnabled(true);
+            }
             limparEquacao.setEnabled(true);
-            if(!limparTudo.isEnabled())
+            if (!limparTudo.isEnabled()) {
                 limparTudo.setEnabled(true);
+            }
             return true;
         } else {
             operadores.clear();
@@ -732,7 +766,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             return false;
         }
     }
-    
+
     @Override
     public void limpar() {
         operadoresAuxiliar.clear();
@@ -751,14 +785,18 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
         limparEquacao.setEnabled(false);
         limparTudo.setEnabled(false);
         equacaoDigitar.setEnabled(true);
-        if(!exemploGrafico.isEnabled())
+        if (!exemploGrafico.isEnabled()) {
             exemploGrafico.setEnabled(true);
-        if(!comecoIntervalo.isEditable())
+        }
+        if (!comecoIntervalo.isEditable()) {
             comecoIntervalo.setEditable(true);
-        if(!fimIntervalo.isEditable())
+        }
+        if (!fimIntervalo.isEditable()) {
             fimIntervalo.setEditable(true);
-        if(!xVariando.isEditable())
+        }
+        if (!xVariando.isEditable()) {
             xVariando.setEditable(true);
+        }
     }
 
     @Override
@@ -771,34 +809,36 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     @Override
     public void obterResposta() {
         boolean sucesso;
-        
-        try{
+
+        try {
             auxiliarNumero = comecoIntervalo.getText();
-            if(auxiliarNumero.contains(","))
+            if (auxiliarNumero.contains(",")) {
                 auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+            }
             limiteInferior = Double.parseDouble(auxiliarNumero);
-            
+
             auxiliarNumero = fimIntervalo.getText();
-            if(auxiliarNumero.contains(","))
+            if (auxiliarNumero.contains(",")) {
                 auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+            }
             limiteSuperior = Double.parseDouble(auxiliarNumero);
-            
+
             auxiliarNumero = xVariando.getText();
-            if(auxiliarNumero.contains(","))
+            if (auxiliarNumero.contains(",")) {
                 auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+            }
             delta = Double.parseDouble(auxiliarNumero);
             sucesso = true;
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Apenas números!");
             sucesso = false;
         }
-        
-        if(sucesso){
+
+        if (sucesso) {
             ArrayList<Integer> xPosicoes2;
             ArrayList<Double> operadoresAuxiliar2;
             ArrayList<String> sinais2;
-            for(double i = limiteInferior;i<=limiteSuperior;i+=delta){
+            for (double i = limiteInferior; i <= limiteSuperior; i += delta) {
                 xPosicoes2 = new ArrayList<>(xPosicoes);
                 operadoresAuxiliar2 = new ArrayList<>(operadoresAuxiliar);
                 sinais2 = new ArrayList<>(sinais);
@@ -811,7 +851,7 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
             x.clear();
         }
     }
-    
+
     private ArrayList<Double> y;
     private ArrayList<Double> x;
     private boolean xAnterior;
@@ -824,25 +864,25 @@ public class Graficos extends javax.swing.JFrame implements OperacoesPrimitivas{
     private ArrayList<Double> operadoresAuxiliar;
     private ArrayList<String> operadores;
     private ArrayList<String> sinais;
-   
+
     private double limiteInferior;
     private double limiteSuperior;
     private double delta;
-        
+
     public static int camposCheios = 0;
     private String tipoExemplo;
-    
+
     private String auxiliarNumero;
-    
+
     private final Document numero1;
     private final Document numero2;
     private final Document numero3;
-    
+
     private final int decimais;
     private final CalculadoraPontosAjustados graficos;
-    
-    public static final String VAZIO = "";  
-    
+
+    public static final String VAZIO = "";
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel areaGrafico;
     private javax.swing.JTextField comecoIntervalo;

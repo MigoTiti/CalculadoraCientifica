@@ -55,16 +55,16 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
             sinais.remove(remover);
             prioridadesParenteses.remove(remover);
         }
-        
+
         ArrayList<String> aux = new ArrayList<>();
-        for (int i=0;i<sinais.size();i++){
-            aux.add(i,sinais.get(i));
+        for (int i = 0; i < sinais.size(); i++) {
+            aux.add(i, sinais.get(i));
         }
-        
+
         sinais.clear();
-        
-        for (int i=0;i<aux.size();i++){
-            sinais.add(i,aux.get(i));
+
+        for (int i = 0; i < aux.size(); i++) {
+            sinais.add(i, aux.get(i));
         }
 
         for (int i = 0; i < sinais.size(); i++) {
@@ -201,10 +201,11 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
             if (prioridades.get(i) == maior && sucesso == false) {
                 sinal = sinais.get(i);
                 if ("+".equals(sinal) || "%".equals(sinal) || "-".equals(sinal) || "*".equals(sinal) || "/".equals(sinal) || "^".equals(sinal)) {
-                    
-                    for(int j=0;j<i;j++){
-                        if(("sqrt".equals(sinais.get(j)) || "sen".equals(sinais.get(j)) || "cos".equals(sinais.get(j)) || "tg".equals(sinais.get(j)) || "log".equals(sinais.get(j)) || "ln".equals(sinais.get(j))))
+
+                    for (int j = 0; j < i; j++) {
+                        if (("sqrt".equals(sinais.get(j)) || "sen".equals(sinais.get(j)) || "cos".equals(sinais.get(j)) || "tg".equals(sinais.get(j)) || "log".equals(sinais.get(j)) || "ln".equals(sinais.get(j)))) {
                             nUnicos++;
+                        }
                     }
                     operacaoDupla(numeros, sinal, i - nUnicos);
                     operacaoUnica = false;
@@ -224,7 +225,7 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
 
         if (sucesso) {
             if (numeros.size() > 1 && operacaoUnica == false) {
-                numeros.remove(indexUsado - (nUnicos-1));
+                numeros.remove(indexUsado - (nUnicos - 1));
             }
             sinais.remove(indexUsado);
             prioridades.remove(indexUsado);

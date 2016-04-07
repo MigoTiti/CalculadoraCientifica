@@ -56,12 +56,12 @@ public class GraficosAjustados extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     public void criarGrafico() {
-        
+
         XYSeries serieAjustada = criarPontos();
         XYSeries pontosOriginais = criarPontosOriginais();
-        
+
         XYSeriesCollection dadosAjustes = new XYSeriesCollection();
         dadosAjustes.addSeries(serieAjustada);
         dadosAjustes.addSeries(pontosOriginais);
@@ -70,20 +70,20 @@ public class GraficosAjustados extends javax.swing.JFrame {
         ChartPanel telaGrafico = new ChartPanel(grafico);
 
         tracarGrafico = grafico.getXYPlot();
-        
+
         XYLineAndShapeRenderer renderizador = (XYLineAndShapeRenderer) tracarGrafico.getRenderer();
-        
+
         renderizador.setBaseShapesVisible(true);
         renderizador.setSeriesLinesVisible(1, false);
 
         tracarGrafico.setBackgroundPaint(Color.lightGray);
         tracarGrafico.setDomainGridlinePaint(Color.white);
         tracarGrafico.setRangeGridlinePaint(Color.white);
-        
+
         tracarGrafico.setRangePannable(true);
         tracarGrafico.setDomainPannable(true);
 
-        telaGrafico.setSize(areaGrafico.getWidth(),areaGrafico.getHeight());
+        telaGrafico.setSize(areaGrafico.getWidth(), areaGrafico.getHeight());
         telaGrafico.setVisible(true);
         telaGrafico.setMouseZoomable(true);
         telaGrafico.setMouseWheelEnabled(true);
@@ -95,38 +95,38 @@ public class GraficosAjustados extends javax.swing.JFrame {
         areaGrafico.revalidate();
         areaGrafico.repaint();
         grafico.setBackgroundPaint(Color.WHITE);
-            
+
     }
 
-    private JFreeChart criarChart(final XYDataset dataset){
+    private JFreeChart criarChart(final XYDataset dataset) {
         JFreeChart grafico = ChartFactory.createXYLineChart(vazio, "x", "y", dataset);
         grafico.setBackgroundPaint(Color.white);
-        
+
         return grafico;
     }
-    
+
     private XYSeries criarPontos() {
 
         int tamanho = x.size();
         XYSeries serieAjustada = new XYSeries("Ajustado");
-        for (int i=0;i<tamanho;i++){
+        for (int i = 0; i < tamanho; i++) {
             serieAjustada.add(x.get(i), y.get(i));
-        }     
-        
+        }
+
         return serieAjustada;
     }
-    
-    private XYSeries criarPontosOriginais(){
+
+    private XYSeries criarPontosOriginais() {
         int tamanho = x.size();
-        
+
         XYSeries pontosOriginais = new XYSeries("Original");
-        for (int i=0;i<tamanho;i++){
+        for (int i = 0; i < tamanho; i++) {
             pontosOriginais.add(x.get(i), yOriginal.get(i));
         }
-        
+
         return pontosOriginais;
     }
-    
+
     private XYPlot tracarGrafico;
     private ArrayList<Double> x;
     private ArrayList<Double> y;

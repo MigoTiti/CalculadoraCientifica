@@ -2,11 +2,11 @@ package GUI;
 
 public class TelaInicial extends javax.swing.JFrame {
 
-    public TelaInicial(int decimais){
+    public TelaInicial(int decimais) {
         initComponents();
         this.decimais = decimais;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -161,7 +161,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private Graficos graficosFrame;
     private AjusteCurvas ajustesFrame;
     private ConversaoNumeros conversaoUnidadesFrame;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button ajuste;
     private java.awt.Button aritmetica;

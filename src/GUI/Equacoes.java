@@ -14,40 +14,40 @@ public class Equacoes extends javax.swing.JFrame {
 
     public Equacoes(int decimais) {
         initComponents();
-        
+
         this.x1SDV.requestFocusInWindow();
-        
+
         this.decimais = decimais;
         String aux = "#.";
-        for(int i=1;i<=decimais;i++){
-            aux+="#";
+        for (int i = 1; i <= decimais; i++) {
+            aux += "#";
         }
 
         this.formatador = new DecimalFormat(aux);
         this.formatador.setDecimalSeparatorAlwaysShown(false);
-        
+
         this.resultadoESG.setEnabled(false);
         this.resultadoSDV.setEnabled(false);
         this.resultadoSTV.setEnabled(false);
-        
+
         this.limparSTV.setEnabled(false);
         this.limparESG.setEnabled(false);
         this.limparSDV.setEnabled(false);
-        
+
         this.numero1SDV = x1SDV.getDocument();
         this.numero2SDV = x2SDV.getDocument();
         this.numero3SDV = y1SDV.getDocument();
         this.numero4SDV = y2SDV.getDocument();
         this.numero5SDV = resultado1SDV.getDocument();
         this.numero6SDV = resultado2SDV.getDocument();
-        
-        this.numero1SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
-        this.numero2SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
-        this.numero3SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
-        this.numero4SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
-        this.numero5SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
-        this.numero6SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV,resultadoSDV));
-        
+
+        this.numero1SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV, resultadoSDV));
+        this.numero2SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV, resultadoSDV));
+        this.numero3SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV, resultadoSDV));
+        this.numero4SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV, resultadoSDV));
+        this.numero5SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV, resultadoSDV));
+        this.numero6SDV.addDocumentListener(new ControladorBotaoSDV(limparSDV, resultadoSDV));
+
         this.numero1STV = x1STV.getDocument();
         this.numero2STV = x2STV.getDocument();
         this.numero3STV = x3STV.getDocument();
@@ -60,30 +60,31 @@ public class Equacoes extends javax.swing.JFrame {
         this.numero10STV = resultado1STV.getDocument();
         this.numero11STV = resultado2STV.getDocument();
         this.numero12STV = resultado3STV.getDocument();
-        
-        this.numero1STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero2STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero3STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero4STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero5STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero6STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero7STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero8STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero9STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero10STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero11STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        this.numero12STV.addDocumentListener(new ControladorBotaoSTV(limparSTV,resultadoSTV));
-        
+
+        this.numero1STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero2STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero3STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero4STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero5STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero6STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero7STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero8STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero9STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero10STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero11STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+        this.numero12STV.addDocumentListener(new ControladorBotaoSTV(limparSTV, resultadoSTV));
+
         this.numero1ESG = aTexto.getDocument();
         this.numero2ESG = bTexto.getDocument();
         this.numero3ESG = cTexto.getDocument();
-        
-        this.numero1ESG.addDocumentListener(new ControladorBotaoESG(limparESG,resultadoESG));
-        this.numero2ESG.addDocumentListener(new ControladorBotaoESG(limparESG,resultadoESG));
-        this.numero3ESG.addDocumentListener(new ControladorBotaoESG(limparESG,resultadoESG));
+
+        this.numero1ESG.addDocumentListener(new ControladorBotaoESG(limparESG, resultadoESG));
+        this.numero2ESG.addDocumentListener(new ControladorBotaoESG(limparESG, resultadoESG));
+        this.numero3ESG.addDocumentListener(new ControladorBotaoESG(limparESG, resultadoESG));
     }
 
     class ControladorBotaoSDV implements DocumentListener {
+
         JButton limparBotao;
         JButton resultadoBotao;
 
@@ -109,29 +110,35 @@ public class Equacoes extends javax.swing.JFrame {
         }
 
         public void disableIfEmpty(DocumentEvent e) {
-            if(e.getDocument().getLength() == 0){
+            if (e.getDocument().getLength() == 0) {
                 Equacoes.camposCheiosSDV--;
-                if(Equacoes.camposCheiosSDV==0 && limparBotao.isEnabled())
+                if (Equacoes.camposCheiosSDV == 0 && limparBotao.isEnabled()) {
                     limparBotao.setEnabled(false);
-                if(Equacoes.camposCheiosSDV<6 && resultadoBotao.isEnabled())
+                }
+                if (Equacoes.camposCheiosSDV < 6 && resultadoBotao.isEnabled()) {
                     resultadoBotao.setEnabled(false);
-                if(!estadoPassadoVazio)
+                }
+                if (!estadoPassadoVazio) {
                     estadoPassadoVazio = true;
-            }else if(e.getDocument().getLength() > 0){
-                if(estadoPassadoVazio){
+                }
+            } else if (e.getDocument().getLength() > 0) {
+                if (estadoPassadoVazio) {
                     Equacoes.camposCheiosSDV++;
                     estadoPassadoVazio = false;
                 }
-                if(Equacoes.camposCheiosSDV>0 && !limparBotao.isEnabled())
+                if (Equacoes.camposCheiosSDV > 0 && !limparBotao.isEnabled()) {
                     limparBotao.setEnabled(true);
-                if(Equacoes.camposCheiosSDV==6 && !resultadoBotao.isEnabled())
+                }
+                if (Equacoes.camposCheiosSDV == 6 && !resultadoBotao.isEnabled()) {
                     resultadoBotao.setEnabled(true);
-            }   
+                }
+            }
         }
         private boolean estadoPassadoVazio;
     }
-    
+
     class ControladorBotaoSTV implements DocumentListener {
+
         JButton limparBotao;
         JButton resultadoBotao;
 
@@ -157,29 +164,35 @@ public class Equacoes extends javax.swing.JFrame {
         }
 
         public void disableIfEmpty(DocumentEvent e) {
-            if(e.getDocument().getLength() == 0){
+            if (e.getDocument().getLength() == 0) {
                 Equacoes.camposCheiosSTV--;
-                if(Equacoes.camposCheiosSTV==0 && limparBotao.isEnabled())
+                if (Equacoes.camposCheiosSTV == 0 && limparBotao.isEnabled()) {
                     limparBotao.setEnabled(false);
-                if(Equacoes.camposCheiosSTV<12 && resultadoBotao.isEnabled())
+                }
+                if (Equacoes.camposCheiosSTV < 12 && resultadoBotao.isEnabled()) {
                     resultadoBotao.setEnabled(false);
-                if(!estadoPassadoVazio)
+                }
+                if (!estadoPassadoVazio) {
                     estadoPassadoVazio = true;
-            }else if(e.getDocument().getLength() > 0){
-                if(estadoPassadoVazio){
+                }
+            } else if (e.getDocument().getLength() > 0) {
+                if (estadoPassadoVazio) {
                     Equacoes.camposCheiosSTV++;
                     estadoPassadoVazio = false;
                 }
-                if(Equacoes.camposCheiosSTV>0 && !limparBotao.isEnabled())
+                if (Equacoes.camposCheiosSTV > 0 && !limparBotao.isEnabled()) {
                     limparBotao.setEnabled(true);
-                if(Equacoes.camposCheiosSTV==12 && !resultadoBotao.isEnabled())
+                }
+                if (Equacoes.camposCheiosSTV == 12 && !resultadoBotao.isEnabled()) {
                     resultadoBotao.setEnabled(true);
-            }   
+                }
+            }
         }
         private boolean estadoPassadoVazio;
     }
-    
+
     class ControladorBotaoESG implements DocumentListener {
+
         JButton limparBotao;
         JButton resultadoBotao;
 
@@ -205,28 +218,33 @@ public class Equacoes extends javax.swing.JFrame {
         }
 
         public void disableIfEmpty(DocumentEvent e) {
-            if(e.getDocument().getLength() == 0){
+            if (e.getDocument().getLength() == 0) {
                 Equacoes.camposCheiosESG--;
-                if(Equacoes.camposCheiosESG==0 && limparBotao.isEnabled())
+                if (Equacoes.camposCheiosESG == 0 && limparBotao.isEnabled()) {
                     limparBotao.setEnabled(false);
-                if(Equacoes.camposCheiosESG<3 && resultadoBotao.isEnabled())
+                }
+                if (Equacoes.camposCheiosESG < 3 && resultadoBotao.isEnabled()) {
                     resultadoBotao.setEnabled(false);
-                if(!estadoPassadoVazio)
+                }
+                if (!estadoPassadoVazio) {
                     estadoPassadoVazio = true;
-            }else if(e.getDocument().getLength() > 0){
-                if(estadoPassadoVazio){
+                }
+            } else if (e.getDocument().getLength() > 0) {
+                if (estadoPassadoVazio) {
                     Equacoes.camposCheiosESG++;
                     estadoPassadoVazio = false;
                 }
-                if(Equacoes.camposCheiosESG>0 && !limparBotao.isEnabled())
+                if (Equacoes.camposCheiosESG > 0 && !limparBotao.isEnabled()) {
                     limparBotao.setEnabled(true);
-                if(Equacoes.camposCheiosESG==3 && !resultadoBotao.isEnabled())
+                }
+                if (Equacoes.camposCheiosESG == 3 && !resultadoBotao.isEnabled()) {
                     resultadoBotao.setEnabled(true);
-            }   
+                }
+            }
         }
         private boolean estadoPassadoVazio;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -834,79 +852,90 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_voltarSTVMouseClicked
 
     private void resultadoSTVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSTVMouseClicked
-        if(resultadoSTV.isEnabled()){
+        if (resultadoSTV.isEnabled()) {
             double[] resultadosParciais = new double[3];
             double[][] coeficientes = new double[3][3];
             boolean sucesso;
-            try{
+            try {
                 auxiliarNumero = x1STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[0][0] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = x2STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[1][0] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = x3STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[2][0] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = y1STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[0][1] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = y2STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[1][1] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = y3STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[2][1] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = z1STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[0][2] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = z2STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[1][2] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = z3STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[2][2] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = resultado1STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 resultadosParciais[0] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = resultado2STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 resultadosParciais[1] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = resultado3STV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 resultadosParciais[2] = Double.parseDouble(auxiliarNumero);
-                
+
                 sucesso = true;
-            }
-            catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Apenas números!");
                 sucesso = false;
             }
- 
-            if(sucesso){
+
+            if (sucesso) {
                 CalculadoraAjusteLinear sistemas = new CalculadoraAjusteLinear();
                 double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
 
@@ -923,27 +952,27 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_resultadoSTVMouseClicked
 
     private void limparSTVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparSTVMouseClicked
-       if(limparSTV.isEnabled()){
-           xFinalSTV.setText("");
-           yFinalSTV.setText("");
-           zFinalSTV.setText("");
-           x1STV.setText("");
-           x2STV.setText("");
-           x3STV.setText("");
-           y1STV.setText("");
-           y2STV.setText("");
-           y3STV.setText("");
-           z1STV.setText("");
-           z2STV.setText("");
-           z3STV.setText("");
-           resultado1STV.setText("");
-           resultado2STV.setText("");
-           resultado3STV.setText("");
-       }
+        if (limparSTV.isEnabled()) {
+            xFinalSTV.setText("");
+            yFinalSTV.setText("");
+            zFinalSTV.setText("");
+            x1STV.setText("");
+            x2STV.setText("");
+            x3STV.setText("");
+            y1STV.setText("");
+            y2STV.setText("");
+            y3STV.setText("");
+            z1STV.setText("");
+            z2STV.setText("");
+            z3STV.setText("");
+            resultado1STV.setText("");
+            resultado2STV.setText("");
+            resultado3STV.setText("");
+        }
     }//GEN-LAST:event_limparSTVMouseClicked
 
     private void limparESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparESGMouseClicked
-        if(limparESG.isEnabled()){
+        if (limparESG.isEnabled()) {
             a.setText("");
             b.setText("");
             c.setText("");
@@ -958,36 +987,37 @@ public class Equacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_limparESGMouseClicked
 
     private void resultadoESGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoESGMouseClicked
-        if(resultadoESG.isEnabled()){
+        if (resultadoESG.isEnabled()) {
             double aValor = 0;
             double bValor = 0;
             double cValor = 0;
             boolean sucesso;
-            try{
+            try {
                 auxiliarNumero = aTexto.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 aValor = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = bTexto.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 bValor = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = cTexto.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 cValor = Double.parseDouble(auxiliarNumero);
-                
-                
+
                 sucesso = true;
-            }
-            catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Apenas números!");
                 sucesso = false;
             }
-            
-            if(sucesso){
+
+            if (sucesso) {
                 CalculadoraEquacoes equacoes = new CalculadoraEquacoes(aValor, bValor, cValor);
                 String aFormatado = formatador.format(aValor);
                 String bFormatado = formatador.format(bValor);
@@ -1003,80 +1033,87 @@ public class Equacoes extends javax.swing.JFrame {
 
                 double raiz1Valor, raiz2Valor;
                 String raiz1Formatada, raiz2Formatada;
-                if(!"Não existe raiz real.".equals(solucoes.get(0)) && !"Apenas uma raiz real.".equals(solucoes.get(0))){
+                if (!"Não existe raiz real.".equals(solucoes.get(0)) && !"Apenas uma raiz real.".equals(solucoes.get(0))) {
                     raiz1Valor = Double.parseDouble(solucoes.get(0));
                     raiz1Formatada = formatador.format(raiz1Valor);
                     raiz1.setText(raiz1Formatada);
-                }else
+                } else {
                     raiz1.setText(solucoes.get(0));
+                }
 
-                if(!"Não existe raiz real.".equals(solucoes.get(1)) && !"Apenas uma raiz real.".equals(solucoes.get(1))){
+                if (!"Não existe raiz real.".equals(solucoes.get(1)) && !"Apenas uma raiz real.".equals(solucoes.get(1))) {
                     raiz2Valor = Double.parseDouble(solucoes.get(1));
                     raiz2Formatada = formatador.format(raiz2Valor);
                     raiz2.setText(raiz2Formatada);
-                }else
+                } else {
                     raiz2.setText(solucoes.get(1));
+                }
             }
         }
     }//GEN-LAST:event_resultadoESGMouseClicked
 
     private void limparSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparSDVMouseClicked
-       if(limparSDV.isEnabled()){
-           xFinalSDV.setText("");
-           yFinalSDV.setText("");
-           x1SDV.setText("");
-           x2SDV.setText("");
-           y1SDV.setText("");
-           y2SDV.setText("");
-           resultado1SDV.setText("");
-           resultado2SDV.setText("");
-       }
+        if (limparSDV.isEnabled()) {
+            xFinalSDV.setText("");
+            yFinalSDV.setText("");
+            x1SDV.setText("");
+            x2SDV.setText("");
+            y1SDV.setText("");
+            y2SDV.setText("");
+            resultado1SDV.setText("");
+            resultado2SDV.setText("");
+        }
     }//GEN-LAST:event_limparSDVMouseClicked
 
     private void resultadoSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadoSDVMouseClicked
-        if(resultadoSDV.isEnabled()){
+        if (resultadoSDV.isEnabled()) {
             double[][] coeficientes = new double[3][3];
             double[] resultadosParciais = new double[2];
             boolean sucesso;
-            try{
+            try {
                 auxiliarNumero = x1SDV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[0][0] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = x2SDV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[1][0] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = y1SDV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[0][1] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = y2SDV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 coeficientes[1][1] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = resultado1SDV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 resultadosParciais[0] = Double.parseDouble(auxiliarNumero);
-                
+
                 auxiliarNumero = resultado2SDV.getText();
-                if(auxiliarNumero.contains(","))
+                if (auxiliarNumero.contains(",")) {
                     auxiliarNumero = auxiliarNumero.replaceAll("\\,", ".");
+                }
                 resultadosParciais[1] = Double.parseDouble(auxiliarNumero);
-                
+
                 sucesso = true;
-            }
-            catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Apenas números!");
                 sucesso = false;
             }
-            
-            if(sucesso){
+
+            if (sucesso) {
                 CalculadoraAjusteLinear sistemas = new CalculadoraAjusteLinear();
                 double[] resultados = sistemas.escalonarMatriz(coeficientes, resultadosParciais);
 
@@ -1107,7 +1144,7 @@ public class Equacoes extends javax.swing.JFrame {
     private final Document numero4SDV;
     private final Document numero5SDV;
     private final Document numero6SDV;
-    
+
     private final Document numero1STV;
     private final Document numero2STV;
     private final Document numero3STV;
@@ -1120,17 +1157,17 @@ public class Equacoes extends javax.swing.JFrame {
     private final Document numero10STV;
     private final Document numero11STV;
     private final Document numero12STV;
-   
+
     private final Document numero1ESG;
     private final Document numero2ESG;
     private final Document numero3ESG;
-    
+
     public static int camposCheiosSDV = 0;
     public static int camposCheiosSTV = 0;
     public static int camposCheiosESG = 0;
-    
+
     private String auxiliarNumero;
-    
+
     private final int decimais;
     private final DecimalFormat formatador;
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -98,7 +98,7 @@
         <Property name="name" type="java.lang.String" value="Aritm&#xe9;tica" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="aritmeticaMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aritmeticaActionPerformed"/>
       </Events>
     </Component>
     <Component class="java.awt.Button" name="estatistica">
@@ -106,7 +106,7 @@
         <Property name="label" type="java.lang.String" value="Estat&#xed;stica"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="estatisticaMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="estatisticaActionPerformed"/>
       </Events>
     </Component>
     <Component class="java.awt.Button" name="equacoes">
@@ -114,7 +114,7 @@
         <Property name="label" type="java.lang.String" value="Equa&#xe7;&#xf5;es"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="equacoesMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="equacoesActionPerformed"/>
       </Events>
     </Component>
     <Component class="java.awt.Button" name="graficos">
@@ -122,7 +122,7 @@
         <Property name="label" type="java.lang.String" value="Gr&#xe1;ficos"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="graficosMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="graficosActionPerformed"/>
       </Events>
     </Component>
     <Component class="java.awt.Button" name="ajuste">
@@ -130,7 +130,7 @@
         <Property name="label" type="java.lang.String" value="Ajuste de curvas"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ajusteMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajusteActionPerformed"/>
       </Events>
     </Component>
     <Component class="java.awt.Button" name="conversaoNumeros">
@@ -138,7 +138,7 @@
         <Property name="label" type="java.lang.String" value="Convers&#xe3;o de unidades"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="conversaoNumerosMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="conversaoNumerosActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

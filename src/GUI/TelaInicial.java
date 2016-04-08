@@ -31,44 +31,44 @@ public class TelaInicial extends javax.swing.JFrame {
 
         aritmetica.setLabel("Aritmética");
         aritmetica.setName("Aritmética"); // NOI18N
-        aritmetica.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                aritmeticaMouseClicked(evt);
+        aritmetica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aritmeticaActionPerformed(evt);
             }
         });
 
         estatistica.setLabel("Estatística");
-        estatistica.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                estatisticaMouseClicked(evt);
+        estatistica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estatisticaActionPerformed(evt);
             }
         });
 
         equacoes.setLabel("Equações");
-        equacoes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                equacoesMouseClicked(evt);
+        equacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                equacoesActionPerformed(evt);
             }
         });
 
         graficos.setLabel("Gráficos");
-        graficos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                graficosMouseClicked(evt);
+        graficos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graficosActionPerformed(evt);
             }
         });
 
         ajuste.setLabel("Ajuste de curvas");
-        ajuste.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ajusteMouseClicked(evt);
+        ajuste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajusteActionPerformed(evt);
             }
         });
 
         conversaoNumeros.setLabel("Conversão de unidades");
-        conversaoNumeros.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                conversaoNumerosMouseClicked(evt);
+        conversaoNumeros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                conversaoNumerosActionPerformed(evt);
             }
         });
 
@@ -117,42 +117,42 @@ public class TelaInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void aritmeticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aritmeticaMouseClicked
+    private void aritmeticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aritmeticaActionPerformed
         aritmeticaFrame = new Aritmetica(decimais);
         aritmeticaFrame.setVisible(true);
         dispose();
-    }//GEN-LAST:event_aritmeticaMouseClicked
+    }//GEN-LAST:event_aritmeticaActionPerformed
 
-    private void estatisticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_estatisticaMouseClicked
+    private void estatisticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estatisticaActionPerformed
         estatisticaFrame = new Estatistica(decimais);
         estatisticaFrame.setVisible(true);
         dispose();
-    }//GEN-LAST:event_estatisticaMouseClicked
+    }//GEN-LAST:event_estatisticaActionPerformed
 
-    private void equacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equacoesMouseClicked
+    private void equacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equacoesActionPerformed
         equacoesFrame = new Equacoes(decimais);
         equacoesFrame.setVisible(true);
         dispose();
-    }//GEN-LAST:event_equacoesMouseClicked
+    }//GEN-LAST:event_equacoesActionPerformed
 
-    private void graficosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_graficosMouseClicked
+    private void graficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficosActionPerformed
         graficosFrame = new Graficos(decimais);
         graficosFrame.setVisible(true);
         graficosFrame.criarGrafico();
         dispose();
-    }//GEN-LAST:event_graficosMouseClicked
+    }//GEN-LAST:event_graficosActionPerformed
 
-    private void ajusteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajusteMouseClicked
+    private void ajusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajusteActionPerformed
         ajustesFrame = new AjusteCurvas(decimais);
         ajustesFrame.setVisible(true);
         dispose();
-    }//GEN-LAST:event_ajusteMouseClicked
+    }//GEN-LAST:event_ajusteActionPerformed
 
-    private void conversaoNumerosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conversaoNumerosMouseClicked
+    private void conversaoNumerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conversaoNumerosActionPerformed
         conversaoUnidadesFrame = new ConversaoNumeros(decimais);
         conversaoUnidadesFrame.setVisible(true);
         dispose();
-    }//GEN-LAST:event_conversaoNumerosMouseClicked
+    }//GEN-LAST:event_conversaoNumerosActionPerformed
 
     private final int decimais;
     private Aritmetica aritmeticaFrame;

@@ -3,6 +3,7 @@ package calculadoracientifica.ConversaoNumeros;
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import calculadoracientifica.Enums.Unidades;
 import calculadoracientifica.Interfaces.ConversaoNumeros;
+import calculadoracientifica.ModeloNumero.NumeroPrimitivo;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroArea;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroEnergia;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroMassa;
@@ -36,9 +37,9 @@ public class ConversorNumeros implements ConversaoNumeros {
     }
 
     @Override
-    public Object converterNumero(CalculadoraAritmetica calculadora, Object numero) {
+    public NumeroPrimitivo converterNumero(CalculadoraAritmetica calculadora, NumeroPrimitivo numero) {
 
-        Object numeroFinal;
+        NumeroPrimitivo numeroFinal;
 
         if (numero instanceof NumeroArea) {
             NumeroArea aux = new NumeroArea(simboloFinal);

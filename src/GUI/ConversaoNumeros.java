@@ -3,6 +3,7 @@ package GUI;
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import calculadoracientifica.ConversaoNumeros.ConversorNumeros;
 import calculadoracientifica.Enums.Unidades;
+import calculadoracientifica.ModeloNumero.NumeroPrimitivo;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroArea;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroEnergia;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroMassa;
@@ -305,7 +306,7 @@ public class ConversaoNumeros extends javax.swing.JFrame {
                 Unidades aux = (Unidades) caixaTiposInicial.getSelectedItem();
                 Unidades aux2 = (Unidades) caixaTiposFinal.getSelectedItem();
                 ConversorNumeros conversor = new ConversorNumeros(aux2.toString());
-                Object numeroInicial = new Object();
+                NumeroPrimitivo numeroInicial;
 
                 switch (aux.getTipo()) {
                     case "Área":
@@ -326,12 +327,12 @@ public class ConversaoNumeros extends javax.swing.JFrame {
                     case "Tempo":
                         numeroInicial = new NumeroTempo(valorInicial, aux.toString());
                         break;
-                    case "Volume":
+                    default:
                         numeroInicial = new NumeroVolume(valorInicial, aux.toString());
                         break;
                 }
 
-                Object numeroFinal = conversor.converterNumero(new CalculadoraAritmetica(), numeroInicial);
+                NumeroPrimitivo numeroFinal = conversor.converterNumero(new CalculadoraAritmetica(), numeroInicial);
                 double numeroFinalValor = 0.0;
                 String numeroFinalTextoLer;
 

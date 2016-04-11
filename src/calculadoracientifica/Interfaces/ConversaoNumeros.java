@@ -1,8 +1,9 @@
 package calculadoracientifica.Interfaces;
 
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
+import calculadoracientifica.ModeloNumero.NumeroPrimitivo;
 
 public interface ConversaoNumeros {
 
-    Object converterNumero(CalculadoraAritmetica calculadora, Object numero);
+    NumeroPrimitivo converterNumero(CalculadoraAritmetica calculadora, NumeroPrimitivo numero);
 }

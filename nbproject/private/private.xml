@@ -29,13 +29,6 @@
             <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Interfaces/ConversaoNumeros.java</file>
             <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/Unidades/NumeroArea.java</file>
         </group>
-        <group name="Todos">
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/Unidades/NumeroArea.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/GUI/ConversaoNumeros.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/Unidades/NumeroEnergia.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/NumeroPrimitivo.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/ConversaoNumeros/ConversorNumeros.java</file>
-            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Interfaces/ConversaoNumeros.java</file>
-        </group>
+        <group name="Todos"/>
     </open-files>
 </project-private>

@@ -11,6 +11,11 @@ abstract class CalculadoraPrimitiva implements MetodosPrimitivos {
     abstract double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais);
 
     @Override
+    public double soma(double a, double b) {
+        return a + b;
+    }
+    
+    @Override
     public double subtracao(double a, double b) {
         return a - b;
     }

@@ -56,17 +56,6 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
             prioridadesParenteses.remove(remover);
         }
 
-        ArrayList<String> aux = new ArrayList<>();
-        for (int i = 0; i < sinais.size(); i++) {
-            aux.add(i, sinais.get(i));
-        }
-
-        sinais.clear();
-
-        for (int i = 0; i < aux.size(); i++) {
-            sinais.add(i, aux.get(i));
-        }
-
         for (int i = 0; i < sinais.size(); i++) {
             sinal = sinais.get(i);
             if (null != sinal) {
@@ -244,11 +233,6 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
         }
 
         return maior;
-    }
-
-    @Override
-    public double soma(double a, double b) {
-        return a + b;
     }
 
     @Override

@@ -46,63 +46,63 @@ public class ConversorNumeros implements ConversaoNumeros {
             NumeroArea aux2 = (NumeroArea) numero;
 
             if (aux2.compareTo(aux) == 1) {
-                numeroFinal = new NumeroArea((NumeroArea) numero);
+                numeroFinal = new NumeroArea(aux2);
             } else {
-                numeroFinal = converterArea(calculadora, (NumeroArea) numero);
+                numeroFinal = converterArea(calculadora, aux2);
             }
         } else if (numero instanceof NumeroEnergia) {
             NumeroEnergia aux = new NumeroEnergia(simboloFinal);
             NumeroEnergia aux2 = (NumeroEnergia) numero;
 
             if (aux2.compareTo(aux) == 1) {
-                numeroFinal = new NumeroEnergia((NumeroEnergia) numero);
+                numeroFinal = new NumeroEnergia(aux2);
             } else {
-                numeroFinal = converterEnergia(calculadora, (NumeroEnergia) numero);
+                numeroFinal = converterEnergia(calculadora, aux2);
             }
         } else if (numero instanceof NumeroMassa) {
             NumeroMassa aux = new NumeroMassa(simboloFinal);
             NumeroMassa aux2 = (NumeroMassa) numero;
 
             if (aux2.compareTo(aux) == 1) {
-                numeroFinal = new NumeroMassa((NumeroMassa) numero);
+                numeroFinal = new NumeroMassa(aux2);
             } else {
-                numeroFinal = converterMassa(calculadora, (NumeroMassa) numero);
+                numeroFinal = converterMassa(calculadora, aux2);
             }
         } else if (numero instanceof NumeroMedida) {
             NumeroMedida aux = new NumeroMedida(simboloFinal);
             NumeroMedida aux2 = (NumeroMedida) numero;
 
             if (aux2.compareTo(aux) == 1) {
-                numeroFinal = new NumeroMedida((NumeroMedida) numero);
+                numeroFinal = new NumeroMedida(aux2);
             } else {
-                numeroFinal = converterMedida(calculadora, (NumeroMedida) numero);
+                numeroFinal = converterMedida(calculadora, aux2);
             }
         } else if (numero instanceof NumeroTemperatura) {
             NumeroTemperatura aux = new NumeroTemperatura(simboloFinal);
             NumeroTemperatura aux2 = (NumeroTemperatura) numero;
 
             if (aux2.compareTo(aux) == 1) {
-                numeroFinal = new NumeroTemperatura((NumeroTemperatura) numero);
+                numeroFinal = new NumeroTemperatura(aux2);
             } else {
-                numeroFinal = converterTemperatura(calculadora, (NumeroTemperatura) numero);
+                numeroFinal = converterTemperatura(calculadora, aux2);
             }
         } else if (numero instanceof NumeroTempo) {
             NumeroTempo aux = new NumeroTempo(simboloFinal);
             NumeroTempo aux2 = (NumeroTempo) numero;
 
             if (aux2.compareTo(aux) == 1) {
-                numeroFinal = new NumeroTempo((NumeroTempo) numero);
+                numeroFinal = new NumeroTempo(aux2);
             } else {
-                numeroFinal = converterTempo(calculadora, (NumeroTempo) numero);
+                numeroFinal = converterTempo(calculadora, aux2);
             }
         } else if (numero instanceof NumeroVolume) {
             NumeroVolume aux = new NumeroVolume(simboloFinal);
             NumeroVolume aux2 = (NumeroVolume) numero;
 
             if (aux2.compareTo(aux) == 1) {
-                numeroFinal = new NumeroVolume((NumeroVolume) numero);
+                numeroFinal = new NumeroVolume(aux2);
             } else {
-                numeroFinal = converterVolume(calculadora, (NumeroVolume) numero);
+                numeroFinal = converterVolume(calculadora, aux2);
             }
         } else {
             return null;

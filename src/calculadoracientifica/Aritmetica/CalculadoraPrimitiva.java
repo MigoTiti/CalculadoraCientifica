@@ -5,8 +5,7 @@ import calculadoracientifica.Interfaces.MetodosPrimitivos;
 
 abstract class CalculadoraPrimitiva implements MetodosPrimitivos {
 
-    public CalculadoraPrimitiva() {
-    }
+    public CalculadoraPrimitiva() {}
 
     abstract double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais);
 

@@ -17,11 +17,10 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
     }
 
     public void mudarStatus(String nome) {
-        if ("radianos".equals(nome) && radianos == false) {
+        if ("radianos".equals(nome) && !radianos) 
             radianos = true;
-        } else if ("graus".equals(nome) && radianos) {
+        else if ("graus".equals(nome) && radianos) 
             radianos = false;
-        }
     }
 
     @Override
@@ -34,19 +33,17 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
 
         for (int i = 0; i < sinais.size(); i++) {
             sinal = sinais.get(i);
-            if (null != sinal) {
-                switch (sinal) {
-                    case "(":
-                        prioridadesParenteses.add(i, ++contParenteses);
-                        posicoesRemoverSinais.add(i);
-                        break;
-                    case ")":
-                        prioridadesParenteses.add(i, --contParenteses);
-                        posicoesRemoverSinais.add(i);
-                        break;
-                    default:
-                        prioridadesParenteses.add(i, contParenteses);
-                }
+            switch (sinal) {
+                case "(":
+                    prioridadesParenteses.add(i, ++contParenteses);
+                    posicoesRemoverSinais.add(i);
+                    break;
+                case ")":
+                    prioridadesParenteses.add(i, --contParenteses);
+                    posicoesRemoverSinais.add(i);
+                    break;
+                default:
+                    prioridadesParenteses.add(i, contParenteses);
             }
         }
 
@@ -55,35 +52,35 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
             sinais.remove(remover);
             prioridadesParenteses.remove(remover);
         }
+        
+        posicoesRemoverSinais.clear();
 
         for (int i = 0; i < sinais.size(); i++) {
             sinal = sinais.get(i);
-            if (null != sinal) {
-                switch (sinal) {
-                    case "+":
-                    case "-":
-                        prioridades.add(i, Prioridades.SOMA.getPrioridade() + (prioridadesParenteses.get(i) * 3));
-                        break;
-                    case "%":
-                    case "*":
-                    case "/":
-                        prioridades.add(i, Prioridades.MULTIPLICACAO.getPrioridade() + (prioridadesParenteses.get(i) * 3));
-                        break;
-                    case "^":
-                        prioridades.add(i, Prioridades.POTENCIA.getPrioridade() + (prioridadesParenteses.get(i) * 3));
-                        break;
-                    case "sqrt":
-                    case "log":
-                    case "ln":
-                    case "sen":
-                    case "cos":
-                    case "tg":
-                        prioridades.add(i, Prioridades.TRIGONOMETRICARAIZLOG.getPrioridade() + (prioridadesParenteses.get(i) * 3));
-                        break;
-                }
+            switch (sinal) {
+                case "+":
+                case "-":
+                    prioridades.add(i, Prioridades.SOMA.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    break;
+                case "%":
+                case "*":
+                case "/":
+                    prioridades.add(i, Prioridades.MULTIPLICACAO.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    break;
+                case "^":
+                    prioridades.add(i, Prioridades.POTENCIA.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    break;
+                case "sqrt":
+                case "log":
+                case "ln":
+                case "sen":
+                case "cos":
+                case "tg":
+                    prioridades.add(i, Prioridades.TRIGONOMETRICARAIZLOG.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    break;
             }
         }
-        posicoesRemoverSinais.clear();
+        
         int size = sinais.size();
         if (!sinais.isEmpty()) {
             do {

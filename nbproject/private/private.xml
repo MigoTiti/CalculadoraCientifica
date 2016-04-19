@@ -29,6 +29,10 @@
             <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/Interfaces/ConversaoNumeros.java</file>
             <file>file:/C:/Users/Deyvison/git/CalculadoraCientifica/src/calculadoracientifica/ModeloNumero/Unidades/NumeroArea.java</file>
         </group>
-        <group name="Todos"/>
+        <group name="Todos">
+            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/CalculadoraCientifica.java</file>
+            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/CalculadoraPrimitiva.java</file>
+            <file>file:/C:/Users/Inspirio/Documents/NetBeansProjects/CalculadoraCientifica/src/calculadoracientifica/Aritmetica/CalculadoraAritmetica.java</file>
+        </group>
     </open-files>
 </project-private>

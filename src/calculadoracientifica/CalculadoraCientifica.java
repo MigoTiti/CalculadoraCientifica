@@ -23,6 +23,11 @@ public class CalculadoraCientifica {
             } catch (NumberFormatException e2) {
                 JOptionPane.showMessageDialog(null, "Apenas números inteiros!");
             }
+            
+            if(casasD<0 && sucessoEscolha){
+                JOptionPane.showMessageDialog(null, "Apenas números inteiros positivos!");
+                sucessoEscolha = false;
+            }
         } while (!sucessoEscolha);
 
         if (sucessoEscolha) {

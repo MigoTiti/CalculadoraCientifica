@@ -27,48 +27,46 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
     public double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais) {
         String sinal;
         int contParenteses = 0;
-        ArrayList<Integer> prioridades = new ArrayList<>();
-        ArrayList<Integer> prioridadesParenteses = new ArrayList<>();
-        ArrayList<Integer> posicoesRemoverSinais = new ArrayList<>();
 
-        for (int i = 0; i < sinais.size(); i++) {
+        ArrayList<Integer> prioridadesParenteses = new ArrayList<>(sinais.size());
+
+        while(prioridadesParenteses.size() < sinais.size()) prioridadesParenteses.add(0);
+        
+        for (int i = sinais.size()-1; i >= 0; i--) {
             sinal = sinais.get(i);
             switch (sinal) {
-                case "(":
-                    prioridadesParenteses.add(i, ++contParenteses);
-                    posicoesRemoverSinais.add(i);
-                    break;
                 case ")":
-                    prioridadesParenteses.add(i, --contParenteses);
-                    posicoesRemoverSinais.add(i);
+                    ++contParenteses;
+                    sinais.remove(i);
+                    prioridadesParenteses.remove(i);
+                    break;
+                case "(":
+                    --contParenteses;
+                    sinais.remove(i);
+                    prioridadesParenteses.remove(i);
                     break;
                 default:
+                    prioridadesParenteses.remove(i);
                     prioridadesParenteses.add(i, contParenteses);
             }
         }
-
-        for (int i = posicoesRemoverSinais.size() - 1; i > -1; i--) {
-            int remover = posicoesRemoverSinais.get(i);
-            sinais.remove(remover);
-            prioridadesParenteses.remove(remover);
-        }
         
-        posicoesRemoverSinais.clear();
-
+        ArrayList<Integer> prioridades = new ArrayList<>(sinais.size()); 
+        
         for (int i = 0; i < sinais.size(); i++) {
             sinal = sinais.get(i);
             switch (sinal) {
                 case "+":
                 case "-":
-                    prioridades.add(i, Prioridades.SOMA.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    prioridades.add(Prioridades.SOMA.getPrioridade() + (prioridadesParenteses.get(i) * 4));
                     break;
                 case "%":
                 case "*":
                 case "/":
-                    prioridades.add(i, Prioridades.MULTIPLICACAO.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    prioridades.add(Prioridades.MULTIPLICACAO.getPrioridade() + (prioridadesParenteses.get(i) * 4));
                     break;
                 case "^":
-                    prioridades.add(i, Prioridades.POTENCIA.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    prioridades.add(Prioridades.POTENCIA.getPrioridade() + (prioridadesParenteses.get(i) * 4));
                     break;
                 case "sqrt":
                 case "log":
@@ -76,19 +74,17 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
                 case "sen":
                 case "cos":
                 case "tg":
-                    prioridades.add(i, Prioridades.TRIGONOMETRICARAIZLOG.getPrioridade() + (prioridadesParenteses.get(i) * 4));
+                    prioridades.add(Prioridades.TRIGONOMETRICARAIZLOG.getPrioridade() + (prioridadesParenteses.get(i) * 4));
                     break;
             }
         }
         
-        int size = sinais.size();
-        if (!sinais.isEmpty()) {
-            do {
-                int maior = maiorIndice(prioridades);
-                numeros = operacao(numeros, sinais, prioridades, maior);
-                size--;
-            } while (size >= 1);
-        }
+        prioridadesParenteses.clear();
+        
+        do {
+            numeros = operacao(numeros, sinais, prioridades, maiorIndice(prioridades));
+        } while (sinais.size() > 0);
+        
         return numeros.get(0);
     }
 
@@ -148,29 +144,26 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
                 numeros.add(i, auxiliar);
                 break;
             case "sen":
-                if (radianos) {
+                if (radianos)
                     auxiliar = seno(numeros.get(i));
-                } else {
+                else
                     auxiliar = seno(Math.toRadians(numeros.get(i)));
-                }
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "cos":
-                if (radianos) {
+                if (radianos) 
                     auxiliar = cosseno(numeros.get(i));
-                } else {
+                else 
                     auxiliar = cosseno(Math.toRadians(numeros.get(i)));
-                }
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
             case "tg":
-                if (radianos) {
+                if (radianos)
                     auxiliar = tangente(numeros.get(i));
-                } else {
+                else
                     auxiliar = tangente(Math.toRadians(numeros.get(i)));
-                }
                 numeros.remove(i);
                 numeros.add(i, auxiliar);
                 break;
@@ -179,45 +172,34 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
     }
 
     protected ArrayList<Double> operacao(ArrayList<Double> numeros, ArrayList<String> sinais, ArrayList<Integer> prioridades, int maior) {
-        int indexUsado = 0;
         String sinal;
-        boolean sucesso = false, operacaoUnica = false, op2 = false;
         int nUnicos = 0;
-        for (int i = 0; i < numeros.size(); i++) {
-            if (prioridades.get(i) == maior && sucesso == false) {
+        for (int i = 0; i < sinais.size(); i++) {
+            if (prioridades.get(i) == maior) {
                 sinal = sinais.get(i);
-                if ("+".equals(sinal) || "%".equals(sinal) || "-".equals(sinal) || "*".equals(sinal) || "/".equals(sinal) || "^".equals(sinal)) {
-
-                    for (int j = 0; j < i; j++) {
-                        if (("sqrt".equals(sinais.get(j)) || "sen".equals(sinais.get(j)) || "cos".equals(sinais.get(j)) || "tg".equals(sinais.get(j)) || "log".equals(sinais.get(j)) || "ln".equals(sinais.get(j)))) {
-                            nUnicos++;
-                        }
+                for (int j = 0; j < i; j++) {
+                    if (("sqrt".equals(sinais.get(j)) || "sen".equals(sinais.get(j)) 
+                      || "cos".equals(sinais.get(j)) || "tg".equals(sinais.get(j)) 
+                      || "log".equals(sinais.get(j)) || "ln".equals(sinais.get(j)))) {
+                        nUnicos++;
                     }
+                }
+                if ("+".equals(sinal) || "%".equals(sinal) || "-".equals(sinal) 
+                 || "*".equals(sinal) || "/".equals(sinal) || "^".equals(sinal)) {
                     operacaoDupla(numeros, sinal, i - nUnicos);
-                    operacaoUnica = false;
-                    sucesso = true;
-                    indexUsado = i;
+                    numeros.remove(i - (nUnicos - 1));
+                    sinais.remove(i);
+                    prioridades.remove(i);
+                    return numeros;
                 } else {
-                    operacaoUnica(numeros, sinal, i);
-                    operacaoUnica = true;
-                    sucesso = true;
-                    indexUsado = i;
+                    operacaoUnica(numeros, sinal, i - nUnicos);
+                    sinais.remove(i);
+                    prioridades.remove(i);
+                    return numeros;
                 }
             }
-            if (sucesso) {
-                break;
-            }
         }
-
-        if (sucesso) {
-            if (numeros.size() > 1 && operacaoUnica == false) {
-                numeros.remove(indexUsado - (nUnicos - 1));
-            }
-            sinais.remove(indexUsado);
-            prioridades.remove(indexUsado);
-        }
-
-        return numeros;
+        return null;
     }
 
     protected int maiorIndice(ArrayList<Integer> prioridades) {

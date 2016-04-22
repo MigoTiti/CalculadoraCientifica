@@ -1,6 +1,7 @@
 package calculadoracientifica.Aritmetica;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CalculadoraAritmetica extends CalculadoraPrimitiva {
 
@@ -82,7 +83,7 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
         prioridadesParenteses.clear();
         
         do {
-            numeros = operacao(numeros, sinais, prioridades, maiorIndice(prioridades));
+            numeros = operacao(numeros, sinais, prioridades, Collections.max(prioridades));
         } while (sinais.size() > 0);
         
         return numeros.get(0);
@@ -199,19 +200,7 @@ public class CalculadoraAritmetica extends CalculadoraPrimitiva {
                 }
             }
         }
-        return null;
-    }
-
-    protected int maiorIndice(ArrayList<Integer> prioridades) {
-        int maior = prioridades.get(0);
-
-        for (Integer prioridade : prioridades) {
-            if (prioridade >= maior) {
-                maior = prioridade;
-            }
-        }
-
-        return maior;
+        return numeros;
     }
 
     @Override

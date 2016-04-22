@@ -63,35 +63,44 @@ public class CalculadoraPontosAjustados extends CalculadoraAritmetica implements
 
         StringBuilder equacaoInteira = new StringBuilder(equacao);
         boolean exp = false;
-        if (equacao.contains("e")) {
+        if (equacao.contains("e"))
             exp = true;
-        }
+
         boolean anteriorNumero = false;
-        boolean anteriorSinal = true;
+        boolean primeiroChar = true;
         int contadorNumero = 0;
 
         do {
-            OUTER:
+            EXTERNO:
             for (int i = 0; i < equacaoInteira.length(); i++) {
                 String atual = String.valueOf(equacaoInteira.charAt(i));
 
                 switch (atual) {
                     case "-":
-                        if (!(equacaoInteira.charAt(i) == 'x')) {
+                        if (primeiroChar) {
                             if (i > 0) {
                                 numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
                                 equacaoInteira.delete(0, i);
                                 contadorNumero++;
                                 anteriorNumero = true;
-                                break OUTER;
+                                primeiroChar = false;
+                                break EXTERNO;
                             }
                         } else {
-                            sinaisConstrutor.add(atual);
-                            equacaoInteira.deleteCharAt(i);
-                            anteriorNumero = false;
-                            break OUTER;
+                            if (i > 0) {
+                                numerosConstrutor.add(Double.valueOf(equacaoInteira.substring(0, i)));
+                                equacaoInteira.delete(0, i);
+                                contadorNumero++;
+                                anteriorNumero = true;
+                                primeiroChar = false;
+                                break EXTERNO;
+                            } else {
+                                sinaisConstrutor.add(atual);
+                                equacaoInteira.deleteCharAt(i);
+                                anteriorNumero = false;
+                                break EXTERNO;
+                            }
                         }
-                        break;
                     case "+":
                     case "*":
                     case "/":
@@ -102,12 +111,14 @@ public class CalculadoraPontosAjustados extends CalculadoraAritmetica implements
                             equacaoInteira.delete(0, i + 1);
                             contadorNumero++;
                             anteriorNumero = true;
-                            break OUTER;
+                            primeiroChar = false;
+                            break EXTERNO;
                         } else {
                             sinaisConstrutor.add(atual);
                             equacaoInteira.deleteCharAt(i);
                             anteriorNumero = false;
-                            break OUTER;
+                            primeiroChar = false;
+                            break EXTERNO;
                         }
                     case "x":
                         if (anteriorNumero) {
@@ -116,14 +127,15 @@ public class CalculadoraPontosAjustados extends CalculadoraAritmetica implements
                             posicoesX.add(++contadorNumero);
                             equacaoInteira.delete(0, i + 1);
                             anteriorNumero = false;
-                            break OUTER;
-                        } else if (anteriorSinal) {
+                            primeiroChar = false;
+                            break EXTERNO;
+                        } else {
                             posicoesX.add(contadorNumero++);
                             anteriorNumero = false;
                             equacaoInteira.deleteCharAt(i);
-                            break OUTER;
+                            primeiroChar = false;
+                            break EXTERNO;
                         }
-                        break;
                     case "!":
                         if (equacaoInteira.length() == 1) {
                             equacaoInteira.deleteCharAt(i);
@@ -140,7 +152,8 @@ public class CalculadoraPontosAjustados extends CalculadoraAritmetica implements
                             numerosConstrutor.add(Math.E);
                             equacaoInteira.delete(0, i + 1);
                             contadorNumero++;
-                            break OUTER;
+                            primeiroChar = false;
+                            break EXTERNO;
                         }
                         break;
                     default:
@@ -175,9 +188,7 @@ public class CalculadoraPontosAjustados extends CalculadoraAritmetica implements
     }
 
     @Override
-    public String toString() {
-        return equacao;
-    }
+    public String toString() { return equacao; }
 
     private GraficosAjustados plotarGraficoAjustado;
     private ArrayList<String> sinaisConstrutor;

@@ -10,64 +10,40 @@ abstract class CalculadoraPrimitiva implements MetodosPrimitivos {
     abstract double interpretador(ArrayList<Double> numeros, ArrayList<String> sinais);
 
     @Override
-    public double soma(double a, double b) {
-        return a + b;
-    }
+    public double soma(double a, double b) { return a + b; }
     
     @Override
-    public double subtracao(double a, double b) {
-        return a - b;
-    }
+    public double subtracao(double a, double b) { return a - b; }
 
     @Override
-    public double divisao(double a, double b) {
-        return a / b;
-    }
+    public double divisao(double a, double b) { return a / b; }
 
     @Override
-    public double multiplicacao(double a, double b) {
-        return a * b;
-    }
+    public double multiplicacao(double a, double b) { return a * b; }
 
     @Override
-    public double potencia(double base, double expoente) {
-        return Math.pow(base, expoente);
-    }
+    public double potencia(double base, double expoente) { return Math.pow(base, expoente); }
 
     @Override
-    public double raizQuadrada(double a) {
-        return Math.sqrt(a);
-    }
+    public double raizQuadrada(double a) { return Math.sqrt(a); }
 
     @Override
-    public double resto(double dividendo, double divisor) {
-        return dividendo % divisor;
-    }
+    public double resto(double dividendo, double divisor) { return dividendo % divisor; }
 
     @Override
-    public double log10(double a) {
-        return Math.log10(a);
-    }
+    public double log10(double a) { return Math.log10(a); }
 
     @Override
-    public double logNatural(double a) {
-        return Math.log(a);
-    }
+    public double logNatural(double a) { return Math.log(a); }
 
     @Override
-    public double seno(double a) {
-        return Math.sin(a);
-    }
+    public double seno(double a) { return Math.sin(a); }
 
     @Override
-    public double cosseno(double a) {
-        return Math.cos(a);
-    }
+    public double cosseno(double a) { return Math.cos(a); }
 
     @Override
-    public double tangente(double a) {
-        return Math.tan(a);
-    }
+    public double tangente(double a) { return Math.tan(a); }
 
     protected enum Prioridades {
 
@@ -78,12 +54,8 @@ abstract class CalculadoraPrimitiva implements MetodosPrimitivos {
 
         private final int valor;
 
-        private Prioridades(int valor) {
-            this.valor = valor;
-        }
+        private Prioridades(int valor) { this.valor = valor; }
 
-        public int getPrioridade() {
-            return valor;
-        }
+        public int getPrioridade() { return valor; }
     }
 }

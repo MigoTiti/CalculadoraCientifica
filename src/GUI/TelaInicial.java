@@ -20,14 +20,14 @@ public class TelaInicial extends javax.swing.JFrame {
         conversaoNumeros = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Titi Calculator 2016");
+        setTitle("Calculadora científica");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(491, 331));
         setResizable(false);
         setSize(new java.awt.Dimension(491, 331));
 
         titulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        titulo.setText("TITI CALCULATOR 2016");
+        titulo.setText("PROJETO FINAL - CALCULADORA ");
 
         aritmetica.setLabel("Aritmética");
         aritmetica.setName("Aritmética"); // NOI18N
@@ -90,9 +90,9 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(graficos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(conversaoNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(53, 53, 53)
                         .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

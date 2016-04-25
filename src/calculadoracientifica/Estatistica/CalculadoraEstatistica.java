@@ -3,6 +3,7 @@ package calculadoracientifica.Estatistica;
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class CalculadoraEstatistica extends CalculadoraAritmetica {
 
@@ -39,43 +40,25 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica {
         ArrayList<Double> elementosUnicos;
         elementosUnicos = eliminarRepeticao();
 
-        ArrayList<Double> ocorrencias;
+        ArrayList<Integer> ocorrencias;
         ocorrencias = new ArrayList<>(elementosUnicos.size());
-
-        for (int i = 0; i < ocorrencias.size(); i++) {
-            ocorrencias.add(1.0);
-        }
-
-        boolean sucesso = false;
-        int iteracoes = 0;
-        int tamanho2 = 0;
-        do {
-            for (int i = tamanho2; i < elementosUnicos.size(); i++) {
-                if (sucesso) {
-                    sucesso = false;
-                    break;
-                }
-                double x = elementos.get(i);
-                for (int j = tamanho2 + 1; j < elementos.size(); j++) {
-                    double n = elementos.get(j);
-                    if (n == x) {
-                        double ocorrencia = ocorrencias.get(i);
-                        ocorrencias.remove(i);
-                        ocorrencias.add(i, ocorrencia + 1);
-                        sucesso = true;
-                    }
+        
+        for (int i = 0;i<elementosUnicos.size();i++) {
+            int ocorrenciasN = 0;
+            for (int j = 0;j<elementos.size();j++) {
+                if (Objects.equals(elementos.get(j), elementosUnicos.get(i))) {
+                    ocorrenciasN++;
                 }
             }
-            tamanho2++;
-            iteracoes++;
-        } while (iteracoes < elementos.size());
+            ocorrencias.add(i,ocorrenciasN);
+        }
 
         int contador = 0;
         double moda = 0;
-        double maior = Collections.max(ocorrencias);
+        int maior = Collections.max(ocorrencias);
         for (int i = 0; i < ocorrencias.size(); i++) {
             if (ocorrencias.get(i).equals(maior)) {
-                moda = elementos.get(i);
+                moda = elementosUnicos.get(i);
                 contador++;
             }
         }

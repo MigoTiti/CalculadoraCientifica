@@ -12,12 +12,11 @@ import calculadoracientifica.ModeloNumero.Unidades.NumeroTemperatura;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroTempo;
 import calculadoracientifica.ModeloNumero.Unidades.NumeroVolume;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ConversorNumeros implements ConversaoNumeros {
 
-    public ConversorNumeros() {
-        this.simboloFinal = "";
-    }
+    public ConversorNumeros() { this.simboloFinal = ""; }
 
     public ConversorNumeros(String simboloFinal) {
         boolean sucesso = false;
@@ -27,14 +26,11 @@ public class ConversorNumeros implements ConversaoNumeros {
                 sucesso = true;
             }
         }
-        if (!sucesso) {
+        if (!sucesso)
             this.simboloFinal = "";
-        }
     }
 
-    public ConversorNumeros(ConversorNumeros c1) {
-        this.simboloFinal = c1.simboloFinal;
-    }
+    public ConversorNumeros(ConversorNumeros c1) { this.simboloFinal = c1.simboloFinal; }
 
     @Override
     public NumeroPrimitivo converterNumero(CalculadoraAritmetica calculadora, NumeroPrimitivo numero) {
@@ -45,68 +41,60 @@ public class ConversorNumeros implements ConversaoNumeros {
             NumeroArea aux = new NumeroArea(simboloFinal);
             NumeroArea aux2 = (NumeroArea) numero;
 
-            if (aux2.compareTo(aux) == 1) {
+            if (aux2.compareTo(aux) == 1)
                 numeroFinal = new NumeroArea(aux2);
-            } else {
+            else
                 numeroFinal = converterArea(calculadora, aux2);
-            }
         } else if (numero instanceof NumeroEnergia) {
             NumeroEnergia aux = new NumeroEnergia(simboloFinal);
             NumeroEnergia aux2 = (NumeroEnergia) numero;
 
-            if (aux2.compareTo(aux) == 1) {
+            if (aux2.compareTo(aux) == 1)
                 numeroFinal = new NumeroEnergia(aux2);
-            } else {
+            else
                 numeroFinal = converterEnergia(calculadora, aux2);
-            }
         } else if (numero instanceof NumeroMassa) {
             NumeroMassa aux = new NumeroMassa(simboloFinal);
             NumeroMassa aux2 = (NumeroMassa) numero;
 
-            if (aux2.compareTo(aux) == 1) {
+            if (aux2.compareTo(aux) == 1)
                 numeroFinal = new NumeroMassa(aux2);
-            } else {
+            else
                 numeroFinal = converterMassa(calculadora, aux2);
-            }
         } else if (numero instanceof NumeroMedida) {
             NumeroMedida aux = new NumeroMedida(simboloFinal);
             NumeroMedida aux2 = (NumeroMedida) numero;
 
-            if (aux2.compareTo(aux) == 1) {
+            if (aux2.compareTo(aux) == 1)
                 numeroFinal = new NumeroMedida(aux2);
-            } else {
+            else
                 numeroFinal = converterMedida(calculadora, aux2);
-            }
         } else if (numero instanceof NumeroTemperatura) {
             NumeroTemperatura aux = new NumeroTemperatura(simboloFinal);
             NumeroTemperatura aux2 = (NumeroTemperatura) numero;
 
-            if (aux2.compareTo(aux) == 1) {
+            if (aux2.compareTo(aux) == 1)
                 numeroFinal = new NumeroTemperatura(aux2);
-            } else {
+            else
                 numeroFinal = converterTemperatura(calculadora, aux2);
-            }
         } else if (numero instanceof NumeroTempo) {
             NumeroTempo aux = new NumeroTempo(simboloFinal);
             NumeroTempo aux2 = (NumeroTempo) numero;
 
-            if (aux2.compareTo(aux) == 1) {
+            if (aux2.compareTo(aux) == 1)
                 numeroFinal = new NumeroTempo(aux2);
-            } else {
+            else
                 numeroFinal = converterTempo(calculadora, aux2);
-            }
         } else if (numero instanceof NumeroVolume) {
             NumeroVolume aux = new NumeroVolume(simboloFinal);
             NumeroVolume aux2 = (NumeroVolume) numero;
 
-            if (aux2.compareTo(aux) == 1) {
+            if (aux2.compareTo(aux) == 1)
                 numeroFinal = new NumeroVolume(aux2);
-            } else {
+            else
                 numeroFinal = converterVolume(calculadora, aux2);
-            }
-        } else {
+        } else
             return null;
-        }
 
         return numeroFinal;
     }
@@ -422,9 +410,9 @@ public class ConversorNumeros implements ConversaoNumeros {
         if (!simboloInicial.equals("K")) {
             numeroFinal = xParaKelvin(calculadora, numeroInicial, simboloInicial);
 
-            if (simboloFinal.equals("K")) {
+            if (simboloFinal.equals("K"))
                 return numeroFinal;
-            } else {
+            else {
                 numeroFinal = kelvinParaY(calculadora, numeroFinal);
                 return numeroFinal;
             }
@@ -436,31 +424,22 @@ public class ConversorNumeros implements ConversaoNumeros {
 
     private double xParaKelvin(CalculadoraAritmetica calculadora, double numeroInicial, String simboloInicial) {
         double numeroFinal = 0;
-        ArrayList<Double> numeros = new ArrayList<>();
-        ArrayList<String> sinais = new ArrayList<>();
-        numeros.add(numeroInicial);
-        sinais.add("+");
+        ArrayList<Double> numeros;
+        ArrayList<String> sinais;
         switch (simboloInicial) {
             case "°C":
-                numeros.add(273.15);
+                sinais = new ArrayList<>(Arrays.asList("+"));
+                numeros = new ArrayList<>(Arrays.asList(numeroInicial,273.15));
                 numeroFinal = calculadora.interpretador(numeros, sinais);
                 break;
             case "°F":
-                sinais.add(0, "(");
-                sinais.add(2, ")");
-                sinais.add("/");
-                numeros.add(459.7);
-                numeros.add(1.8);
+                sinais = new ArrayList<>(Arrays.asList("(","-",")","/","+"));
+                numeros = new ArrayList<>(Arrays.asList(numeroInicial,32.0,1.8,273.15));
                 numeroFinal = calculadora.interpretador(numeros, sinais);
                 break;
             case "°N":
-                sinais.add(0, "*");
-                sinais.add(1, "(");
-                sinais.add(2, "/");
-                sinais.add(3, ")");
-                numeros.add(100.0);
-                numeros.add(33.0);
-                numeros.add(273.15);
+                sinais = new ArrayList<>(Arrays.asList("*","(","/",")","+"));
+                numeros = new ArrayList<>(Arrays.asList(numeroInicial,100.0,33.0,273.15));
                 numeroFinal = calculadora.interpretador(numeros, sinais);
                 break;
         }
@@ -469,35 +448,22 @@ public class ConversorNumeros implements ConversaoNumeros {
 
     private double kelvinParaY(CalculadoraAritmetica calculadora, double numeroInicial) {
         double numeroFinal = 0;
-        ArrayList<Double> numeros = new ArrayList<>();
-        ArrayList<String> sinais = new ArrayList<>();
-        numeros.add(numeroInicial);
-        sinais.add("-");
+        ArrayList<Double> numeros;
+        ArrayList<String> sinais;
         switch (simboloFinal) {
             case "°C":
-                numeros.add(273.15);
+                sinais = new ArrayList<>(Arrays.asList("-"));
+                numeros = new ArrayList<>(Arrays.asList(numeroInicial,273.15));
                 numeroFinal = calculadora.interpretador(numeros, sinais);
                 break;
             case "°F":
-                sinais.add(0, "(");
-                sinais.add(2, ")");
-                numeros.add(273.15);
-                sinais.add("*");
-                numeros.add(1.8);
-                sinais.add("+");
-                numeros.add(32.0);
+                sinais = new ArrayList<>(Arrays.asList("(","-",")","*","+"));
+                numeros = new ArrayList<>(Arrays.asList(numeroInicial,273.15,1.8,32.0));
                 numeroFinal = calculadora.interpretador(numeros, sinais);
                 break;
             case "°N":
-                sinais.add(0, "(");
-                sinais.add(2, ")");
-                sinais.add(3, "*");
-                sinais.add(4, "(");
-                sinais.add(5, "/");
-                sinais.add(6, ")");
-                numeros.add(273.15);
-                numeros.add(33.0);
-                numeros.add(100.0);
+                sinais = new ArrayList<>(Arrays.asList("(","-",")","*","(","/",")"));
+                numeros = new ArrayList<>(Arrays.asList(numeroInicial,273.15,33.0,100.0));
                 numeroFinal = calculadora.interpretador(numeros, sinais);
                 break;
         }

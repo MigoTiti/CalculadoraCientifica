@@ -4,8 +4,7 @@ import calculadoracientifica.Interfaces.EscalonarMatriz;
 
 abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz {
 
-    public CalculadoraMinimosQuadrados() {
-    }
+    public CalculadoraMinimosQuadrados() {}
 
     @Override
     public double[] escalonarMatriz(double[][] incognitas, double[] resultados) {
@@ -47,14 +46,11 @@ abstract class CalculadoraMinimosQuadrados implements EscalonarMatriz {
                 resultado[i] = (resultados[i] - soma) / incognitas[i][i];
             }
             return resultado;
-        } else {
+        } else
             return null;
-        }
     }
 
-    public static void incrementarNumeroAjustes() {
-        CalculadoraMinimosQuadrados.numeroAjustes += 1;
-    }
+    public static void incrementarNumeroAjustes() { CalculadoraMinimosQuadrados.numeroAjustes += 1; }
 
     abstract double[] MinimosQuadradosAjuste();
 

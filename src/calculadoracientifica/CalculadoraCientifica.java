@@ -13,9 +13,8 @@ public class CalculadoraCientifica {
             String texto;
             texto = JOptionPane.showInputDialog("Digite o número máximo de casas decimais a serem usadas: ");
 
-            if (texto == null) {
+            if (texto == null)
                 break;
-            }
 
             try {
                 casasD = Integer.parseInt(texto);
@@ -28,12 +27,13 @@ public class CalculadoraCientifica {
                 JOptionPane.showMessageDialog(null, "Apenas números inteiros positivos!");
                 sucessoEscolha = false;
             }
+            
+            if (sucessoEscolha) {
+                calculadoraInicio = new TelaInicial(casasD);
+                calculadoraInicio.setVisible(true);
+            }
         } while (!sucessoEscolha);
 
-        if (sucessoEscolha) {
-            calculadoraInicio = new TelaInicial(casasD);
-            calculadoraInicio.setVisible(true);
-        }
     }
 
     private static TelaInicial calculadoraInicio;

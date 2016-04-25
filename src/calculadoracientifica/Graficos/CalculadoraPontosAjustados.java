@@ -191,8 +191,8 @@ public class CalculadoraPontosAjustados extends CalculadoraAritmetica implements
     public String toString() { return equacao; }
 
     private GraficosAjustados plotarGraficoAjustado;
-    private ArrayList<String> sinaisConstrutor;
-    private ArrayList<Double> numerosConstrutor;
-    private ArrayList<Integer> posicoesX;
-    private String equacao;
+    protected ArrayList<String> sinaisConstrutor;
+    protected ArrayList<Double> numerosConstrutor;
+    protected ArrayList<Integer> posicoesX;
+    protected String equacao;
 }

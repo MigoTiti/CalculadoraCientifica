@@ -40,45 +40,40 @@ public class NumeroArea extends NumeroPrimitivo implements Comparable {
         this.unidadeArea = n1.unidadeArea;
     }
 
-    public String getUnidade() {
-        return this.unidadeArea;
-    }
+    public String getUnidade() { return this.unidadeArea; }
 
     @Override
     public int compareTo(Object o) {
-        NumeroArea n1 = (NumeroArea) o;
-        if (n1.unidadeArea.equals(this.unidadeArea)) {
-            return 1;
-        } else {
+        if (o instanceof NumeroArea) {
+            NumeroArea n1 = (NumeroArea) o;
+            if (n1.unidadeArea.equals(this.unidadeArea))
+                return 1;
+            else
+                return 0;
+        }else
             return 0;
-        }
     }
 
     @Override
-    public String toString() {
-        return this.getSinal() + Math.abs(this.valor) + this.unidadeArea;
-    }
+    public String toString() { return this.getSinal() + Math.abs(this.valor) + this.unidadeArea; }
 
     @Override
     public boolean equals(Object o) {
         if (o instanceof NumeroArea) {
             NumeroArea n1 = (NumeroArea) o;
-            if (n1.negativo && !this.negativo) {
+            if (n1.negativo && !this.negativo)
                 return false;
-            } else if (!n1.unidadeArea.equals(this.unidadeArea)) {
+            else if (!n1.unidadeArea.equals(this.unidadeArea))
                 return false;
-            } else {
+            else
                 return n1.valor == this.valor;
-            }
-        } else {
+        }else
             return false;
-        }
     }
 
     public static void adicionarUnidade(final String unidade) {
-        if (!unidadesAceitas.contains(unidade)) {
+        if (!unidadesAceitas.contains(unidade)) 
             unidadesAceitas.add(unidade);
-        }
     }
 
     private static ArrayList<String> unidadesAceitas = new ArrayList<>(Arrays.asList("km²", "ha", "dam²", "m²", "dm²", "cm²", "mm²", "mi²", "lea²"));

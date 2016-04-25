@@ -185,34 +185,20 @@ public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados {
         equacao += "!";
         interpretadorStrings();
     }
+    
+    public String getEquacao() { return equacao; }
 
-    public String getEquacao() {
-        return equacao;
-    }
+    public ArrayList<String> getSinais() { return sinaisConstrutor; }
 
-    public ArrayList<String> getSinais() {
-        return sinaisConstrutor;
-    }
+    public ArrayList<Double> getNumeros() { return numerosConstrutor; }
 
-    public ArrayList<Double> getNumeros() {
-        return numerosConstrutor;
-    }
+    public ArrayList<Integer> getPosicoes() { return posicoesX; }
 
-    public ArrayList<Integer> getPosicoes() {
-        return posicoesX;
-    }
+    public int getLimiteI() { return limInferior; }
 
-    public int getLimiteI() {
-        return limInferior;
-    }
+    public int getLimiteS() { return limSuperior; }
 
-    public int getLimiteS() {
-        return limSuperior;
-    }
-
-    public int getDelta() {
-        return delta;
-    }
+    public int getDelta() { return delta; }
 
     private void gerarLinear() {
         int a = gerador.nextInt(20);
@@ -310,16 +296,10 @@ public class CalculadoraPontosAleatorios extends CalculadoraPontosAjustados {
     }
 
     @Override
-    public String toString() {
-        return equacao;
-    }
+    public String toString() { return equacao; } 
 
     private final int limSuperior;
     private final int limInferior;
     private final Random gerador;
     private final int delta;
-    private ArrayList<String> sinaisConstrutor;
-    private ArrayList<Double> numerosConstrutor;
-    private ArrayList<Integer> posicoesX;
-    private String equacao;
 }

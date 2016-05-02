@@ -3,7 +3,13 @@ package calculadoracientifica.Estatistica;
 import calculadoracientifica.Aritmetica.CalculadoraAritmetica;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 
 public class CalculadoraEstatistica extends CalculadoraAritmetica {
 
@@ -37,32 +43,46 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica {
 
     public String moda() {
 
-        ArrayList<Double> elementosUnicos;
-        elementosUnicos = eliminarRepeticao();
-
-        ArrayList<Integer> ocorrencias;
-        ocorrencias = new ArrayList<>(elementosUnicos.size());
+        HashMap<Double, Integer> ocorrencias = new HashMap<>();
         
-        for (int i = 0;i<elementosUnicos.size();i++) {
+        elementos.stream()
+            .forEach((Double elemento) -> {
+            ocorrencias.put(elemento, null);
+        });
+        
+        Iterator<Entry<Double,Integer>> iteradorMapa = ocorrencias.entrySet().iterator();
+        
+        while(iteradorMapa.hasNext()){
+            Map.Entry aux = iteradorMapa.next();
             int ocorrenciasN = 0;
-            for (int j = 0;j<elementos.size();j++) {
-                if (Objects.equals(elementos.get(j), elementosUnicos.get(i))) {
-                    ocorrenciasN++;
-                }
-            }
-            ocorrencias.add(i,ocorrenciasN);
+            ocorrenciasN = elementos.stream()
+                    .filter((elemento1) -> (Objects.equals(elemento1, aux.getKey())))
+                    .map((Double anonimo) -> 1)
+                    .reduce(ocorrenciasN, Integer::sum);
+            ocorrencias.put((Double)aux.getKey(), ocorrenciasN);
         }
 
+        Comparator<Entry<Double, Integer>> maiorValor = 
+           (entrada1, entrada2) -> entrada1.getValue().compareTo(
+            entrada2.getValue());
+        
+        Optional<Entry<Double, Integer>> maxValue = ocorrencias.entrySet()
+            .stream()
+            .max(maiorValor);
+        
         int contador = 0;
-        double moda = 0;
-        int maior = Collections.max(ocorrencias);
-        for (int i = 0; i < ocorrencias.size(); i++) {
-            if (ocorrencias.get(i).equals(maior)) {
-                moda = elementosUnicos.get(i);
+        double moda = 0.0;
+        
+        iteradorMapa = ocorrencias.entrySet().iterator();
+        
+        while(iteradorMapa.hasNext()){
+            Map.Entry aux = iteradorMapa.next();
+            if((int)aux.getValue()==(int)maxValue.get().getValue()){
+                moda = (double)aux.getKey();
                 contador++;
             }
         }
-
+        
         if (contador > 1) {
             return "Não existe moda.";
         } else {
@@ -91,34 +111,23 @@ public class CalculadoraEstatistica extends CalculadoraAritmetica {
     public ArrayList<Double> desvios() {
         ArrayList<Double> desvios = new ArrayList<>();
         double media = media();
-        for (Double elemento : elementos) {
-            double desvio = subtracao(elemento, media);
+        elementos.stream().map((elemento) -> subtracao(elemento, media)).forEach((desvio) -> {
             desvios.add(desvio);
-        }
+        });
         return desvios;
     }
 
     public double coeficienteVariacao() { return multiplicacao(100, (divisao(desvioPadrao(), media()))); }
-
-    private ArrayList<Double> eliminarRepeticao() {
-        ArrayList<Double> elementosUnicos = new ArrayList<>();
-        elementosUnicos.add(elementos.get(0));
-        for (Double auxiliar : elementos) {
-            if (!elementosUnicos.contains(auxiliar)) {
-                elementosUnicos.add(auxiliar);
-            }
-        }
-        return elementosUnicos;
-    }
     
     @Override
     public String toString() {
         if (elementos.size() > 0) {
             String aux = "Elementos: " + Double.toString(elementos.get(0));
             if (elementos.size() > 1) {
-                for (Double elemento : elementos) {
-                    aux += ", " + Double.toString(elemento);
-                }
+                aux = elementos
+                        .stream()
+                        .map((elemento) -> ", " + Double.toString(elemento))
+                        .reduce(aux, String::concat);
             }
             return aux;
         } else {

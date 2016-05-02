@@ -28,14 +28,11 @@ public class CalculadoraCientifica {
                 sucessoEscolha = false;
             }
             
-            if (sucessoEscolha) {
-                calculadoraInicio = new TelaInicial(casasD);
-                calculadoraInicio.setVisible(true);
-            }
+            if (sucessoEscolha)
+                new TelaInicial(casasD).setVisible(true);
+            
         } while (!sucessoEscolha);
 
     }
-
-    private static TelaInicial calculadoraInicio;
 
 }

@@ -56,6 +56,7 @@ public class CalculadoraEquacoes extends CalculadoraAritmetica {
             raizes.add(Double.toString(raiz2));
         } else {
             raizes.add("Não existe raiz real.");
+            raizes.add("Não existe raiz real.");
         }
         return raizes;
     }
